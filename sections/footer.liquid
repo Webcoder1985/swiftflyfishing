@@ -89,7 +89,7 @@
             <div class="footer_menu">
               {% if block.settings.menu != blank %}
                 <h6>{{ linklists[block.settings.menu].title }}<span class="right icon-down-arrow"></span></h6>
-                <div class="toggle_content">
+                <div class="toggle_content animated fadeIn">
                   <ul>
                     {% for link in linklists[block.settings.menu].links %}
                       <li><p><a href="{{ link.url }}">{{ link.title }}</a></p></li>
@@ -98,7 +98,7 @@
                 </div>
               {% else %}
                 <h6>Menu title<span class="right icon-down-arrow"></span></h6>
-                <div class="toggle_content">
+                <div class="toggle_content animated fadeIn">
                   <ul>
                     <li><p>{{ 'homepage.onboarding.no_content' | t }}</p></li>
                   </ul>
@@ -112,7 +112,7 @@
                 <h6>{{ block.settings.title }}<span class="right icon-down-arrow"></span></h6>
               {% endif %}
               {% if block.settings.content %}
-                <div class="toggle_content">
+                <div class="toggle_content animated fadeIn">
                   {{ block.settings.content }}
                 </div>
               {% endif %}
@@ -121,12 +121,12 @@
             <div class="footer_content footer-text">
               {% if block.settings.page != blank %}
                 <h6>{{ pages[block.settings.page].title }}<span class="right icon-down-arrow"></span></h6>
-                <div class="toggle_content">
+                <div class="toggle_content animated fadeIn">
                   {{ pages[block.settings.page].content }}
                 </div>
               {% else %}
                 <h6>Page title<span class="right icon-down-arrow"></span></h6>
-                <div class="toggle_content">
+                <div class="toggle_content animated fadeIn">
                   <p>{{ 'homepage.onboarding.no_content' | t }}</p>
                 </div>
               {% endif %}

@@ -278,7 +278,7 @@ $(function() {
     arrowShape: arrowSize,
     lazyLoad: 2
   });
-
+  
   utils.createAccordion('.toggle-all--true', 'h4.toggle', 'ul.toggle_list');
   utils.createAccordion('.footer_menu', 'h6', 'ul');
   utils.createAccordion('.footer_content', 'h6', 'div.toggle_content');
@@ -1392,23 +1392,27 @@ function init  (){
 }
 
 function collection_startSlide(event){
-  var set_perc = ((((event.clientX - collection_bar.offsetLeft) / collection_bar.offsetWidth)).toFixed(2)) - 0.38;	
+  console.log(event.clientX);
+  console.log($(window).width()-$('.container').width());
+  console.log(collection_bar.offsetLeft);
+  var event_pos = event.clientX - (($(window).width()-$('.container').width())/2 + 300 + 10 + collection_bar.offsetLeft);
+  var set_perc = ((event_pos / collection_bar.offsetWidth).toFixed(2));	
   collection_bar.addEventListener('mousemove', collection_moveSlide, false);	
   collection_bar.addEventListener('touchmove', collection_handleMove, false);
-  console.log(set_perc);
   slider.style.width = ((set_perc) * 100) + '%';	
 }
 
 
 
 function collection_moveSlide(event){
-  var set_perc = ((((event.clientX - collection_bar.offsetLeft) / collection_bar.offsetWidth)).toFixed(2)) - 0.38;
-  console.log(set_perc);
+  var event_pos = event.clientX - (($(window).width()-$('.container').width())/2 + 300 + 10 + collection_bar.offsetLeft);
+  var set_perc = ((((event_pos) / collection_bar.offsetWidth)).toFixed(2));	
   slider.style.width = ((set_perc) * 100) + '%';
 }
 
 function collection_stopSlide(event){
-  var set_perc = ((((event.clientX - collection_bar.offsetLeft) / collection_bar.offsetWidth)).toFixed(2)) - 0.38;
+  var event_pos = event.clientX - (($(window).width()-$('.container').width())/2 + 300 + 10 + collection_bar.offsetLeft);
+  var set_perc = ((((event_pos) / collection_bar.offsetWidth)).toFixed(2));	
   collection_bar.removeEventListener('mousemove', collection_moveSlide, false);
   collection_bar.addEventListener('touchmove', collection_handleMove, false);
   slider.style.width = ((set_perc) * 100) + '%';

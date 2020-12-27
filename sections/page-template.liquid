@@ -48,7 +48,7 @@
     {% if section.settings.content != blank %}
         {% if section.settings.toggle_list_status %}
           <ul class="toggle-list">
-            {% assign page_str = section.settings.content | replace: '<p><strong>', '</div></li><li><a class="toggle_btn">' | replace: '</strong></p>', '</a><div class="toggle_content">' %}
+            {% assign page_str = section.settings.content | replace: '<p><strong>', '</div></li><li><a class="toggle_btn">' | replace: '</strong></p>', '</a><div class="toggle_content animated fadeIn">' %}
             {% assign page_content = page_str | remove_first: '</div></li>' %}
             {{ page_content }}
           </ul>
@@ -58,7 +58,7 @@
     {% else %}
       {% if section.settings.toggle_list_status %}
         <ul class="toggle-list">
-          {% assign page_str = page.content | replace: '<h6>', '</div></li><li><a class="toggle_btn">' | replace: '</h6>', '</a><div class="toggle_content">' %}
+          {% assign page_str = page.content | replace: '<h6>', '</div></li><li><a class="toggle_btn">' | replace: '</h6>', '</a><div class="toggle_content animated fadeIn">' %}
           {% assign page_content = page_str | remove_first: '</div></li>' %}
           {{ page_content }}
         </ul>

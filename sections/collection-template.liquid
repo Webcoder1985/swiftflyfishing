@@ -50,6 +50,7 @@
               alt: collection.title,
               stretch_width: true,
               progressive: true,
+              back_to_basics: true,
               additional_classes: 'medium-down--hide'
       %}
 
@@ -58,6 +59,7 @@
               alt: collection.title,
               stretch_width: true,
               progressive: true,
+              back_to_basics: true,
               additional_classes: 'hide medium-down--show'
       %}
 
@@ -154,7 +156,7 @@
     </div>
     <div class="content">
       <div class="sixteen columns">
-        {% include 'image-slider-block', content: 'collection' %}
+        {% include 'image-slider-block', context: 'collection' %}
         <div class="description-content">
           {% for block in section.blocks %}
             {% if block.type == 'text-block' %}

@@ -307,6 +307,7 @@ strong, b {
 }
 p, a, li{
   font-size: $font-desc; // 14
+  letter-spacing: 0.5px;
   &.title{
     font-size: $font-body;
   }
@@ -416,12 +417,12 @@ input[type="text"], input[type="password"], input[type="email"], input[type="sea
   li{
     &.active{
       .toggle_btn{
-          
+          &::before{
+            content: none;
+          }
           &::after{
-            content: "--";
-            white-space: nowrap;
-            letter-spacing: -5px;
-            margin-top: -9px;
+            content: " ";
+            border-color:$color-red;
           }
         }
         .toggle_content{
@@ -444,17 +445,24 @@ input[type="text"], input[type="password"], input[type="email"], input[type="sea
       &:hover{
         color: black;
       }
+      &::before{
+        content: " ";
+        border-bottom: 2px solid black;
+        position: absolute;
+        right: 0;
+        width: 15px;
+        transform: rotate(90deg);
+      }
       &::after{
-        content: "+";
-        font-size: 30px;
-        font-family: auto;
-        letter-spacing: -3px;
-        margin-right: 10px;
+        content: " ";
+        width: 15px;
+        border-bottom: 2px solid black;
+        position: absolute;
+        right: 0;
       }
     }
     .toggle_content{
       padding-top: 10px;
-      transition: all .5;
       display: none;
       @include respond-to("medium-down"){
         padding: 20px 10px;
@@ -470,7 +478,7 @@ input[type="text"], input[type="password"], input[type="email"], input[type="sea
       }
       ul{
         margin: 0;
-        padding: 0;
+        padding-left: 20px;
       }
     }
   }
@@ -581,7 +589,7 @@ input[type="text"], input[type="password"], input[type="email"], input[type="sea
         display: flex;
         align-items: baseline;
         justify-content: space-between;
-        .title{
+        .title{ 
           @include font-LatoBold();
           font-size: 16px;
           text-align: left;
@@ -593,7 +601,8 @@ input[type="text"], input[type="password"], input[type="email"], input[type="sea
         }
         .price{
             white-space: nowrap;
-           font-size: $font-extra_small;
+           font-size: $font-desc;
+           text-transform: uppercase;
            text-align: left;
            @include respond-to("medium-down"){
             width: 100%;
@@ -619,11 +628,12 @@ input[type="text"], input[type="password"], input[type="email"], input[type="sea
       }
       .price{
           white-space: nowrap;
-         font-size: $font-extra_small;
+         font-size: $font-desc;
+         text-transform: uppercase;
          text-align: left;
          @include respond-to("medium-down"){
           width: 35%;
-          white-space: pre-wrap;
+          white-space: nowrap;
           text-align: right;
         }
       }
@@ -1363,9 +1373,6 @@ header{
     ul{
       list-style: none;
       padding-left: 20px;
-      @include respond-to("medium-down"){
-        padding-left: 5px;
-      }
       li{
         display: flex;
         align-items: center;
@@ -1973,8 +1980,37 @@ header{
   left: 50%;
   transform: translate(-50%, -50%);
   max-width: 1200px;
-  width: 100%;
+  width: calc(100% - 40px);
   z-index: 1000;
+  .modal-content{
+    .close{
+      width: 20px;
+      height: 20px;
+      display: table;
+      position: absolute;
+      top: -22px;
+      right: 0;
+      cursor: pointer;
+      pointer-events: none;
+      &::after{
+        content: " ";
+        border-bottom: 1px solid black;
+        width: 20px;
+        display: table;
+        height: 0px;
+        transform: rotate(-45deg);
+      }
+      &::before{
+        width: 20px;
+        height: 0px;
+        display: table;
+        content: " ";
+        border-bottom: 1px solid black;
+        transform: rotate(45deg);
+        position: absolute;
+      }
+    }
+  }
   .plyr--video{
     display: block!important;
     .plyr__control--overlaid{
@@ -2470,7 +2506,6 @@ header{
         position: initial;
         background: $color-blue;
         flex-wrap: nowrap;
-        margin-top: 20px;
         justify-content: space-evenly;
         padding: 10px;
       }
@@ -2536,7 +2571,7 @@ header{
       z-index: 10000000;
       width: 100%;
       right: 0;
-      padding: 20px 30px;
+      padding: 20px;
       height: 100%;
       max-width: 350px;
       &.active{
@@ -2568,10 +2603,10 @@ header{
         @include respond-to("medium-down"){
           margin-bottom: 30px;
           background-color: $color-white;
+          padding-left: 10px;
           & ~ .sidebar-block{
+            padding: 0;
             margin-bottom: 10px;
-            background-color: rgba(216 ,216, 216, 0.14);
-            padding: 5px 10px 10px 10px;
           }
         }
         h3{
@@ -2584,12 +2619,53 @@ header{
         h4{
           font-size: $font-desc;
           text-transform: uppercase;
-          padding: 0;
+          padding: 10px 20px;
           color: {{settings.collection_filter_color}};
+          background-color: rgba(216 ,216, 216, 0.14);
+          &.active{
+            background-color: $color-white;
+            &::before{
+              content: none;
+            }
+            &::after{
+              content: " ";
+              border-color:$color-red;
+            }
+          }
+          @include respond-to("medium-down"){
+            display: flex!important;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            span{
+              display: none;
+            }
+            &::before{
+              content: " ";
+              border-bottom: 2px solid black;
+              position: absolute;
+              right: 20px;
+              width: 15px;
+              transform: rotate(90deg);
+            }
+            &::after{
+              content: " ";
+              width: 15px;
+              border-bottom: 2px solid black;
+              position: absolute;
+              right: 20px;
+            }
+          }
         }
         .toggle_list{
           li{
             a{
+              @include respond-to("medium-down"){
+                padding: 5px 20px 2px!important;
+                max-width: initial;
+                width: 100%
+              }
+              
               label{
                 color: {{settings.collection_filter_color}};
                 display: flex;
@@ -2604,18 +2680,25 @@ header{
                   display: flex;
                   align-items: center;
                   justify-content: center;
+                  @include respond-to("medium-down"){
+                    content: none!important;
+                  }
                 }
+                
               }
               
               &.active{
                   padding-left: 0;
                   border-left: none;
+                  background-color: rgba(171, 152, 122, 0.08);
                 label{
+                  color: #AB987A;
                   &::before{
                     content: " ";
                     background: black;
                     color: $color-white;
                     border-color: $color-black;
+
                   }
                   &::after{
                     content: " ";
@@ -2628,6 +2711,9 @@ header{
                     transform: rotate(45deg);
                     left: 8px;
                     top: 3px;
+                    @include respond-to("medium-down"){
+                      content: none!important;
+                    }
                   }
                 }
                 
@@ -2737,7 +2823,6 @@ header{
           
         }
         #slider{
-          pointer-events: none;
           max-width: calc(100% - 20px);
         }
         
@@ -3012,14 +3097,14 @@ header{
           @include respond-to("medium-down"){
             width: 65%;
           }
-        }
+        } 
         .price{
             white-space: nowrap;
            font-size: $font-extra_small;
            text-align: left;
            @include respond-to("medium-down"){
             width: 35%;
-            white-space: pre-wrap;
+            white-space: nowrap;
             text-align: right;
           }
         }
@@ -3261,8 +3346,8 @@ header{
           color: black;
           width: 100%;
           max-width: initial;
-          background: #D8D8D8;
-          border: #D8D8D8;
+          background: rgba(216, 216, 216, 0.25);
+          border: none;
           outline: none!important;
         }
         .btn{
@@ -4105,7 +4190,70 @@ header{
       }
     }
   }
-  
+  &.video-section{
+    .banner{
+      .caption{
+        max-width: 1200px;
+        padding: 0 25px;
+        p{
+          max-width: 100%;
+        }
+        a{
+          margin: 20px;
+        }
+      }
+    }
+    .content{
+      .flex{
+        flex-wrap: wrap;
+        align-items: unset;
+      }
+      .heading{
+        text-align: center;
+        margin-bottom: 30px;
+        h3{
+          text-transform: uppercase;
+          letter-spacing: 1px;
+        }
+      }
+      .video-block{
+        margin-bottom: 50px;
+        position: relative;
+        padding-bottom: 35px;
+        .article__title{
+          @include font-LatoBold();
+          margin: 10px 0;
+        }
+        .action-bottom{
+          display: flex;
+          align-items: center;
+          position: absolute;
+          width: 100%;
+          bottom: 0;
+        }
+        .video_btn{
+          width: 40px;
+          height: 40px;
+          background: black;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 50%;
+          margin-right: 10px;
+          svg{
+            width: 20px;
+          }
+        }
+        .detail_btn, .download_btn{
+          text-transform: uppercase;
+          @include font-MontSBold();
+          font-size: 14px;
+          border-bottom: 1px solid;
+          margin-right: 10px;
+        }
+      }
+    }
+  }
 }
 .featured-collection-section.featured-gear{
   margin-bottom: 50px;
@@ -5579,4 +5727,8 @@ header{
       }
     }
   }
+}
+
+#smile-ui-container{
+  position: inherit!important;
 }

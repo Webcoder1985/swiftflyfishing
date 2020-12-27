@@ -7351,6 +7351,7 @@ a.tag {
 .thumbnail {
 
   .price span.money {
+    white-space: nowrap;
     color: {{ settings.link_color }};
     &:hover {
       color: {{ settings.link_hover_color }};
@@ -7436,7 +7437,6 @@ a.tag {
 
 .thumbnail .sold-out,
 .thumbnail .coming-soon {
-  opacity: 0.5;
   color: {{ settings.regular_color }};
   line-height: 0;
 }
@@ -8744,7 +8744,7 @@ $promoBannerHeight: 30px;
   }
 }
 
-$topMenuHeight: 80px;
+$topMenuHeight: 60px;
 
 {% if settings.header_background == false %}
 

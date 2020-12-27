@@ -1110,7 +1110,7 @@
         "id": "h1_font_size",
         "label": "heading size",
         "min": 20,
-        "max": 40,
+        "max": 50,
         "default": 36,
         "unit": "px"
       },

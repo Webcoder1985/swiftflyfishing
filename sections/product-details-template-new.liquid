@@ -198,7 +198,7 @@
             <ul class="toggle-list">
               <li>
                 <a class="toggle_btn">Description</a>
-                <div class="toggle_content">
+                <div class="toggle_content animated fadeIn">
                   {% if product.description contains "split" %}
                     {% assign description_parts = product.description | split: '<!-- split -->' %}
                       {{ description_parts[0] }}
@@ -208,7 +208,7 @@
               </li>
               <li>
                 <a class="toggle_btn">Specs</a>
-                  <div class="toggle_content">
+                  <div class="toggle_content animated fadeIn">
                     {% if product.description contains "split" %}
                       {% assign description_parts = product.description | split: '<!-- split -->' %}
                         {{ description_parts[1] }}
@@ -218,7 +218,7 @@
               </li>               
               <li>
                 <a class="toggle_btn">Benefits</a>
-                <div class="toggle_content">
+                <div class="toggle_content animated fadeIn">
                   {% if product.description contains "split" %}
                     {% assign description_parts = product.description | split: '<!-- split -->' %}
                       {{ description_parts[2] }}
