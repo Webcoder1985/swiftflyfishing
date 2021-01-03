@@ -3,15 +3,15 @@
     <h3 class="center">{{block.settings.title}}</h3>
     <div id="stamped-main-widget" 
       data-widget-style="standard"
-      data-take="3" 
+      data-take="0" 
       data-product-image="false" 
       data-label-subtitle="{0} Reviews" 
-      data-product-id="{{ product.id }}" 
-      data-name="{{ product.title | escape }}" 
-      data-url="{{ shop.url }}{{ product.url }}" 
-      data-image-url="{{ product.featured_image | product_img_url: "large" |replace: '?', '%3F' | replace: '&','%26'}}" 
-      data-description="{{ product.description | escape }}" 
-      data-product-sku="{{product.handle}}"> 
+      data-product-id="{{ product_original.id }}" 
+      data-name="{{ product_original.title | escape }}" 
+      data-url="{{ shop.url }}{{ product_original.url }}" 
+      data-image-url="{{ product_original.featured_image | product_img_url: "large" |replace: '?', '%3F' | replace: '&','%26'}}" 
+      data-description="{{ product_original.description | escape }}" 
+      data-product-sku="{{product_original.handle}}"> 
   </div>
   </div>
 </div>

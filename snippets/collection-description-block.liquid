@@ -1,0 +1,10 @@
+{% if style == 'style_1' %}
+  <div class="description-block list_style_{{block.settings.list_style}} style_1">
+    {{ content }}
+  </div>
+{% else %}
+  <div class="description-block list_style_{{block.settings.list_style}} style_2">
+    <div class="mark">N<span class="o"></span></div>
+    {{ content }}
+  </div>
+{% endif %}

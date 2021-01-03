@@ -9,6 +9,7 @@
   {% assign height = section.settings.collection_height %}
   {% assign align_height = section.settings.align_height %}
 {% endif %}
+{% assign prev_next_button = section.settings.previous_next_button %}
 {% assign blocks = section.blocks %}  
 {% assign collections_per_row = section.settings.frontpage_collections_per_row %}
 <div class="container">
@@ -22,7 +23,7 @@
     {% endif %}
     <div class="sixteen columns">
       <div class="section list-collection-wrapper">
-        <div class="list-collections clearfix equal-columns--outside-trim equal-columns--clear">
+        <div class="list-collections clearfix equal-columns--outside-trim equal-columns--clear" data-prevnext="{{prev_next_button}}">
           {% for block in blocks %}
             {% if block.type == 'collection' %}
               {% assign feature_collection = block.settings.feature_collection %}

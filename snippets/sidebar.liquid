@@ -5,13 +5,14 @@
 {% if section.blocks.size > 0 %}
   <div class="sidebar four columns toggle-all--{{ section.settings.toggle }} medium-down--one-whole">
     <div class="sidebar-wrap">
+      <a class="close"></a>
       {% for block in section.blocks %}
         {% if block.type != 'text-block' and block.type != 'text-carousel' and block.type != 'recently_viewed' and block.type != 'label' %}
           <div class="sidebar-block" {{ block.shopify_attributes }}>
             {% if block.type == 'menu' %}
               {% assign sidebar_menu = linklists[block.settings.custom_menu_linklist] %}
               {% if sidebar_menu != blank %}
-                <h4 class="toggle">{{ sidebar_menu.title }}<span class="right icon-down-arrow"></span></h4>
+                <h4 class="toggle">{{ sidebar_menu.title }}<span class="filter_count hide">(<span class="num">0</span> Filter)</span></h4>
                 <ul class="toggle_list">
                   {% for link in sidebar_menu.links %}
                     {% if link.active %}
@@ -103,7 +104,7 @@
               {% if template contains 'product' %}
                 {% assign tag_count = product.tags | size %}
                 {% if tag_count > 0 %}
-                  <h4 class="toggle">{{ 'collections.sidebar.tags' | t }}<span class="right icon-down-arrow"></span></h4>
+                  <h4 class="toggle">{{ 'collections.sidebar.tags' | t }}<span class="filter_count hide">(<span class="num">0</span> Filter)</span></h4>
                   <ul class="toggle_list">
                     {% for tag in product.tags %}
                       {% unless tag contains 'meta-' %}
@@ -117,7 +118,7 @@
               {% else %}
                 {% assign tag_count = collection.all_tags | size %}
                 {% if tag_count > 0 %}
-                  <h4 class="toggle">{{ 'collections.sidebar.tags' | t }}<span class="right icon-down-arrow"></span></h4>
+                  <h4 class="toggle">{{ 'collections.sidebar.tags' | t }}<span class="filter_count hide">(<span class="num">0</span> Filter)</span></h4>
                   <ul class="toggle_list">
                     {% for tag in collection.all_tags %}
                       {% unless tag contains 'meta-' %}
@@ -131,7 +132,7 @@
               {% endif %}
 
             {% elsif block.type == 'filter_by_type' %}
-              <h4 class="toggle">{{ 'collections.sidebar.product_types' | t }}<span class="right icon-down-arrow"></span></h4>
+              <h4 class="toggle">{{ 'collections.sidebar.product_types' | t }}<span class="filter_count hide">(<span class="num">0</span> Filter)</span></h4>
               <ul class="toggle_list">
                 {% for product_type in shop.types %}
                   {% unless product_type == blank %}
@@ -141,7 +142,7 @@
               </ul>
 
             {% elsif block.type == 'filter_by_collection' %}
-              <h4 class="toggle">{{ 'collections.sidebar.collections' | t }}<span class="right icon-down-arrow"></span></h4>
+              <h4 class="toggle">{{ 'collections.sidebar.collections' | t }}<span class="filter_count hide">(<span class="num">0</span> Filter)</span></h4>
               <ul class="toggle_list">
                 {% for col in collections %}
                   {% unless col.handle == 'frontpage' %}
@@ -151,7 +152,7 @@
               </ul>
 
             {% elsif block.type == 'filter_by_vendor' %}
-              <h4 class="toggle">{{ 'collections.sidebar.vendors' | t }}<span class="right icon-down-arrow"></span></h4>
+              <h4 class="toggle">{{ 'collections.sidebar.vendors' | t }}<span class="filter_count hide">(<span class="num">0</span> Filter)</span></h4>
               <ul class="toggle_list">
                 {% for product_vendor in shop.vendors %}
                   <li {% if product_vendor == collection.title %}class="active"{% endif %}>{{ product_vendor | link_to_vendor }}</li>
@@ -182,60 +183,80 @@
               {% if headline_length > 0 %}
 
                 <div class="sidebar__collection-filter">
-
-                  <h4 class="toggle">{{ block.settings.filter_name }}<span class="right icon-down-arrow"></span></h4>
+                  {% assign selected_tag_count = 0 %}
+                  {% for tag in filter_tags %}
+                    {% for collection_tag in collection.all_tags %}
+                      {% assign selected_tag = false %}
+                      {% capture formatted_tag %}{{- tag | replace: filter_name, '' | downcase | handleize-}}{% endcapture %}
+                      {% capture formatted_collection_tag %}{{ collection_tag | downcase | handleize }}{% endcapture %}
+                      {% for current_tag in current_tags %}
+                        {% capture active_formatted_current_tag %}{{ current_tag | downcase | handleize }}{% endcapture %}
+                        {% if formatted_tag == active_formatted_current_tag and  formatted_tag == formatted_collection_tag %}
+                          {% assign selected_tag_count = selected_tag_count | plus: 1 %}
+                          {% break %}
+                        {% endif %}
+                      {% endfor %}
+                    {% endfor %}
+                  {% endfor %}
+                  <h4 class="toggle">{{ block.settings.filter_name }}
+                    {% if selected_tag_count > 0 %}
+                      <span class="filter_count">(<span class="num">{{selected_tag_count}}</span> Filter)</span>
+                    {% else %}
+                      <span class="filter_count hide">(<span class="num">0</span> Filter)</span>
+                    {% endif %}
+                  </h4>
 
                   {% if block.settings.filter_name != blank and headline_length > 0 %}
                     <ul class="toggle_list" >
                       <div class="filter-all-tags color-filter--{{ block.settings.enable_filter_swatches }}">
                         {% for tag in filter_tags %}
                           {% for collection_tag in collection.all_tags %}
-                            {% capture formatted_tag %}{{- tag | replace: filter_name, '' | downcase -}}{% endcapture %}
-                            {% capture formatted_collection_tag %}{{ collection_tag | downcase }}{% endcapture %}
-
+                            {% assign selected_tag = false %}
+                            {% capture formatted_tag %}{{- tag | replace: filter_name, '' | downcase | handleize-}}{% endcapture %}
+                            {% capture formatted_collection_tag %}{{ collection_tag | downcase | handleize }}{% endcapture %}
+                            {% for current_tag in current_tags %}
+                              {% capture active_formatted_current_tag %}{{ current_tag | downcase | handleize }}{% endcapture %}
+                              {% if formatted_tag == active_formatted_current_tag %}
+                                {% assign selected_tag = true %}
+                                {% break %}
+                              {% endif %}
+                            {% endfor %}
                             {% if formatted_tag == formatted_collection_tag %}
-                              {% if block.settings.enable_filter_swatches %}
-                                <li>
-                                  <label data-option-filter><input type="checkbox" value="{{- tag | replace: filter_name, '' | handleize -}}" name="{{tag | handleize }}" id="{{tag}}" class="styled-checkbox" style="background-image: url({{ tag | replace: filter_name, ''| handleize | downcase | append: '.png' | asset_img_url: '50x' }}); background-color: {{tag | replace: filter_name, '' | downcase }}">
-                                      {{tag | replace: filter_name, '' | replace: '_', ' ' }}
-                                  </label>
-                                </li>
-                              {% else %}
-                                <li>
-                                  <a>
-                                    <label data-option-filter><input type="checkbox" value="{{- tag | replace: filter_name, '' | handleize -}}" name="{{tag | handleize }}" >
-                                      {{tag | replace: filter_name, '' | replace: '_', ' ' }}
-                                    </label>
-                                  </a>
-                                </li>
-                              {% endif %}
-                            {% endif %}
-                          {% endfor %}
-                        {% endfor %}
-                      </div>
-                      <div class="filter-active-tag color-filter--{{ block.settings.enable_filter_swatches }}">
-                        {% for tag in filter_tags %}
-                          {% for current_tag in current_tags %}
-                            {% capture formatted_tag %}{{- tag | replace: filter_name, '' | downcase | handleize -}}{% endcapture %}
-                            {% capture formatted_current_tag %}{{ current_tag | downcase | handleize }}{% endcapture %}
-                            {% if formatted_tag == formatted_current_tag %}
-                              {% if block.settings.enable_filter_swatches %}
-                                <li>
-                                  <label data-option-filter>
-                                    <input checked type="checkbox" value="{{- tag | replace: filter_name, '' | handleize -}}" name="{{tag | handleize }}" id="{{tag}}" class="styled-checkbox" style="background-image: url({{ tag | replace: filter_name, '' | handleize | downcase | append: '.png' | asset_img_url: '50x' }}); background-color: {{tag | replace: filter_name, '' | downcase }}">
-                                    {{tag | replace: filter_name, '' | replace: '_', ' ' }}
-                                  </label>
-                                </li>
-                              {% else %}
-                                <li>
-                                  <a class="active">
-                                    <label data-option-filter><input checked type="checkbox" value="{{- tag | replace: filter_name, '' | handleize -}}" name="{{tag}}" >
-                                      {{tag | replace: filter_name, '' | replace: '_', ' ' }}
-                                    </label>
-                                  </a>
-                                </li>
-                              {% endif %}
-                              {% break %}
+                                {% if selected_tag %}
+                                  {% if block.settings.enable_filter_swatches %}
+                                    <li>
+                                      <label data-option-filter>
+                                        <input checked type="checkbox" value="{{- tag | replace: filter_name, '' | handleize -}}" name="{{tag | handleize }}" id="{{tag}}" class="styled-checkbox" style="background-image: url({{ tag | replace: filter_name, '' | handleize | downcase | append: '.png' | asset_img_url: '50x' }}); background-color: {{tag | replace: filter_name, '' | downcase }}">
+                                        {{tag | replace: filter_name, '' | replace: '_', ' ' }}
+                                      </label>
+                                    </li>
+                                  {% else %}
+                                    <li>
+                                      <a class="active">
+                                        <label data-option-filter><input checked type="checkbox" value="{{- tag | replace: filter_name, '' | handleize -}}" name="{{tag}}" >
+                                          {{tag | replace: filter_name, '' | replace: '_', ' ' }}
+                                        </label>
+                                      </a>
+                                    </li>
+                                  {% endif %}
+                                {% else %}
+                                  {% if block.settings.enable_filter_swatches %}
+                                    <li>
+                                      <label data-option-filter><input type="checkbox" value="{{- tag | replace: filter_name, '' | handleize -}}" name="{{tag | handleize }}" id="{{tag}}" class="styled-checkbox" style="background-image: url({{ tag | replace: filter_name, ''| handleize | downcase | append: '.png' | asset_img_url: '50x' }}); background-color: {{tag | replace: filter_name, '' | downcase }}">
+                                          {{tag | replace: filter_name, '' | replace: '_', ' ' }}
+                                      </label>
+                                    </li>
+                                  {% else %}
+                                    <li>
+                                      <a>
+                                        <label data-option-filter><input type="checkbox" value="{{- tag | replace: filter_name, '' | handleize -}}" name="{{tag | handleize }}" >
+                                          {{tag | replace: filter_name, '' | replace: '_', ' ' }}
+                                        </label>
+                                      </a>
+                                    </li>
+                                  {% endif %}
+                                {% endif %}
+                              
                             {% endif %}
                           {% endfor %}
                         {% endfor %}
@@ -258,7 +279,7 @@
                     data-rv-handle="{{ product.handle }}"
                     data-visible-products="{{ block.settings.sidebar_rv_per | plus: 1 }}"
               >
-                <h4 class="toggle">{{ block.settings.sidebar_rv_title }}<span class="right icon-down-arrow"></span></h4>
+                <h4 class="toggle">{{ block.settings.sidebar_rv_title }}<span class="filter_count hide">(<span class="num">0</span> Filter)</span></h4>
                 <ul class="toggle_list">
                   <li>{% render 'sidebar-recently-viewed', products_limit: block.settings.sidebar_rv_per %}</li>
                 </ul>
@@ -266,8 +287,11 @@
             {% endif %}
           </div>
         {% endif %}
-        
       {% endfor %}
+      <div class="action-content">
+        <a href="{{collection.url}}" class="clear_btn button highlight-button">clear</a>
+        <a href="" class="apply button">Apply</a>
+      </div>
     </div>
   </div>
 {% endif %}

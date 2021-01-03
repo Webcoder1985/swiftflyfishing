@@ -9,7 +9,7 @@
 {%- assign current_variant = product.selected_or_first_available_variant -%}
 {% include 'wcp_variant' with current_variant %}
 <a name="pagecontent" id="pagecontent"></a>
-
+{% assign product_original = product %}
 <div class="main content product-name--{{ product.handle }}">
   <div class="sixteen columns">
     {% if collection.previous_product or collection.next_product or section.settings.product_breadcrumb %}
@@ -80,9 +80,7 @@
             
              <!-- Product review carousel-->
             {{enable_shopify_review}}
-            <div class='stamped-reviews-widget-desktop_visible visible-none'>
-              <div id="stamped-reviews-widget" data-widget-type="full-page" data-product-image="false" data-take="5" data-limit-words="50" data-fill-empty="false" data-random="false"></div>
-            </div>
+            <div id="stamped-reviews-widget" data-widget-type="carousel" data-auto-play="true" data-style-color-title="#ffffff" data-limit-words="30" data-min-rating="5"></div>
             <h4 class="uppercase text-center" onclick="$('.tabs li:nth-child(3) a').click()">MORE REVIEWS</h4>
           </div>
 
@@ -150,7 +148,7 @@
                   {% endif %}
                 </p>
                 {% if section.settings.enable_shopify_product_badges and settings.enable_shopify_review_comments %}
-                  <span class="stamped-product-reviews-badge stamped-main-badge" data-id="{{ product.id }}" data-product-sku="{{ product.handle }}" style="display: inline-block;" onclick="$('.tabs li:nth-child(3) a').click()">{{ product.metafields.stamped.badge }}</span>
+                <span class="stamped-product-reviews-badge stamped-main-badge" data-id="{{ product_original.id }}" data-product-sku="{{ product_original.handle }}" style="display: inline-block;" onclick="$('.tabs li:nth-child(3) a').click()">{{ product_original.metafields.stamped.badge }}</span>
                 {% endif %}
                 <div class='custom_text'>Or, fish now pay later with up to 4 payments of  {{ wcp_v_price  | divided_by: 4 | money }} with Splitit.<br> Available at checkout. Interest free.</div>
 

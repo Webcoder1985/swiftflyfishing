@@ -542,8 +542,17 @@ var quickFilter = {
     }
 
     //Add all checkbox values to array
+    var num = 0;  
+    $('.sidebar__collection-filter .toggle_list li a').removeClass('active');
+    $('.filter_count').find('.num').text(0);
     $('[data-option-filter] input:checked').each(function (){
       selectedOptions.push($(this).val());
+      $(this).parent().parent().addClass('active');
+      var num = parseInt($(this).parent().parent().parent().parent().parent().parent().find('.filter_count').find('.num').text());  
+      num = num+1;
+      $(this).parent().parent().parent().parent().parent().parent().find('.filter_count').find('.num').text(num);
+      $(this).parent().parent().parent().parent().parent().parent().find('.filter_count').removeClass('hide');
+      $(this).parent().parent().parent().parent().parent().parent().find('.filter_count').find('.num').removeClass('hide');
     });
     selectedOptions = $.makeArray(selectedOptions);
 
@@ -560,11 +569,16 @@ var quickFilter = {
 
     Shopify.queryParams.sort_by = query;
     query = '?' + $.param(Shopify.queryParams);
-
     quickFilter.processUrl(path, currentTags, query);
   },
   updateView: function(filterURL) {
-    location = filterURL;
+    console.log(filterURL);
+    if ($(window).width() > 768) {
+      location = filterURL;
+    } else {
+      $('.action-content .apply').attr('href', filterURL);
+    }
+    
   },
   processUrl: function(path, tags, query){
 
@@ -739,8 +753,8 @@ var searchAutocomplete = {
 var collectionSidebarFilter = {
   init: function(){
 
-    $('.filter-active-tag input:checked').parents('.filter-active-tag').siblings('.filter-all-tags').css('opacity', 0.4);
-    $('.toggle-all--true .toggle_list .filter-active-tag input:checked').parents('ul.toggle_list').prev().click();
+    // $('.filter-active-tag input:checked').parents('.filter-active-tag').siblings('.filter-all-tags').css('opacity', 0.4);
+    // $('.toggle-all--true .toggle_list .filter-active-tag input:checked').parents('ul.toggle_list').prev().click();
 
     //checks if there is an active filter, and if so, to keep the tag filter dropdown open
     var queryString = window.location.search;

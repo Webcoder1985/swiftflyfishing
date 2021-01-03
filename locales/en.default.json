@@ -125,13 +125,20 @@
       "all_collection_title": "All {{ title }}",
       "quick_shop": "Quick View",
       "load_more": "Load More Products",
-      "load_more_collections": "Load More Collections",
       "new": "New",
       "coming_soon": "Coming Soon",
       "pre_order": "Pre-Order",
-      "sale": "Sale",
+      "sale": "Special Offer",
       "view_all": "View All",
-      "view_product_details_html": "View full details"
+      "view_product_details_html": "View full details",
+      "fly-rod-building-kits_Fastglass__heading": "FastGlass® Fly Rod Building Kits",
+      "fly-rod-building-kits_Fastglass__subtitle": "Fuller Flexing Fly Rods, Silky Smooth and Extremely Tough.",
+      "fly-rod-building-kits_Carbon_Fibre__heading": "Carbon Fiber \/ Graphite Fly Rod Building Kits",
+      "fly-rod-building-kits_Carbon_Fibre__subtitle": "Light, Accurate, Precise Fly Rods.",
+      "custom_fly_rods_Fastglass__heading": "FastGlass® Fly Rods",
+      "custom_fly_rods_Fastglass__subtitle": "Fuller Flexing, Silky Smooth and Extremely Tough Fly Rods",
+      "custom_fly_rods_Carbon_Fibre__heading": "Carbon Fiber \/ Graphite Fly Rods",
+      "custom_fly_rods_Carbon_Fibre__subtitle": "Light, Accurate, Precise Fly Rods"
     },
     "sidebar": {
       "collections": "Collections",
