@@ -677,7 +677,7 @@ input[type="text"], input[type="password"], input[type="email"], input[type="sea
       color: {{settings.banner_color}};
     }
     p{
-      color: $color-white;
+      color: {{settings.banner_color}};
       max-width: 600px;
       text-align: center;
       margin: auto;
@@ -880,8 +880,9 @@ header{
             letter-spacing: 0;
             position: relative;
             border: none!important;
+            color: {{settings.top_bar_color}};
             &:hover{
-              
+              color: {{settings.top_bar_color_hover}};
               &::after{
                 content: " ";
                 width: 40px;
@@ -1180,6 +1181,7 @@ header{
 }
 
 .image-slider-content{
+  background: white;
   @include respond-to("medium-down"){
     padding-bottom: 0!important;
   }
@@ -1665,7 +1667,7 @@ header{
       }
     }
     h1{
-      color: $color-white;
+      color: {{settings.banner_color}};
       font-size: 48px;
       position: absolute;
       bottom: 20px;
@@ -2174,7 +2176,7 @@ header{
           p{
             @include font-LatoRegular();
             font-size: $font-desc;
-            color: $color-white;
+            color: {{settings.product_hover_text_color}};
           }
         }
         .collection-info__caption {
@@ -2185,7 +2187,7 @@ header{
             display: none;
           }
           .title{
-            color: $color-white;
+            color: {{settings.product_hover_text_color}};
           }
         }
         .bottom_links{
@@ -2464,6 +2466,7 @@ header{
   }
   .footer-menu-wrap{
     padding: 0 50px;
+    padding-bottom: 50px;
     @include respond-to("medium-down"){
       padding: 0;
     }
@@ -2505,7 +2508,6 @@ header{
   .footer_credits{
     background-color: black;
     margin: 0;
-    margin-top: 50px;
     width: 100%;
     p{
       width: 100%;
@@ -3034,7 +3036,9 @@ header{
             font-size: $font-small;
           }
         }
-        
+        h4{
+          color: {{ settings.headline_color }};
+        }
         &.list_style_true{
           p{
             padding-left: 20px;
@@ -3124,6 +3128,9 @@ header{
       }
     }
 
+    h4{
+      color: {{ settings.headline_color }};
+    }
     
     &.list_style_true{
       p{
@@ -4316,11 +4323,6 @@ header{
           .collection_title{
             text-transform: unset;
             @include font-LatoRegular();
-            color: $color-white;
-          }
-          
-          p{
-            color: $color-white;
           }
         }
       }
@@ -4334,6 +4336,7 @@ header{
       overflow: auto;
     }
     h2{
+      color: {{settings.headline_color}};
       @include font-LatoRegular();
       font-size: $font-medium;
       text-transform: capitalize;
@@ -4344,7 +4347,9 @@ header{
       }
     }
     h4{
+      color: {{settings.headline_color}};
       &.light{
+        
         @include font-MontRegular();
         font-size: $font-medium;
         text-transform: capitalize;
@@ -4416,12 +4421,10 @@ header{
   &.layby-section {
     .block__image-text{
       .featured-link--half{
-        background: #F9F9F9;
         @include respond-to("medium-down"){
           background: transparent;
         }
       }
-      background: #F9F9F9;
       @include respond-to("medium-down"){
         background: transparent;
         .image-with-text-section{
@@ -5094,6 +5097,7 @@ header{
           }
           .subtitle{
             p{
+              color: {{settings.regular_color}};
               text-transform: initial;
               
             }
@@ -5251,6 +5255,7 @@ header{
           }
           p{
             text-align: left;
+            color: {{settings.product_hover_text_color}};
             &.team-member__title{
               text-align: left;
               &::after{
@@ -5270,6 +5275,7 @@ header{
           position: absolute;
           bottom: 0;
           left: 10px;
+          color: {{settings.product_hover_text_color}};
           @include respond-to("medium-down"){
             bottom: auto;
             top: 270px;

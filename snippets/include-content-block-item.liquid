@@ -17,12 +17,6 @@
     background-color: {{ block.settings.bg_color }}; 
     margin: 0 {{block.settings.margin_width}}px;
   }
-  .block-{{block.id}} .collection_title {
-      color: {{ block.settings.text_color }}!important;
-  }
-  .block-{{block.id}} .description p{
-    color: {{block.settings.text_color}}!important;
-  }
   {% if block.settings.text_style == 'image' %}
     .block-{{block.id}} {
       background: url("{{block.settings.image | img_url: '2048x' }}") 50% 50% / cover no-repeat;

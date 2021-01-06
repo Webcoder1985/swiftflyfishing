@@ -88,17 +88,6 @@
 
 <style>
 
-  {% for block in section.blocks %}
-    .block--{{ block.id }} {
-      background-color: {{ block.settings.bg_color }};
-    }
-
-    .block--{{ block.id }} .collection_title,
-    .block--{{ block.id }} p {
-      color: {{ block.settings.text_color }};
-    }
-  {% endfor %}
-
   {% if section.settings.frontpage_grid_style == false and section.settings.featured_links_per_row == '1' %}
       #shopify-section-{{ section.id }} .featured-link--half {
         width: 45%;
