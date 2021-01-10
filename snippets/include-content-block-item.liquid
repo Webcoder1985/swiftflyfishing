@@ -17,6 +17,13 @@
     background-color: {{ block.settings.bg_color }}; 
     margin: 0 {{block.settings.margin_width}}px;
   }
+  
+  {% if block.settings.color != blank and block.settings.color != 'rgba(0,0,0,0)' %}
+    .block-{{block.id}} .collection_title, .block-{{block.id}} .description p {
+      color: {{block.settings.color}};
+    }
+  {% endif %}
+
   {% if block.settings.text_style == 'image' %}
     .block-{{block.id}} {
       background: url("{{block.settings.image | img_url: '2048x' }}") 50% 50% / cover no-repeat;

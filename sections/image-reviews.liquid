@@ -38,8 +38,8 @@
           {% if section.settings.caption != blank %}
             <p class="caption-label">{{section.settings.caption}}</p>
           {% endif %}
-          {% if section.settings.image_caption != blank %}
-            <p class="image-caption">{{section.settings.image_caption}}</p>
+          {% if section.settings.image_caption != blank and section.settings.link != blank %}
+            <a class="image-caption" href="{{section.settings.link}}">{{section.settings.image_caption}}</a>
           {% endif %}
           
         </div>
@@ -254,6 +254,11 @@
       "id": "image_caption",
       "label": "Image caption",
       "default": "In PHOTO: Epic Studio ..."
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Link"
     },
     {
       "type": "text",

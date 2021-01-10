@@ -415,7 +415,9 @@ input[type="text"], input[type="password"], input[type="email"], input[type="sea
   padding: 0;
   list-style: none;
   li{
+    width: 100%;
     &.active{
+      display: table;
       .toggle_btn{
           &::before{
             content: none;
@@ -428,6 +430,7 @@ input[type="text"], input[type="password"], input[type="email"], input[type="sea
         .toggle_content{
           display: block;
           padding: 0 0 20px;
+          float: left;
         }
     }
     .toggle_btn{
@@ -1199,7 +1202,7 @@ header{
     border-radius: 0;
     position: relative;
     background: transparent;
-    padding-top: 3.7%;
+    padding-top: 3%;
     margin-bottom: 100px;
     @include respond-to("small-down"){
       margin: 20px auto;
@@ -1268,9 +1271,8 @@ header{
       &::selection {
         background: transparent;
       }
-      margin-bottom: 3.7%;
-      margin-top: 1px;
-      max-width: 100%;
+      margin-bottom: 3.2%;
+      width: 100%;
       @include respond-to("small-down"){
         max-width: 140%;
       }
@@ -1284,7 +1286,7 @@ header{
       left:0px;
       position:absolute;
       cursor:pointer;
-      padding-top: 3.7%;
+      padding-top: 3%;
       max-width: calc(100% - 20px);
       &::after{
         content: '';
@@ -1609,6 +1611,13 @@ header{
           }
         }
       }
+      .flickity-viewport{
+        margin-left: 30px;
+        margin-right: 70px;
+        @include respond-to("medium-down"){
+          margin: 0;
+        }
+      }
       .flickity-button{
         opacity: 1;
         width: 8%;
@@ -1624,7 +1633,8 @@ header{
           fill: black;
         }
         &.previous{
-          display: none;
+          left: -40px;
+          right: auto;
         }
       }
     }
@@ -1634,7 +1644,25 @@ header{
 .image-with-text-section{
   margin-bottom: 40px;
   &.featured-promotion{    
+    padding: 0 50px;
+    @include respond-to("medium-down"){
+      padding: 0;
+    }
     .image-with-text{
+      .featured-link--wrap{
+        position: relative;
+        overflow: hidden;
+        img{
+          position: absolute;
+          height: 100%;
+          width: auto;
+          @include respond-to("medium-down"){
+            position: initial;
+            width: 100%;
+            height: auto;
+          }
+        }
+      }
       .featured-link--half.text{
         background-color: {{ settings.featured_promotions_background }};
         .info{
@@ -1668,12 +1696,13 @@ header{
     }
     h1{
       color: {{settings.banner_color}};
-      font-size: 48px;
+      font-size: {{settings.h1_font_size}}px;
       position: absolute;
       bottom: 20px;
       left: 20px;
       max-width: 320px;
       text-align: left;
+      line-height: 1;
       @include respond-to("medium-down"){
         font-size: 20px;
         text-align: center;
@@ -2154,9 +2183,17 @@ header{
         }
       }
       .product-wrap{
+        .image-element__wrap{
+          img{
+            transition: 0.3s;
+          }
+        }
         &:hover{
           .image-element__wrap{
             filter: brightness(0.5);
+            img{
+              transform: scale(1.1);
+            }
           }
           .collection-description__caption {
             display: block;
@@ -2536,6 +2573,7 @@ header{
   @include respond-to("medium-down"){
     padding: 0 20px;
   }
+
   .banner {
     margin: 0 -40px;
     width: calc(100% + 80px);
@@ -2811,6 +2849,18 @@ header{
               }
             }
           }
+          .selected{
+            li{
+              a{
+                pointer-events: none;
+                opacity: 0.5;
+                &.active{
+                  pointer-events: all;
+                  opacity: 1;
+                }
+              }
+            }
+          }
         }
       }
       .action-content{
@@ -2843,6 +2893,7 @@ header{
         order: 1;
         margin-bottom: 20px;
         .gallery-cell{
+          
           @include respond-to("medium-down"){
             width: 100%;
           }
@@ -2869,6 +2920,7 @@ header{
         padding: 40px;
         min-height: 100%;
         text-align: left!important;
+        margin-left: 0; 
         h2{
           text-transform: unset;
           margin-bottom: 20px;
@@ -2894,8 +2946,45 @@ header{
     margin-left: 10px;
     max-width: calc(100% - 310px);
     width: 100%;
+    &.empty-sidebar{
+      float: none;
+      margin: auto; 
+    }
     @include respond-to("medium-down"){
       max-width: initial;
+    }
+    .heading-block{
+      .heading{
+        h1{
+          color: {{ settings.headline_color }};
+          text-align: left;
+          font-size: $font-medium;
+          margin: 0;
+          max-width: 600px;
+          line-height: 30px;
+          margin-bottom: 20px;
+          @include font-MontBold();
+          text-transform: uppercase;
+          @include respond-to("medium-down"){
+            font-size: $font-small;
+            text-align: center;
+          }
+        }
+        h6{
+          text-align: left;
+          line-height: 24px;
+          margin-top: 0;
+          p{
+            font-size: $font-body;
+          }
+          @include respond-to("medium-down"){
+            
+            text-align: center;
+            max-width: 250px;
+            margin: auto;
+          }
+        }
+      }
     }
     .list{
       width: calc(100% - 50px);
@@ -3636,6 +3725,10 @@ header{
 
 .product-details__blocks{
   .block__related_products{
+    padding: 0 50px;
+    @include respond-to("medium-down"){
+      padding: 0 20px;
+    }
     .related-products__title{
       h3{
         text-transform: uppercase;
@@ -3684,7 +3777,7 @@ header{
           min-height: 100%;
         }
         .caption{
-          max-width: 450px;
+          max-width: 370px;
           margin-left: 0;
           background: $color-blue;
           @include respond-to("medium-down"){
@@ -3926,7 +4019,12 @@ header{
       }
     }
   }
-  
+  .block__recently_viewed_products {
+    padding: 0 50px;
+    @include respond-to("medium-down"){
+      padding: 0 20px;
+    }
+  }
 }
 .review-block{
   #stamped-main-widget{
@@ -4228,6 +4326,10 @@ header{
     display: flex;
     flex-wrap: wrap;
     width: 100%;
+    padding: 0 50px;
+    @include respond-to("medium-down"){
+      padding: 0 20px;
+    }
     .container{
       width: 100%;
     }
@@ -4295,9 +4397,9 @@ header{
           .text-list{
            
             p{
-              line-height: 30px;
+              line-height: 1.6;
               display: flex;
-              margin-top: 10px;
+              margin-top: 15px;
               margin-bottom: 0;
               &::before{
                 margin-top: 12px;
@@ -4338,7 +4440,7 @@ header{
     h2{
       color: {{settings.headline_color}};
       @include font-LatoRegular();
-      font-size: $font-medium;
+      font-size: {{settings.headline_font_size}};
       text-transform: capitalize;
       &.light{
         @include font-MontRegular();
@@ -4348,6 +4450,7 @@ header{
     }
     h4{
       color: {{settings.headline_color}};
+      font-size: {{settings.headline_font_size}};
       &.light{
         
         @include font-MontRegular();
@@ -4372,16 +4475,17 @@ header{
     ul{
       list-style: none;
       padding-left: 13px;
+      &::before{
+        content: "\2022";  /* Add content: \2022 is the CSS Code/unicode for a bullet */
+        color: $color-red; /* Change the color */
+        font-weight: bold; /* If you want it to be bold */
+        display: inline-block; /* Needed to add space between the bullet and the text */
+        width: 1em; /* Also needed for space (tweak if needed) */
+        margin-left: -1em;
+      }
       li{
         margin-bottom: 0;
-        &::before{
-          content: "\2022";  /* Add content: \2022 is the CSS Code/unicode for a bullet */
-          color: $color-red; /* Change the color */
-          font-weight: bold; /* If you want it to be bold */
-          display: inline-block; /* Needed to add space between the bullet and the text */
-          width: 1em; /* Also needed for space (tweak if needed) */
-          margin-left: -1em;
-        }
+        
       }
     }
     table{
@@ -4448,8 +4552,14 @@ header{
       .description-content{
         max-width: initial;
         margin: 100px auto;
+        display: flex;
+        padding: 0 50px;
         @include respond-to("medium-down"){
           margin: 0 auto;
+          padding: 0;
+        }
+        .gallery-cell{
+          margin-bottom: 20px;
         }
         .description-block{
           padding: 0 20px;
@@ -4592,9 +4702,7 @@ header{
   .banner{
     .caption{
       .headline{
-        font-size: $font-large;
-        color: {{settings.headline_color}};
-        text-transform: {{settings.headline_font_style}};
+        text-transform: unset;
         letter-spacing: {{settings.headline_letter_spacing}};
         @include respond-to("medium-down"){
           font-size: $font-body;
@@ -4637,7 +4745,7 @@ header{
       padding: 0 20px;
     }
     .image-element__wrap{
-      max-height: 240px;
+      height: 240px;
       max-width: initial;
       @include respond-to("small-down"){
         width: calc(100% + 80px);
@@ -4645,8 +4753,8 @@ header{
         margin-bottom: 20px;
       }
       img{
-        height: auto;
-        width: 100%;
+        height: 100%;
+        width: auto;
         max-width: initial;
         min-width: 100%;
       }
@@ -4656,9 +4764,11 @@ header{
       margin-top: 10px;
       margin-bottom: 20px;
       a{
+        text-transform: capitalize;
         font-size: $font-body;
         @include font-LatoBold();
         letter-spacing: 0.5px;
+        line-height: 1;
       }
     }
     .blog_meta{
@@ -4788,8 +4898,8 @@ header{
   .page-banner{
     .caption {
       h2{
-        font-size: $font-large;
-        color: {{settings.headline_color}};
+        font-size: {{settings.slideshow_subtitle__font}};
+        color: {{settings.banner_color}};
         text-transform: {{settings.headline_font_style}};
         letter-spacing: {{settings.headline_letter_spacing}};
         @include respond-to("medium-down"){
@@ -4964,11 +5074,15 @@ header{
           left: 0;
         }
       }
+      a{
+        text-decoration: underline;
+      }
     }
   }
   .custom-contact-form{
     margin-top: 100px;
     h3{
+      text-transform: uppercase;
       @include font-MontSBold();
       font-size: $font-desc;
       line-height: 18px;
@@ -5363,10 +5477,14 @@ header{
       }
     }
   }
+  .block__text-content-block {
+    padding: 0;
+  }
   .text-content-field{
     .content_block_item{
       justify-content: center;
       .info{
+        max-width: 80%;
         .collection_title{
           @include respond-to("medium-down"){
             font-size: $font-medium;
@@ -5585,8 +5703,13 @@ header{
 
 .vip-section{
   .block__text-content-block{
+    padding: 0 50px;
+    @include respond-to("medium-down"){
+      padding: 0 20px;
+    }
     .text-content-field{
       .content_block_item{
+        padding: 25px;
         align-items: end;
         .collection_title{
           min-height: 130px;
@@ -5610,13 +5733,16 @@ header{
     }
   }
   .block__image-text{
+    background: #f9f9f9;
     .info{
-      p{
-        strong{
-          font-size: 15px!important;
-          text-transform: unset!important;
+        p{
+          margin-bottom: 25px;
+          line-height: 30px;
+          strong{
+            font-size: 15px!important;
+            text-transform: unset!important;
+          }
         }
-      }
     }
   }
   .page-content{

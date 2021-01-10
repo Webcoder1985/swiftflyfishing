@@ -150,8 +150,13 @@
                 {% if section.settings.enable_shopify_product_badges and settings.enable_shopify_review_comments %}
                 <span class="stamped-product-reviews-badge stamped-main-badge" data-id="{{ product_original.id }}" data-product-sku="{{ product_original.handle }}" style="display: inline-block;" onclick="$('.tabs li:nth-child(3) a').click()">{{ product_original.metafields.stamped.badge }}</span>
                 {% endif %}
-                <div class='custom_text'>Or, fish now pay later with up to 4 payments of  {{ wcp_v_price  | divided_by: 4 | money }} with Splitit.<br> Available at checkout. Interest free.</div>
-
+                {% if section.settings.payment_status %}
+                  <div class='custom_text'>Or, fish now pay later with up to 4 payments of  {{ wcp_v_price  | divided_by: 4 | money }} with Splitit.<br> Available at checkout. Interest free.</div>
+                {% elsif product.description contains '<!--splite-->' %}
+                  <div class='custom_text'>
+                    {{ product.description | split: '<!--splite-->' | first }}
+                  </div>
+                {% endif %}
               {% endif %}
               
             </div>
@@ -547,6 +552,11 @@
     {
       "type": "header",
       "content": "Description"
+    },
+    {
+      "type": "checkbox",
+      "id": "payment_status",
+      "label": "Payment description status"
     },
     {
       "type": "checkbox",

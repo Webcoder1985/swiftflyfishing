@@ -544,10 +544,13 @@ var quickFilter = {
     //Add all checkbox values to array
     var num = 0;  
     $('.sidebar__collection-filter .toggle_list li a').removeClass('active');
+    
     $('.filter_count').find('.num').text(0);
+    $(this).parent().parent().parent().parent().removeClass('selected');
     $('[data-option-filter] input:checked').each(function (){
       selectedOptions.push($(this).val());
       $(this).parent().parent().addClass('active');
+      $(this).parent().parent().parent().parent().addClass('selected');
       var num = parseInt($(this).parent().parent().parent().parent().parent().parent().find('.filter_count').find('.num').text());  
       num = num+1;
       $(this).parent().parent().parent().parent().parent().parent().find('.filter_count').find('.num').text(num);
@@ -576,6 +579,10 @@ var quickFilter = {
     if ($(window).width() > 768) {
       location = filterURL;
     } else {
+      $('.filter-all-tags').removeClass('selected');
+      $('[data-option-filter] input:checked').each(function (){
+        $(this).parent().parent().parent().parent().addClass('selected');
+      });
       $('.action-content .apply').attr('href', filterURL);
     }
     

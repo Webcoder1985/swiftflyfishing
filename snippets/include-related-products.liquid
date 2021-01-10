@@ -1,4 +1,4 @@
-{% if template contains 'details' %}
+{% if template contains 'details' or template contains 'description-bottom' %}
   {% assign title = block.settings.title %}
   {% assign sub_title = block.settings.sub_title %}
   {% assign related_products_style = block.settings.related_products_style %}
@@ -43,6 +43,7 @@
     {% unless sidebar %} </div> {% endunless %}
     {% if related_products_style == 'slider' %}
       {% assign limit = related_products_limit %}
+      
       <div class="related-products related-products--slider container">
         {% if col and collections[col].all_products_count > 0 %}
           {% include 'product-slider', related_products: true, type: "page" %}

@@ -6,50 +6,53 @@
     <h1>{{ section.settings.image_slider_title }}</h1>
     <h6>{{ section.settings.image_slider_desc }}</h6>
   </div>
-  {% if context == 'collection' %}
-    <div id='collection-bar'>
-  {% else %}
-    <div id='bar'>
-  {% endif %}
-      
-    {% for block in section.blocks %}
-      {% if block.type == 'label' %}
-      {% if block.settings.top_pos != blank %}
-        {% assign top = block.settings.top_pos %}
-      {% else %}
-        {% if block.settings.direction %}
-          {% assign top = 0 %}
-        {% else %}
-          {% assign top = 100 %}
-        {% endif %}
+  {% if section.settings.image_slider_bg_image != blank and section.settings.image_slider_hover_image != blank %}
+    {% if context == 'collection' %}
+      <div id='collection-bar'>
+    {% else %}
+      <div id='bar'>
+    {% endif %}
         
-      {% endif %}
-        <div class="label-indicator align-{{block.settings.direction}}" style="left: {{block.settings.left_pos}}%; top: {{ top }}%;">
-          <span class="title">{{block.settings.title}}</span>
-          <div class="pointer"></div>
-        </div>
-      {% endif %}
-      
-    {% endfor %}
-    <img class="bg_image" src="{{ section.settings.image_slider_bg_image | img_url: '2048x' }}">
-    <div id='slider'>
-      <div class="image-content">
-        <img class="hover_image" src="{{ section.settings.image_slider_hover_image | img_url: '2048x' }}">
-      </div>
-      <div id="slider-button">
-      </div>
-    </div>
-  </div>
-  <div class="list medium-down--show hide">
-    <ul>
       {% for block in section.blocks %}
         {% if block.type == 'label' %}
-        <li class="label-indicator align-{{block.settings.direction}}" style="left: {{block.settings.left_pos}}%; top: {{ block.settings.top_pos }}%;">
-          <span class="uppercase">{{block.settings.title}}</span>
-        </li>
+        {% if block.settings.top_pos != blank %}
+          {% assign top = block.settings.top_pos %}
+        {% else %}
+          {% if block.settings.direction %}
+            {% assign top = 0 %}
+          {% else %}
+            {% assign top = 100 %}
+          {% endif %}
+          
+        {% endif %}
+          <div class="label-indicator align-{{block.settings.direction}}" style="left: {{block.settings.left_pos}}%; top: {{ top }}%;">
+            <span class="title">{{block.settings.title}}</span>
+            <div class="pointer"></div>
+          </div>
         {% endif %}
         
       {% endfor %}
-    </ul>
-  </div>
+      <img class="bg_image" src="{{ section.settings.image_slider_bg_image | img_url: '2048x' }}">
+      <div id='slider'>
+        <div class="image-content">
+          <img class="hover_image" src="{{ section.settings.image_slider_hover_image | img_url: '2048x' }}">
+        </div>
+        <div id="slider-button">
+        </div>
+      </div>
+    </div>
+    <div class="list medium-down--show hide">
+      <ul>
+        {% for block in section.blocks %}
+          {% if block.type == 'label' %}
+          <li class="label-indicator align-{{block.settings.direction}}" style="left: {{block.settings.left_pos}}%; top: {{ block.settings.top_pos }}%;">
+            <span class="uppercase">{{block.settings.title}}</span>
+          </li>
+          {% endif %}
+          
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+  
 </div>

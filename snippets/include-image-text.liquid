@@ -38,19 +38,16 @@
         
         <h4 class="uppercase">{{block.settings.sub_title}}</h4>
         {% if block.settings.text != blank %}
-          <div class="description grid-{{block.settings.grid_style}} text-{{block.settings.text_style}}">
-            {% if block.settings.grid_style != 'one' %}
-            <div class="medium-down--hide">
-              {{ block.settings.text | replace: '<p></p>', '</div><div>' | prepend: '<div>' | append: '</div>' }}
+          {% if block.settings.grid_style != 'one' %}
+            <div class="description medium-down--hide grid-{{block.settings.grid_style}} text-{{block.settings.text_style}}">
+                {{ block.settings.text | replace: '<p></p>', '</div><div>' | prepend: '<div>' | append: '</div>' }}
             </div>
-            <div class="hide medium-down--show">
+            <div class="hide medium-down--show description grid-{{block.settings.grid_style}} text-{{block.settings.text_style}}">
               {{block.settings.text | remove: '</p><p></p><p>'}}
             </div>
-            {% else %}
-              {{block.settings.text}}
-            {% endif %}
-            
-          </div>
+          {% else %}
+            {{block.settings.text}}
+          {% endif %}
         {% endif %}
         {% if block.settings.button_label != blank %}
           <a {% if block.settings.link != blank %}href="{{ block.settings.link }}"{% endif %} class="button">

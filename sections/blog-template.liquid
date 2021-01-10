@@ -22,8 +22,8 @@
       </div>
     {% else %}
       <div class="caption captionOverlay--true">
-        <h2 class="headline">{{ blog.title }}</h2>
-        <p class="subtitle">{{ section.settings.subtitle }}</p>
+        <h2 class="headline" style="color: {{section.settings.color}}; font-size: {{section.settings.title_size}}px;">{{ blog.title }}</h2>
+        <p class="subtitle" style="color: {{section.settings.color}}; font-size: {{section.settings.sub_title_size}}px;">{{ section.settings.subtitle }}</p>
         {% if section.settings.banner_link != blank and section.settings.banner_button != blank %}
         <a href="{{section.settings.banner_link}}" class="button button-white small-button">{{section.settings.banner_button}}</a>
         {% endif %}
@@ -247,6 +247,32 @@
       "id": "subtitle",
       "label": "Subheading",
       "default": "Subheading"
+    },
+    {
+      "type": "color",
+      "id": "color",
+      "label": "Banner title color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "label": "Banner title font size",
+      "unit": "px",
+      "min": 10,
+      "max": 40,
+      "step": 1,
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "sub_title_size",
+      "label": "Sub title size",
+      "unit": "px",
+      "min": 10,
+      "max": 40,
+      "step": 1,
+      "default": 24
     },
     {
       "type": "url",
