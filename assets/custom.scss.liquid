@@ -429,7 +429,7 @@ input[type="text"], input[type="password"], input[type="email"], input[type="sea
         }
         .toggle_content{
           display: block;
-          padding: 0 0 20px;
+          padding: 20px 0;
           float: left;
         }
     }
@@ -445,6 +445,7 @@ input[type="text"], input[type="password"], input[type="email"], input[type="sea
       display: flex!important;
       align-items: center;
       justify-content: space-between;
+      padding-right: 30px;
       &:hover{
         color: black;
       }
@@ -469,6 +470,12 @@ input[type="text"], input[type="password"], input[type="email"], input[type="sea
       display: none;
       @include respond-to("medium-down"){
         padding: 20px 10px;
+      }
+      a{
+        color: #ED1C24;
+      }
+      p{
+        margin: 0;
       }
       h2{
         text-transform: uppercase;
@@ -2317,23 +2324,38 @@ header{
         order: 1;
         .gallery-cell{
           width: 100%;
-          .collection_title{
+          .info{
+            padding-left: 50px;
             @include respond-to("medium-down"){
-              text-transform: uppercase;
+              padding-left: 0;
+            }
+            .collection_title{
+              margin-left: -41px;
+              @include respond-to("medium-down"){
+                margin-left: 0;
+              }
               svg{
-                display: block;
-                width: 100%;
-                margin-bottom: 10px;
+                margin-right: 10px;
+              }
+              @include respond-to("medium-down"){
+                text-transform: uppercase;
+                svg{
+                  display: block;
+                  width: 100%;
+                  margin-bottom: 10px;
+                  margin-right: 0;
+                }
               }
             }
           }
+          
         }
       }
       .previous{  
         order: 2;
-        margin-left: calc(50% - 285px);
+        margin-left: calc(50% - 255px);
         @media screen and (max-width: 1500px){
-          margin-left: 15px;
+          margin-left: 41px;
         }
         @include respond-to("medium-down"){
           margin-left: auto;
@@ -2921,17 +2943,12 @@ header{
         min-height: 100%;
         text-align: left!important;
         margin-left: 0; 
-        h2{
+        h2, h3{
           text-transform: unset;
           margin-bottom: 20px;
           color: {{ settings.headline_color }}; 
           font-size: $font-medium!important;
           line-height: 29px;
-          @include font-MontRegular();
-          text-align: left!important;
-        }
-        h3{
-          font-size: $font-small;
           @include font-MontRegular();
           text-align: left!important;
         }
@@ -3030,6 +3047,111 @@ header{
         }
         &::after, &::before{
           border-color: $color-red;
+        }
+      }
+    }
+    .four-points{
+      margin-bottom: 100px;
+      @include respond-to("medium-down"){
+        margin-bottom: 10px;
+        padding: 20px;
+        padding-bottom: 1px;
+        background: rgba(216, 216, 216, 0.15);
+      }
+      h2{
+        color: {{ settings.headline_color }};
+        text-align: left;
+        font-size: $font-medium;
+        margin: 0;
+        line-height: 30px;
+        margin-bottom: 20px;
+        @include font-MontBold();
+        text-transform: uppercase;
+        @include respond-to("medium-down"){
+          font-size: $font-small;
+          text-align: center;
+        }
+      }
+      h3{
+        text-align: left;
+        line-height: 24px;
+        margin-top: 0;
+        font-size: $font-body;
+        @include respond-to("medium-down"){
+          
+          text-align: center;
+          max-width: 250px;
+          margin: auto; 
+        }
+      }
+    }
+    .image_with_text_overlay_block{
+      .strip_4{
+        display: flex;
+        flex-wrap: wrap;
+        .point {
+          width: calc(25% - 10px);
+          margin-right: 10px;
+          height: 100%;
+          margin-bottom: 20px;
+          padding: 0 10px;
+          display: table;
+          .point_numeral{
+            display: flex;
+            padding: 14px;
+            border-radius: 50%;
+            background: $color-blue;
+            color: $color-white;
+            justify-content: center;
+            align-items: baseline;
+            width: 50px;
+            font-size: 15px;
+            height: 50px;
+            span.o{
+              width: 7px;
+              height: 7px;
+              display: table;
+              background: red;
+              border-radius: 50%;
+              margin: 0px 3px 0 2px;
+            }
+            &::after{
+              content: counter(list) "";
+              counter-increment: list;
+              font-size: 17px;
+            }
+          }
+          .point_title{
+            h4{
+              @include font-MontSBold();
+              line-height: 22px;
+              letter-spacing: 1px;
+              font-size: 18px;
+              color: {{ settings.headline_color }};
+              margin-bottom: 5px;
+              text-transform: uppercase;
+            }
+          }
+          .point_description{
+            @include font-MontRegular();
+            font-size: 11px;
+            line-height: 17px;
+            letter-spacing: 0.34px;
+            text-transform: uppercase;
+            span.small_comment{
+              text-transform: unset;
+              @include font-LatoRegular();
+              font-size: 13px;
+              line-height: 22px;
+              letter-spacing: 0.41px;
+              color: {{ settings.regular_color }};
+              margin-top: 10px;
+              display: block;
+            }
+          }
+        }
+        img{
+          display: none;
         }
       }
     }
@@ -3260,6 +3382,7 @@ header{
   }
   
   .toggle_content {
+    width: 100%;
     .description-content {
       padding: 0;
       width: 100%;
@@ -3672,6 +3795,23 @@ header{
             
           }
         }
+        .Multiple_Variants_section{
+          .variant_row{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            .variant-quantity-box{
+              max-width: 200px;
+              p{
+                margin: 0;
+              }
+              .quantity{
+                width: calc(100% - 88px);
+              }
+            }
+          }
+        }
         .purchase-details{
           .purchase-details__quantity{
             margin: 0;
@@ -3698,7 +3838,7 @@ header{
           border: none;
           outline: none!important;
         }
-        .btn{
+        .btn, .action_button{
           width: 100%!important;
           max-width: initial;
         }
@@ -4900,7 +5040,7 @@ header{
       h2{
         font-size: {{settings.slideshow_subtitle__font}};
         color: {{settings.banner_color}};
-        text-transform: {{settings.headline_font_style}};
+        text-transform: unset;
         letter-spacing: {{settings.headline_letter_spacing}};
         @include respond-to("medium-down"){
           font-size: $font-body;
@@ -5257,6 +5397,58 @@ header{
       @include font-LatoRegular();
       font-size: $font-medium;
       text-transform: capitalize;
+    }
+    .toggle-list{
+      .toggle_content {
+        ol{
+          margin: 0;
+          padding-left: 15px;
+          li{
+            @include font-LatoBold();
+            font-size: 14px;
+            line-height: 24px;
+            margin-top: 20px;
+            &:first-child{
+              margin-top: 0;
+            }
+          }
+        }
+        p{
+          font-size: 14px;
+          line-height: 24px;
+          em{
+            @include font-LatoLight();
+          }
+          strong{
+            @include font-LatoBold();
+          }
+        }
+
+        ul{
+          list-style: none;
+          padding: 0;
+          @include respond-to("large-down"){
+            column-count: 1;
+          }
+          li{
+            width: 100%;
+            padding-left: 30px;
+            position: relative;
+            padding-right: 30px;
+            &::before{
+              content: "";
+              width: 10px;
+              height: 10px;
+              display: table;
+              background-color: $color-red;
+              border-radius: 50%;
+              position: absolute;
+              top: 5px;
+              left: 0px;
+            }
+          }
+        }
+      }
     }
   }
 }

@@ -188,7 +188,8 @@
         "one": "item left",
         "other": "items left"
       },
-      "view_in_your_space": "View in your space"
+      "view_in_your_space": "View in your space",
+      "variant_soldout": "sold out"
     },
     "notify_form": {
       "email": "Enter your email address...",

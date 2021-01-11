@@ -1620,7 +1620,12 @@ $(document).ready(function () {
     var position = $('.product-details-section .review-block').offset()
     $(document).scrollTop(position.top);
   })
-  console.log(Shopify.theme_settings.cart_action);
+  
+  $('.image_with_text_overlay_block .strip_4 .point').each(function () {
+    $(this).find('.point_numeral').html('N<span class="o"></span>');
+  })
+
+
   if(Shopify.theme_settings.cart_action == 'ajax') {
     $('.mini_cart').on('click', function (e) {
       e.preventDefault();

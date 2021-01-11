@@ -38,7 +38,8 @@
 {% endfor %}
 <div class="page-content">
   <ul class="toggle-list">
-    {% assign page_str = section.settings.content | replace: '<p><strong>', '</div></li><li><a class="toggle_btn">' | replace: '</strong></p>', '</a><div class="toggle_content animated fadeIn">' %}
+    {% assign bottom_desc = page.content | split: '<!-- splite -->' | last %}
+    {% assign page_str = bottom_desc | replace: '<h2', '</div></li><li><a class="toggle_btn"' | replace: '</h2>', '</a><div class="toggle_content animated fadeIn">' %}
     {% assign page_content = page_str | remove_first: '</div></li>' %}
     {{ page_content }}
   </ul>

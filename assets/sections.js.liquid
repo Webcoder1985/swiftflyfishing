@@ -874,7 +874,7 @@ var productPage = {
       }
     })
 
-    $('.js-product_section .product_form_options').each(function () {
+    $(".js-product_section .product_form_options:not(.show_Multiple_form)").each(function () {
       // Enable selectCallback if the number of select elements is not equal to the options size data
       if ($(this).find('.selector-wrapper select').length != $(this).data('options-size')) {
         new Shopify.OptionSelectors($(this).data('select-id'), { product: $(this).data('product'), onVariantSelected: selectCallback, enableHistoryState: $(this).data('enable-state') });
