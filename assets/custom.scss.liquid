@@ -1203,7 +1203,7 @@ header{
   }
   
   #bar, #collection-bar{
-    width: calc(100% - 50px);
+    width: calc(100% - 110px);
     margin-right: 0;
     margin-left: 50px;
     border-radius: 0;
@@ -1211,6 +1211,7 @@ header{
     background: transparent;
     padding-top: 3%;
     margin-bottom: 100px;
+    line-height: 0;
     @include respond-to("small-down"){
       margin: 20px auto;
       overflow: hidden;
@@ -1219,7 +1220,7 @@ header{
     .label-indicator{
       position: absolute;
       z-index: 10;
-      transform: translateY(-100%);
+      transform: translate(-50%, -100%);
       margin-top: 6%;
       @include respond-to("medium-down"){
         display: none!important;
@@ -1228,15 +1229,17 @@ header{
         width: 150px;
         font-size: $font-subtitle;
         text-align: center;
+        text-transform: uppercase;
       }
       &.align-bottom{
         flex-direction: column-reverse;
         display: flex;
         margin-top: -6%;
-        transform: translateY(000%);
+        transform: translate(-50%, 0%);
         .pointer{
           margin-top: 0;
           margin-bottom: 35px;
+          position: relative;
           &::before{
             background: linear-gradient(45deg, #000, transparent);
             position: absolute;
@@ -1245,8 +1248,8 @@ header{
         }
       }
       .pointer{
-        width: 30px;
-        height: 30px;
+        width: 26px;
+        height: 26px;
         background: rgba(255,255,255,0.33);
         backdrop-filter: opacity(.4);
         border-radius: 50%;
@@ -1255,6 +1258,7 @@ header{
         justify-content: center;
         margin: auto;
         margin-top: 35px;
+        position: relative;
         &::before{
           content: " ";
           width: 1px;
@@ -1263,11 +1267,13 @@ header{
           background: linear-gradient(black, transparent);
           position: absolute;
           top: -30px;
+          left: 50%;
+          transform: translateX(-50%);
         }
         &::after{
           content: " ";
-          width: 20px;
-          height: 20px;
+          width: 13px;
+          height: 13px;
           display: table;
           background: black;
           border-radius: 50%;
@@ -1278,14 +1284,12 @@ header{
       &::selection {
         background: transparent;
       }
-      margin-bottom: 3.2%;
       width: 100%;
       @include respond-to("small-down"){
         max-width: 140%;
       }
     }
     #slider{
-      
       width:0%;
       height:100%;
       background-color: white;
@@ -1293,16 +1297,17 @@ header{
       left:0px;
       position:absolute;
       cursor:pointer;
-      padding-top: 3%;
+      padding-top: 3.11%;
       max-width: calc(100% - 20px);
       &::after{
         content: '';
         position: absolute;
-        top: 0; right: 0; bottom: 0; left: 0;
-        z-index: -1;
+        top: 0; right: 1px; bottom: 0; 
+        z-index: 0;
         margin-right: -2px; /* !importanté */
         border-radius: inherit; /* !importanté */
-        background: linear-gradient($color-white, $color-black, $color-white)
+        background: linear-gradient(#fff, #212b36, #fff);
+        width: 2px;
       }
       .image-content{
         overflow: hidden;
@@ -1367,6 +1372,7 @@ header{
         display: flex;
         align-items: center;
         justify-content: center;
+        z-index: 100;
         &::before{
           content: "|||";
           font-weight: bold;
@@ -2590,6 +2596,7 @@ header{
     }
   }
 }
+
 .collection-template-section, .collection-seperate-template-section{
   padding: 0 40px;
   @include respond-to("medium-down"){
@@ -2875,7 +2882,7 @@ header{
             li{
               a{
                 pointer-events: none;
-                opacity: 0.5;
+                opacity: 0.25;
                 &.active{
                   pointer-events: all;
                   opacity: 1;
@@ -2948,12 +2955,16 @@ header{
           margin-bottom: 20px;
           color: {{ settings.headline_color }}; 
           font-size: $font-medium!important;
-          line-height: 29px;
+          line-height: 36px;
           @include font-MontRegular();
           text-align: left!important;
+          margin-top: 0;
         }
         p, div{
           text-align: left!important;
+        }
+        img{
+          margin-top: 20px;
         }
       }
     }
@@ -3050,8 +3061,7 @@ header{
         }
       }
     }
-    .four-points{
-      margin-bottom: 100px;
+    .heading{
       @include respond-to("medium-down"){
         margin-bottom: 10px;
         padding: 20px;
@@ -3071,8 +3081,11 @@ header{
           font-size: $font-small;
           text-align: center;
         }
+        strong, b{
+          font-family: inherit;
+        }
       }
-      h3{
+      h3,h4{
         text-align: left;
         line-height: 24px;
         margin-top: 0;
@@ -3154,48 +3167,15 @@ header{
           display: none;
         }
       }
-    }
+    } 
     .image-slider-content{
-      .heading{
-        margin-bottom: 100px;
-        @include respond-to("medium-down"){
-          margin-bottom: 10px;
-          padding: 20px;
-          padding-bottom: 1px;
-          background: rgba(216, 216, 216, 0.15);
-        }
-        h1{
-          color: {{ settings.headline_color }};
-          text-align: left;
-          font-size: $font-medium;
-          margin: 0;
-          max-width: 600px;
-          line-height: 30px;
-          margin-bottom: 20px;
-          @include font-MontBold();
-          text-transform: uppercase;
-          @include respond-to("medium-down"){
-            font-size: $font-small;
-            text-align: center;
-          }
-        }
-        h6{
-          text-align: left;
-          line-height: 24px;
-          margin-top: 0;
-          p{
-            font-size: $font-body;
-          }
-          @include respond-to("medium-down"){
-            
-            text-align: center;
-            max-width: 250px;
-            margin: auto;
-          }
-        }
-      }
+      
       #bar, #collection-bar{
         margin-left: 0;
+        margin-top: 100px;
+        @include respond-to("medium-down"){
+          margin-top: 0;
+        }
         .label-indicator{
           pointer-events: none;
           @include respond-to("medium-down"){
@@ -3455,45 +3435,6 @@ header{
           }
         }
       }
-    }
-  }
-}
-
-
-.collection-seperate-template-section{
-  .image-slider-content{
-    #collection-bar{
-      .bg_image{
-        @include respond-to("medium-down"){
-          max-width: 100%;
-        }
-      }
-      #slider{
-        .image-content{
-          .hover_image {
-            top: 2.7px;
-            height: 88%;
-            @include respond-to("medium-down"){
-              top: 1px;
-              height: 84%;
-            }
-          }
-        }
-      }
-    }
-  }
-  .content{
-    .description-content{
-      padding: 0;
-      margin-bottom: 0;
-      .description-block{
-        padding: 0;
-        background: transparent;
-      }
-    }
-    .toggle-list{
-      padding: 0 20px;
-
     }
   }
 }
@@ -4576,6 +4517,7 @@ header{
     margin-bottom: 100px;
     @include respond-to("medium-down"){
       overflow: auto;
+      margin-bottom: 20px;
     }
     h2{
       color: {{settings.headline_color}};
@@ -4626,6 +4568,15 @@ header{
       li{
         margin-bottom: 0;
         
+      }
+      &.toggle-list{
+        &::before{
+          content: none;
+        }
+        margin-bottom: 50px;
+        @include respond-to("medium-down"){
+          margin-bottom: 20px;
+        }
       }
     }
     table{
@@ -4809,6 +4760,7 @@ header{
       }
     }
   }
+
 }
 .featured-collection-section.featured-gear{
   margin-bottom: 50px;

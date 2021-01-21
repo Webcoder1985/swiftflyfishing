@@ -38,10 +38,11 @@
 <div class="container">
   <div class="page-content">
     <ul class="toggle-list">
-      {% assign page_str = section.settings.content | replace: '<p><strong>', '</div></li><li><a class="toggle_btn">' | replace: '</strong></p>', '</a><div class="toggle_content animated fadeIn">' %}
+      {% assign page_str = section.settings.content | split: '<p></p><p></p>' | first | replace: '<p><strong>', '</div></li><li><a class="toggle_btn">' | replace: '</strong></p>', '</a><div class="toggle_content animated fadeIn">' %}
       {% assign page_content = page_str | remove_first: '</div></li>' %}
       {{ page_content }}
     </ul>
+    {{ section.settings.content | split: '<p></p><p></p>' | last }}
   </div>
 </div>
 

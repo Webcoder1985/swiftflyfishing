@@ -150,14 +150,14 @@
                 {% if section.settings.enable_shopify_product_badges and settings.enable_shopify_review_comments %}
                 <span class="stamped-product-reviews-badge stamped-main-badge" data-id="{{ product_original.id }}" data-product-sku="{{ product_original.handle }}" style="display: inline-block;" onclick="$('.tabs li:nth-child(3) a').click()">{{ product_original.metafields.stamped.badge }}</span>
                 {% endif %}
-                {% if section.settings.payment_status %}
-                  <div class='custom_text'>Or, fish now pay later with up to 4 payments of  {{ wcp_v_price  | divided_by: 4 | money }} with Splitit.<br> Available at checkout. Interest free.</div>
-                {% elsif product.description contains '<!--splite-->' %}
+                {% if product.description contains '<!--info-->' %}
                   <div class='custom_text'>
-                    {{ product.description | split: '<!--splite-->' | first }}
+                    {{ product.description | split: '<!--info-->' | first }}
+                    {% assign product_description = product.description | split: '<!--info-->' | last %}
                   </div>
+                {% else %}
+                  {% assign product_description = product.description %}
                 {% endif %}
-                
               {% endif %}
               
             </div>
@@ -179,9 +179,9 @@
             
 
             {% if section.settings.product_description_position == "top" %}
-              {% if product.description != blank %}
+              {% if product_description != blank %}
                <div class="description" itemprop="description">
-                 {{ product.description | split: '<!-- split -->' | first }}
+                 {{ product_description | split: '<!-- split -->' | first }}
                </div>
              {% endif %}
             {% endif %}
@@ -189,23 +189,36 @@
             {% unless collection_handles contains 'coming-soon' %}
               {% include 'product-form' with 'product' %}
             {% endunless %}
-
-            {% if product.description != blank %}
+            {%- comment -%}
+               {% include 'product-notify-me' %}
+            {%- endcomment -%}
+            
+            <div class="icon-tags">
+              <p class="icon-tag">
+                {% include 'icon-pack' with icon: 'guarantee' %}
+                30 Day Love it or Return it Guarantee
+              </p>
+              <p class="icon-tag">
+                {% include 'icon-pack' with icon: 'warranty' %}
+                Lifetime Warranty
+              </p>
+            </div>
+            {% if product_description != blank %}
               <ul class="toggle-list">
                 <li>
                   <a class="toggle_btn">Description</a>
                   <div class="toggle_content animated fadeIn">
-                    {% if product.description contains "split" %}
-                      {% assign description_parts = product.description | split: '<!-- split -->' %}
+                    {% if product_description contains "split" %}
+                      {% assign description_parts = product_description | split: '<!-- split -->' %}
                       {{ description_parts[0] }}
                     {% else %}
-                      {{product.description}}
+                      {{product_description}}
                     {% endif %}
                   </div>
                 </li>
-                {% if product.description contains "split" %}
-                  {% assign description_parts = product.description | split: '<!-- split -->' %}
-                  
+                {% if product_description contains "split" %}
+                  {% assign description_parts = product_description | split: '<!-- split -->' %}
+                   
                   {% if description_parts[1] != blank %}
                     <li>
                       <a class="toggle_btn">Specs</a>
@@ -216,8 +229,8 @@
                   {% endif %}
                 {% endif %}
 
-                {% if product.description contains "split" %}
-                  {% assign description_parts = product.description | split: '<!-- split -->' %}
+                {% if product_description contains "split" %}
+                  {% assign description_parts = product_description | split: '<!-- split -->' %}
                   
                   {% if description_parts[2] != blank %}
                   <li>
@@ -230,10 +243,7 @@
                 {% endif %}       
                 
               </ul>    
-            {% endif %}    
-            
-
-
+            {% endif %}
             {% if section.settings.enable_reviews_in_description %}
               {% include 'include-reviews', type: 'block' %}
             {% endif %}
@@ -403,8 +413,9 @@
 
           {% elsif block.type == 'product_reviews' %}
             <!-- Reviews -->
-            <div class="container">
+            <div id="product-review" class="container">
               {% include 'include-reviews', type: 'block' %}
+              <a class="review-sticky-button" href="#product-review">Product Reviews</a>
             </div>
 
           {% elsif block.type == 'divider' %}
@@ -1171,6 +1182,11 @@
           "default": "Your headline"
         },
         {
+          "type": "checkbox",
+          "id": "red_dot_status",
+          "label": "Red dot status"
+        },
+        { 
           "type": "richtext",
           "id": "text",
           "label": "Text",

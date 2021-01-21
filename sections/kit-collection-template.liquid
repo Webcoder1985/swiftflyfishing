@@ -11,40 +11,42 @@
   {% endif %}
 
   <header class="banner center page-banner dark-overlay-{{ section.settings.image_darken }} full-width--{{ section.settings.wide_display }}">
-      {% if section.settings.image %}
-        {% assign image = section.settings.image %}
-        {% if section.settings.mobile_image != blank %}
-          {% assign mobile_image = section.settings.mobile_image %}
-        {% else %}
-          {% assign mobile_image = section.settings.image %}
-        {% endif %}
-      {%- elsif collection.image -%}
-        {% assign image = collection.image %}
-        {% assign mobile_image = collection.image %}
-      {%- else %}
-        {% assign image = collection.products.first.featured_image %}
-        {% assign mobile_image =  collection.products.first.featured_image%}
+            
+    <div class="icons-bar flex">
+      {% if section.settings.icon_1 != blank and section.settings.icon_title_1 != blank %}
+        <div class="icon-item flex color-white">
+          {{ section.settings.icon_1 }}
+          <span class="color-white">{{section.settings.icon_title_1}}</span>
+        </div>
       {% endif %}
-      <div class="icons-bar flex">
-        {% if section.settings.icon_1 != blank and section.settings.icon_title_1 != blank %}
-          <div class="icon-item flex color-white">
-            {{ section.settings.icon_1 }}
-            <span class="color-white">{{section.settings.icon_title_1}}</span>
-          </div>
+      {% if section.settings.icon_2 != blank and section.settings.icon_title_2 != blank %}
+        <div class="icon-item flex color-white">
+          {{ section.settings.icon_2 }}
+          <span class="color-white">{{section.settings.icon_title_2}}</span>
+        </div>
+      {% endif %}
+      {% if section.settings.icon_3 != blank and section.settings.icon_title_3 != blank%}
+        <div class="icon-item flex color-white">
+          {{ section.settings.icon_3 }}
+          <span class="color-white">{{section.settings.icon_title_3}}</span>
+        </div>
+      {% endif %}
+    </div>    
+    {% if section.settings.image %}
+          {% assign image = section.settings.image %}
+          {% if section.settings.mobile_image != blank %}
+            {% assign mobile_image = section.settings.mobile_image %}
+          {% else %}
+            {% assign mobile_image = section.settings.image %}
+          {% endif %}
+        {%- elsif collection.image -%}
+          {% assign image = collection.image %}
+          {% assign mobile_image = collection.image %}
+        {%- else %}
+          {% assign image = collection.products.first.featured_image %}
+          {% assign mobile_image =  collection.products.first.featured_image%}
         {% endif %}
-        {% if section.settings.icon_2 != blank and section.settings.icon_title_2 != blank %}
-          <div class="icon-item flex color-white">
-            {{ section.settings.icon_2 }}
-            <span class="color-white">{{section.settings.icon_title_2}}</span>
-          </div>
-        {% endif %}
-        {% if section.settings.icon_3 != blank and section.settings.icon_title_3 != blank%}
-          <div class="icon-item flex color-white">
-            {{ section.settings.icon_3 }}
-            <span class="color-white">{{section.settings.icon_title_3}}</span>
-          </div>
-        {% endif %}
-      </div>
+
       {% render 'image-element',
               image: image,
               alt: collection.title,
@@ -53,7 +55,6 @@
               back_to_basics: true,
               additional_classes: 'medium-down--hide'
       %}
-
       {% render 'image-element',
               image: mobile_image,
               alt: collection.title,
@@ -62,22 +63,34 @@
               back_to_basics: true,
               additional_classes: 'hide medium-down--show'
       %}
-
-      {% if section.settings.display_collection_title %}
+      {% if section.settings.display_caption %}
         <div class="caption captionOverlay--true">
-          <h2 class="color-white">{{ collection.title }}</h2>
+          {% if section.settings.display_collection_title %}
+            <h2 class="color-white uppercase">{{ collection.title }}</h2>
+            {% if section.settings.description %}
+              {% assign description = section.settings.description %}
+            {% else %}
+              {% assign description = collection.description %}
+            {% endif %}
+            <h3 class="color-white text-center">{{description}}</h3>
+          {% endif %}
+          {% if section.settings.display_video %}
+            <a href="#video-popup" class="modal_btn video_btn">{% include 'icon-pack' with icon: 'play' %}</a>
+            
+          {% endif %}
         </div>
       {% endif %}
-    
   </header>
-
+  <div id="video-popup" class="modal">
+    <div class="modal-content">
+      {% include 'include-video-popup' %}
+    </div>
+  </div>
   {% if section.settings.wide_display == false %}
     </div>
   </div>
   {% endif %}
 {% endif %}
-
-<a name="pagecontent" id="pagecontent"></a>
 
 <div class="container">
   {% paginate collection.products by section.settings.pagination_limit %}
@@ -148,6 +161,13 @@
         </div>
       {% endif %}
     </div>
+    <div class="hide medium-down--show">
+      <a class="button full-button button-blue sidebar-toggle-button">Filters</a>
+    </div>
+    
+    <div class="sidebar animated fadeInRight">
+      {% include 'sidebar' %}
+    </div>
     <div class="content">
       {% assign top_desc = collection.description | split: '<!-- split -->' | first %}
 
@@ -172,10 +192,13 @@
       {% endif %}
 
       <div class="sixteen columns">
-        {{heading}}
+        <div class="heading">
+          {{heading}}
+        </div>
+        {% include 'image-slider-block', context: 'collection' %}
         {{num_contents}}
-        {% if description contains '<meta charset="utf-8">' %}
-        {% assign description_blocks = description | split: '<meta charset="utf-8">' %}
+        {% if description contains '<!--block-->' %}
+        {% assign description_blocks = description | split: '<!--block-->' %}
         <ul class="toggle-list">
           <li class="active"> 
             <div class="toggle_content animated fadeIn">
@@ -192,15 +215,15 @@
             <a class="toggle_btn"><span class="more">Read More</span><span class="less">Read Less</span></a>
           </li>
         </ul>
-        {% endif %} 
+        {% endif %}
         
-        {% if collection.products.size == 0 %} 
+        {% if collection.products.size == 0 %}
           <div class="section clearfix collection-matrix">
             <p class="quote">{{ 'collections.general.no_matches' | t }}</p>
           </div>
         {% else %}
           {% assign products_per_row = section.settings.products_per_row %}
-          {% render 'product-loop',
+          {% render 'separate-product-loop',
                   paginate: paginate,
                   products: products,
                   products_per_row: products_per_row,
@@ -236,7 +259,7 @@
 
 {
   "name": "Collection",
-  "class": "collection-template-section small-section",
+  "class": "collection-template-section collection-kit-template-section",
   "settings": [
     {
       "type": "header",
@@ -257,11 +280,6 @@
     },
     {
       "type": "checkbox",
-      "id": "display_collection_title",
-      "label": "Show collection title"
-    },
-    {
-      "type": "checkbox",
       "id": "image_darken",
       "label": "Darken image",
       "default": false
@@ -276,6 +294,47 @@
       "type": "image_picker",
       "id": "mobile_image",
       "label": "Mobile image"
+    },
+    {
+      "type": "checkbox",
+      "id": "display_caption",
+      "label": "Display caption"
+    },
+    {
+      "type": "checkbox",
+      "id": "display_collection_title",
+      "label": "Display collection title"
+    },
+    {
+      "type": "text",
+      "id": "description",
+      "label": "Description"
+    },
+    {
+      "type": "checkbox",
+      "id": "display_video",
+      "label": "Display video"
+    },
+    {
+      "type": "header",
+      "content": "video"
+    },
+    {
+      "type": "checkbox",
+      "id": "video_status",
+      "label": "Show video"
+    },
+    {
+      "type": "video_url",
+      "id": "iframe_video",
+      "label": "Video link",
+      "accept": ["youtube", "vimeo"],
+      "default": "https://www.youtube.com/watch?v=_9VUPq3SxOc"
+    },
+    {
+      "type": "text",
+      "id": "html5_video",
+      "label": "HTML5 MP4/OGV File URL"
     },
     {
       "type": "header",
@@ -323,7 +382,7 @@
     },
     {
       "type": "header",
-      "content": "heading block"
+      "content": "image slider block"
     },
     {
       "type": "text",
@@ -336,7 +395,31 @@
       "id": "image_slider_desc",
       "label": "Description"
     },
-    { 
+    {
+      "type": "image_picker",
+      "id": "image_slider_bg_image",
+      "label": "Bacground image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_slider_hover_image",
+      "label": "Hover image"
+    },
+    {
+      "type": "header",
+      "content": "sidebar"
+    },
+    {
+      "type": "checkbox",
+      "id": "collection_tags",
+      "label": "Enable filtering by product tag"
+    },
+    {
+      "type": "checkbox",
+      "id": "collection_sort",
+      "label": "Enable collection sorting"
+    },
+    {
       "type": "header",
       "content": "Products"
     },
@@ -357,6 +440,214 @@
       "max": 50,
       "step": 1,
       "default": 48
+    },
+    {
+      "type": "header",
+      "content": "Sidebar"
+    },
+    {
+      "type": "paragraph",
+      "content": "Create a sidebar by adding content blocks."
+    },
+    {
+      "type": "checkbox",
+      "id": "toggle",
+      "label": "Toggle sidebar content",
+      "default": false
+    }
+  ],
+  "blocks": [
+    {
+      "type": "text-block",
+      "name": "Text block",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "text",
+          "id": "sub_title",
+          "label": "Sub title"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Description"
+        },
+        {
+          "type": "checkbox",
+          "id": "list_style",
+          "label": "List style status"
+        }
+      ]
+    },
+    {
+      "type": "text-carousel",
+      "name": "Text Carousel",
+      "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title"
+          },
+          {
+            "type": "richtext",
+            "id": "text",
+            "label": "Text"
+          },
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          }
+      ]
+    },
+    {
+      "type": "label",
+      "name": "Label",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "TItle"
+        },
+        {
+          "type": "text",
+          "id": "left_pos",
+          "label": "Left Position"
+        },
+        {
+          "type": "text",
+          "id": "top_pos",
+          "label": "Top position"
+        },
+        {
+          "type": "select",
+          "id": "direction",
+          "label": "Label directoin",
+          "options": [
+            {
+              "value": "top",
+              "label": "Top"
+            },
+            {
+              "value": "bottom",
+              "label": "Bottom"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "filter_by_collection",
+      "name": "Collection list",
+      "limit": 1
+    },
+    {
+      "type": "menu",
+      "name": "Menu",
+      "settings": [
+        {
+          "type": "link_list",
+          "id": "custom_menu_linklist",
+          "label": "Menu"
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "name": "Page",
+      "settings": [
+        {
+          "type": "page",
+          "id": "content_page",
+          "label": "Page"
+        }
+      ]
+    },
+    {
+      "type": "recently_viewed",
+      "name": "Recently viewed products",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "To test the recently viewed products, view your online store outside of the Editor and visit multiple product pages. [Learn more](https:\/\/help.outofthesandbox.com\/hc\/en-us\/articles\/115008765228)"
+        },
+        {
+          "type": "text",
+          "id": "sidebar_rv_title",
+          "label": "Title",
+          "default": "Recently Viewed"
+        },
+        {
+          "type": "range",
+          "id": "sidebar_rv_per",
+          "label": "Products limit",
+          "min": 1,
+          "max": 4,
+          "step": 1,
+          "default": 3
+        }
+      ]
+    },
+    {
+      "type": "filter",
+      "name": "Tag filter",
+      "limit": 5,
+      "settings": [
+        {
+          "type": "text",
+          "id": "filter_name",
+          "label": "Title"
+        },
+        {
+          "type": "textarea",
+          "id": "filter_tags",
+          "label": "Filter tags",
+          "info": "Add a comma-separated list of product tags. Only the tags found in the collection will be displayed as filters. [Learn more](https://help.outofthesandbox.com/hc/en-us/articles/115008642047)"
+        },
+        {
+          "type": "checkbox",
+          "id": "enable_filter_swatches",
+          "label": "Display color swatches"
+        }
+      ]
+    },
+    {
+      "type": "filter_by_tag",
+      "name": "Tag list",
+      "limit": 1
+    },
+    {
+      "type": "text",
+      "name": "Text",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Heading"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Text area can be used for special announcements or general information.</p>"
+        }
+      ]
+    },
+    {
+      "type": "filter_by_type",
+      "name": "Type list",
+      "limit": 1
+    },
+    {
+      "type": "filter_by_vendor",
+      "name": "Vendor list",
+      "limit": 1
     }
   ]
 }

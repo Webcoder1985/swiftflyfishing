@@ -150,12 +150,13 @@
                 {% if section.settings.enable_shopify_product_badges and settings.enable_shopify_review_comments %}
                 <span class="stamped-product-reviews-badge stamped-main-badge" data-id="{{ product_original.id }}" data-product-sku="{{ product_original.handle }}" style="display: inline-block;" onclick="$('.tabs li:nth-child(3) a').click()">{{ product_original.metafields.stamped.badge }}</span>
                 {% endif %}
-                {% if section.settings.payment_status %}
-                  <div class='custom_text'>Or, fish now pay later with up to 4 payments of  {{ wcp_v_price  | divided_by: 4 | money }} with Splitit.<br> Available at checkout. Interest free.</div>
-                {% elsif product.description contains '<!--splite-->' %}
+                {% if product.description contains '<!--info-->' %}
                   <div class='custom_text'>
-                    {{ product.description | split: '<!--splite-->' | first }}
+                    {{ product.description | split: '<!--info-->' | first }}
+                    {% assign product_description = product.description | split: '<!--info-->' | last %}
                   </div>
+                {% else %}
+                  {% assign product_description = product.description %}
                 {% endif %}
               {% endif %}
               
@@ -178,9 +179,9 @@
             
 
             {% if section.settings.product_description_position == "top" %}
-              {% if product.description != blank %}
+              {% if product_description != blank %}
                <div class="description" itemprop="description">
-                 {{ product.description | split: '<!-- split -->' | first }}
+                 {{ product_description | split: '<!-- split -->' | first }}
                </div>
              {% endif %}
             {% endif %}
@@ -188,6 +189,10 @@
             {% unless collection_handles contains 'coming-soon' %}
               {% include 'product-form' with 'product' %}
             {% endunless %}
+            {%- comment -%}
+               {% include 'product-notify-me' %}
+            {%- endcomment -%}
+            
             <div class="icon-tags">
               <p class="icon-tag">
                 {% include 'icon-pack' with icon: 'guarantee' %}
@@ -198,41 +203,47 @@
                 Lifetime Warranty
               </p>
             </div>
-            <ul class="toggle-list">
-              <li>
-                <a class="toggle_btn">Description</a>
-                <div class="toggle_content animated fadeIn">
-                  {% if product.description contains "split" %}
-                    {% assign description_parts = product.description | split: '<!-- split -->' %}
+            {% if product_description != blank %}
+              <ul class="toggle-list">
+                <li>
+                  <a class="toggle_btn">Description</a>
+                  <div class="toggle_content animated fadeIn">
+                    {% if product_description contains "split" %}
+                      {% assign description_parts = product_description | split: '<!-- split -->' %}
                       {{ description_parts[0] }}
                     {% else %}
-                  {% endif %}
-                </div>
-              </li>
-              <li>
-                <a class="toggle_btn">Specs</a>
-                  <div class="toggle_content animated fadeIn">
-                    {% if product.description contains "split" %}
-                      {% assign description_parts = product.description | split: '<!-- split -->' %}
-                        {{ description_parts[1] }}
-                      {% else %}
+                      {{product_description}}
                     {% endif %}
                   </div>
-              </li>               
-              <li>
-                <a class="toggle_btn">Benefits</a>
-                <div class="toggle_content animated fadeIn">
-                  {% if product.description contains "split" %}
-                    {% assign description_parts = product.description | split: '<!-- split -->' %}
-                      {{ description_parts[2] }}
-                    {% else %}
+                </li>
+                {% if product_description contains "split" %}
+                  {% assign description_parts = product_description | split: '<!-- split -->' %}
+                   
+                  {% if description_parts[1] != blank %}
+                    <li>
+                      <a class="toggle_btn">Specs</a>
+                        <div class="toggle_content animated fadeIn">
+                          {{ description_parts[1] }}
+                        </div>
+                    </li> 
                   {% endif %}
-                </div>
-              </li> 
-            </ul>        
-            
+                {% endif %}
 
-
+                {% if product_description contains "split" %}
+                  {% assign description_parts = product_description | split: '<!-- split -->' %}
+                  
+                  {% if description_parts[2] != blank %}
+                  <li>
+                    <a class="toggle_btn">Benefits</a>
+                    <div class="toggle_content animated fadeIn">
+                      {{ description_parts[2] }}
+                    </div>
+                  </li> 
+                  {% endif %}
+                {% endif %}       
+                
+              </ul>    
+            {% endif %}
             {% if section.settings.enable_reviews_in_description %}
               {% include 'include-reviews', type: 'block' %}
             {% endif %}
@@ -1175,7 +1186,7 @@
           "id": "red_dot_status",
           "label": "Red dot status"
         },
-        {
+        { 
           "type": "richtext",
           "id": "text",
           "label": "Text",

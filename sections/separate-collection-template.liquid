@@ -174,34 +174,39 @@
       {% if collection.description contains '<!--heading-->' %}
       {% assign heading = top_desc | split: '<!--heading-->' | first %}
       {% assign tmp = top_desc | split: '<!--heading-->' | last %}
+      {% else %}
+      {% assign tmp = top_desc %}
       {% endif %}
       
 
       {% if collection.description contains '<!--images-->' %}
       {% assign images = tmp | split: '<!--images-->' | first %}
       {% assign tmp = tmp | split: '<!--images-->' | last %}
+      {% else %}
+      {% assign tmp = top_desc %}
       {% endif %}
 
       {% if collection.description contains '<!--content_list-->' %}
       {% assign num_contents = tmp | split: '<!--content_list-->' | first %}
       {% assign tmp = tmp | split: '<!--content_list-->' | last %}
+      {% else %}
+      {% assign tmp = top_desc %}
       {% endif %}
       
       {% if collection.description contains '<!--description-->' %}
       {% assign description = tmp | split: '<!--description-->' | first %}
+      {% else %}
+      {% assign tmp = top_desc %}
       {% endif %}
 
       <div class="sixteen columns">
-        {{heading}}
-        {% if images != blank %}
-          {% assign img_array = images | split: '<img' %}
-          {% if img_array[1] != blank and img_array[2] != blank %}
-          {% include 'collection-image-slider-block' with images: img_array %}
-          {% endif %}
-        {% endif %}
+        <div class="heading">
+          {{heading}}
+        </div>
+        {% include 'image-slider-block', context: 'collection' %}
         {{num_contents}}
-        {% if description contains '<meta charset="utf-8">' %}
-        {% assign description_blocks = description | split: '<meta charset="utf-8">' %}
+        {% if description contains '<!--block-->' %}
+        {% assign description_blocks = description | split: '<!--block-->' %}
         <ul class="toggle-list">
           <li class="active"> 
             <div class="toggle_content animated fadeIn">

@@ -155,34 +155,53 @@
       {% include 'sidebar' %}
     </div>
     <div class="content">
+      {% assign top_desc = collection.description | split: '<!-- split -->' | first %}
+
+      {% if collection.description contains '<!--heading-->' %}
+      {% assign heading = top_desc | split: '<!--heading-->' | first %}
+      {% assign top_desc = top_desc | split: '<!--heading-->' | last %}
+      {% endif %}
+      
+
+      {% if collection.description contains '<!--images-->' %}
+      {% assign images = top_desc | split: '<!--images-->' | first %}
+      {% assign top_desc = top_desc | split: '<!--images-->' | last %}
+      {% endif %}
+
+      {% if collection.description contains '<!--content_list-->' %}
+      {% assign num_contents = top_desc | split: '<!--content_list-->' | first %}
+      {% assign top_desc = top_desc | split: '<!--content_list-->' | last %}
+      {% endif %}
+      
+      {% if collection.description contains '<!--description-->' %}
+      {% assign description = top_desc | split: '<!--description-->' | first %}
+      {% endif %}
+
       <div class="sixteen columns">
+        <div class="heading">
+          {{heading}}
+        </div>
+        
         {% include 'image-slider-block', context: 'collection' %}
-        {% if collection.description contains '<!-- split -->' %}
-        {% assign description_top = collection.description | split:"<!-- split -->" | first  | replace: '<!-- </div> -->', '</div></div></div>'  | replace: '<!-- <div> -->', '<div class="container pd_mg_0"><div class="sixteen columns"><div class="section clearfix collection_description pd_mg_0">' %}
-        {% endif %}
-        {% if description_top != blank and description_top contains '<div clas="block">' %}
-          <ul class="toggle-list">
-            <li class="active"> 
-              <div class="toggle_content animated fadeIn">
-                <div class="discription-slider-content sixteen columns">
-                  <div class="description-slider">
-                    {% if description_top contains '<div clas="block">' %}
-                      {% assign description_array = description_top | remove_first: '<div clas="block">' | split: '<div clas="block">' %}
-                      {% for desc in description_array %}
-                        {% assign description = desc | prepend: '<div clas="block">' %}
-                        <div class="one-half description-item column gallery-cell">
-                          <div class="description-block list_style_{{block.settings.list_style}} style_1">
-                            {{ description }}
-                          </div>
-                        </div>
-                      {% endfor %}
-                    {% endif %}
-                  </div>
+        {{num_contents}}
+        {% if description contains '<!--block-->' %}
+        {% assign description_blocks = description | split: '<!--block-->' %}
+        <ul class="toggle-list">
+          <li class="active"> 
+            <div class="toggle_content animated fadeIn">
+              <div class="discription-slider-content sixteen columns">
+                <div class="description-slider">
+                  {% for desc in description_blocks %}
+                      <div class="one-half description-item column gallery-cell">
+                        {{ desc }}
+                      </div>
+                  {% endfor %}
                 </div>
               </div>
-              <a class="toggle_btn"><span class="more">Read More</span><span class="less">Read Less</span></a>
-            </li>
-          </ul>
+            </div>
+            <a class="toggle_btn"><span class="more">Read More</span><span class="less">Read Less</span></a>
+          </li>
+        </ul>
         {% endif %}
         
         {% if collection.products.size == 0 %}

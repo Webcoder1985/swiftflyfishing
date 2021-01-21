@@ -1,0 +1,35 @@
+{% comment %}
+  The contents of the collection.liquid template can be found in /sections/collection-template.liquid
+{% endcomment %}
+<a name="pagecontent" id="pagecontent"></a>
+{% section 'kit-collection-template' %}
+{% section 'recently-viewed' %}
+{% section 'featured-products-gallery' %}
+{% section 'collection-list' %}
+{% section 'image-reviews' %}
+{% if collection.metafields.stamped.reviews_count and collection.metafields.stamped.reviews_count != "0" %} 
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "LocalBusiness",
+  "name": "{{shop.name}}",
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "bestRating": "5",
+    "worstRating": "1",
+    "reviewCount": "{{ collection.metafields.stamped.reviews_count }}",
+    "ratingValue": "{{ collection.metafields.stamped.reviews_average | round:2 }}"
+  },
+  "image": "https://cdn.shopify.com/s/files/1/0120/5852/files/Epic-White-main_410x.png?v=1551929323",
+  "priceRange": "$",
+  "address": {
+  	"addressLocality": "{{shop.address.city}}",
+    "addressRegion": "{{shop.address.province_code}}",
+    "streetAddress": "{{shop.address.street}}",
+    "postalCode": "{{shop.address.zip}}",
+    "addressCountry": "{{shop.address.country}}"
+    },
+    "telephone": "{{shop.phone}}"
+}
+</script>
+{% endif %}
