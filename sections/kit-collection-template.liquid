@@ -92,7 +92,7 @@
   {% endif %}
 {% endif %}
 
-<div class="container">
+<div class="container full-width--true">
   {% paginate collection.products by section.settings.pagination_limit %}
     <div class="clearfix breadcrumb-collection">
       {% if section.settings.collection_breadcrumb %}
@@ -161,8 +161,8 @@
         </div>
       {% endif %}
     </div>
-    <div class="hide medium-down--show">
-      <a class="button full-button button-blue sidebar-toggle-button">Filters</a>
+    <div class="hide large-down--show">
+      <a class="button full-button button-center button-blue sidebar-toggle-button">Filters</a>
     </div>
     
     <div class="sidebar animated fadeInRight">
@@ -192,11 +192,13 @@
       {% endif %}
 
       <div class="sixteen columns">
+        {% if heading != blank %}
         <div class="heading">
           {{heading}}
         </div>
+        {% endif %}
         {% include 'image-slider-block', context: 'collection' %}
-        {{num_contents}}
+        {{num_contents | replace: 'o.', '<span class="o"></span>'}}
         {% if description contains '<!--block-->' %}
         {% assign description_blocks = description | split: '<!--block-->' %}
         <ul class="toggle-list">
@@ -535,6 +537,21 @@
             {
               "value": "bottom",
               "label": "Bottom"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "position",
+          "label": "Label Position",
+          "options": [
+            {
+              "value": "background",
+              "label": "background"
+            },
+            {
+              "value": "slider",
+              "label": "slider"
             }
           ]
         }

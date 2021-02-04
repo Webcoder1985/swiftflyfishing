@@ -84,9 +84,6 @@
       {% endif %}
     </a>
     <div class="top-bar--right">
-      {% if section.settings.search_enabled %}
-        <a href="{{ routes.search_url }}" class="icon-search dropdown_link" title="{{ 'general.search.title' | t | escape }}" data-dropdown-rel="search"></a>
-      {% endif %}
       {% if section.settings.show_cart %}
         <div class="cart-container">
           <a href="{{ routes.cart_url }}" class="mini_cart dropdown_link" title="{{ 'layout.general.cart' | t | escape }}" data-no-instant>  {% include 'icon-pack' with icon: 'cart' %}<span class="cart_count">{{ cart.item_count }}</span></a>
@@ -95,21 +92,18 @@
     </div>
 
   </div>
-  {% if section.settings.search_enabled %}
-    <div class="dropdown_container center" data-dropdown="search">
-      <div class="dropdown">
-        <form action="{{ routes.search_url }}" class="header_search_form">
+  
+  <div class="dropdown_container" data-dropdown="mobile_menu">
+    <div class="dropdown">
+      {% if section.settings.search_enabled %}
+        <form action="{{ routes.search_url }}" class="header_search_form"> 
           {% if settings.search_option != 'everything' %}
             <input type="hidden" name="type" value="product" />
           {% endif %}
           <span class="icon-search search-submit"></span>
           <input type="text" name="q" placeholder="{{ 'general.search.title' | t: shop_name: shop.name }}" autocapitalize="off" autocomplete="off" autocorrect="off" class="search-terms" />
         </form>
-      </div>
-    </div>
-  {% endif %}
-  <div class="dropdown_container" data-dropdown="mobile_menu">
-    <div class="dropdown">
+      {% endif %}
       <ul class="menu" id="mobile_menu">
         {% render 'mobile-menu', menu: section.settings.mobile_main_menu, context: 'mobile_main_menu' %}
         {% render 'mobile-menu', menu: section.settings.mobile_secondary_menu, context: 'secondary_menu' %}
@@ -239,18 +233,9 @@
 
         {% capture search %}
           {% if section.settings.search_enabled %}
-            <div class="search-container" data-autocomplete-{{ settings.enable_autocomplete }}>
-              <form action="{{ routes.search_url }}" class="search_form">
-                {% if settings.search_option != 'everything' %}
-                  <input type="hidden" name="type" value="product" />
-                {% endif %}
-                <span class="icon-search search-submit"></span>
-                <input type="text" name="q" placeholder="{{ 'general.search.title' | t: shop_name: shop.name }}" value="{% if search and search.results.first.price %}{{ search.terms | replace: '*', '' }}{% endif %}" autocapitalize="off" autocomplete="off" autocorrect="off" />
-              </form>
-              <div class="search-link">
-                <a href="{{ routes.search_url }}" class="icon-search dropdown_link" title="{{ 'general.search.title' | t | escape }}" data-dropdown-rel="search"></a>
-              </div>
-            </div>
+            <li class="search-container" data-autocomplete-{{ settings.enable_autocomplete }}>
+                <a href="{{ routes.search_url }}" class="icon-search" title="{{ 'general.search.title' | t | escape }}" data-dropdown-rel="search"></a>
+            </li>
           {% endif %}
         {% endcapture %}
 
@@ -263,7 +248,6 @@
                   {{ menu_right }}
                 </ul>
               </div>
-              {{ search }}
             {% else %}
               <div class="nav nav--left">
                 <ul class="menu {{ section.settings.menu_alignment }}">
@@ -274,6 +258,7 @@
               <div class="nav nav--right">
                 <ul class="menu {% if section.settings.menu_alignment == 'align_left' %}align_right{% elsif section.settings.menu_alignment == 'align_right' %}align_left{% else %}{{ section.settings.menu_alignment }}{% endif %}">
                   {{ menu_right }}
+                  {{ search }}
                   {% if shop.customer_accounts_enabled %}
                   {% if locale_selector or currency_selector or settings.show_multiple_currencies == true %}
                     <li class="localization-wrap">
@@ -300,7 +285,6 @@
                   </div>
                 {% endif %}
               </div>
-              {{ search }}
             {% endif %}
         {% else %}
           {{ logo }}
@@ -313,14 +297,18 @@
           </div>
         {% endif %}
         <div class="dropdown_container center" data-dropdown="search">
-          <div class="dropdown" data-autocomplete-{{ settings.enable_autocomplete }}>
-            <form action="{{ routes.search_url }}" class="header_search_form">
-              {% if settings.search_option != 'everything' %}
-                <input type="hidden" name="type" value="product" />
-              {% endif %}
-              <span class="icon-search search-submit"></span>
-              <input type="text" name="q" placeholder="{{ 'general.search.title' | t: shop_name: shop.name }}" autocapitalize="off" autocomplete="off" autocorrect="off" class="search-terms" />
-            </form>
+          <div class="dropdown search" data-autocomplete-{{ settings.enable_autocomplete }}>
+            <div class="relative search-content">
+              <a class="close"></a>
+              <h1 class="text-center">Start typing and hit Enter</h1>
+              <form action="{{ routes.search_url }}" class="header_search_form">
+                {% if settings.search_option != 'everything' %}
+                  <input type="hidden" name="type" value="product" />
+                {% endif %}
+                <span class="icon-search search-submit"></span>
+                <input type="text" name="q" placeholder="{{ 'general.search.title' | t: shop_name: shop.name }}" autocapitalize="off" autocomplete="off" autocorrect="off" class="search-terms" />
+              </form>
+            </div>
           </div>
         </div>
 

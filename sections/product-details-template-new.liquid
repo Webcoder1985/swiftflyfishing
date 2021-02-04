@@ -112,7 +112,7 @@
                 <span itemprop="sku">{{ variant.sku }}</span>
               </p>
             {% endif %}
-            <h3 class="product_name uppercase" itemprop="name">{{ product.title }}</h3>
+            <h1 class="product_name uppercase" itemprop="name">{{ product.title }}</h1>
             <div class="price-info">
               {% if collection_handles contains 'coming-soon' %}
                 <p class="modal_price">{{ 'collections.general.coming_soon' | t }}</p>
@@ -163,7 +163,6 @@
             </div>
               
             <div class="feature_divider"></div>
-
             {% assign product_tags = product.tags | join: ' ' %}
             {% if product_tags contains 'meta-size-chart-' %}
               {% for tag in product.tags %}
@@ -189,19 +188,21 @@
             {% unless collection_handles contains 'coming-soon' %}
               {% include 'product-form' with 'product' %}
             {% endunless %}
-            {%- comment -%}
-               {% include 'product-notify-me' %}
-            {%- endcomment -%}
+
+            {% include 'product-notify-me' %}
+
             
             <div class="icon-tags">
               <p class="icon-tag">
                 {% include 'icon-pack' with icon: 'guarantee' %}
                 30 Day Love it or Return it Guarantee
               </p>
-              <p class="icon-tag">
-                {% include 'icon-pack' with icon: 'warranty' %}
-                Lifetime Warranty
-              </p>
+              {% if product.tags contains 'Fly Rod' %}
+                <p class="icon-tag">
+                  {% include 'icon-pack' with icon: 'warranty' %}
+                  Lifetime Warranty
+                </p>
+              {% endif %}
             </div>
             {% if product_description != blank %}
               <ul class="toggle-list">
@@ -354,9 +355,12 @@
                 </div>
                 <div class="featured-link--half">
                   <div class="info text-align--{{block.settings.frontpage_text_align}}">
-                    <a {% if block.settings.link != blank %}href="{{ block.settings.link }}"{% endif %} class="{%if block.settings.red_dot_status %}red_dot {% endif %}collection_title uppercase">
-                      {{ block.settings.title }}
-                    </a>
+                    <h2>
+                      <a {% if block.settings.link != blank %}href="{{ block.settings.link }}"{% endif %} class="{%if block.settings.red_dot_status %}red_dot {% endif %}collection_title uppercase">
+                        {{ block.settings.title }}
+                      </a>
+                    </h2>
+                    
                     {% if block.settings.text != blank %}
                       <div class="description">{{ block.settings.text }}</div>
                     {% endif %}

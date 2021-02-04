@@ -31,9 +31,11 @@
     <div class="featured-link--half">
       <div class="info text-align--{{block.settings.frontpage_text_align}}">
         {% if block.settings.title != blank %}
-          <a {% if block.settings.link != blank %}href="{{ block.settings.link }}"{% endif %} class="collection_title red_dot-{{block.settings.red_dot_status}}  title-{{block.settings.title_size}}">
-            {{ block.settings.title }}
-          </a>
+          <h2>
+            <a {% if block.settings.link != blank %}href="{{ block.settings.link }}"{% endif %} class="collection_title red_dot-{{block.settings.red_dot_status}}  title-{{block.settings.title_size}}">
+              {{ block.settings.title }}
+            </a>
+          </h2>
         {% endif %}
         
         <h4 class="uppercase">{{block.settings.sub_title}}</h4>

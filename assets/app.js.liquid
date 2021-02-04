@@ -1589,6 +1589,16 @@ $(document).ready(function () {
     arrowShape: arrow
   });
 
+  $('.icon-search').on('click', function (e) {
+    e.preventDefault();
+    $(this).parents('.main-nav').find('[data-dropdown="search"]').addClass("active");
+  })
+
+  $('.main-nav .dropdown_container[data-dropdown="search"] .close').on('click', function (e) {
+    e.preventDefault();
+    $(this).parents('.dropdown_container').removeClass('active');
+  })
+
   $('.image-text-overlay-slider').flickity({
     wrapAround: true,
     pageDots: true,
@@ -1624,9 +1634,7 @@ $(document).ready(function () {
     $(document).scrollTop(position.top);
   })
   
-  $('.image_with_text_overlay_block .strip_4 .point').each(function () {
-    $(this).find('.point_numeral').html('N<span class="o"></span>');
-  })
+  
 
 
   if(Shopify.theme_settings.cart_action == 'ajax') {
@@ -1666,66 +1674,79 @@ $(window).on('load', function () {
 })
 
 function init  (){
-  bar = document.getElementById('bar');
-  collection_bar = document.getElementById('collection-bar');
+  var side_status = false;
+  if (document.getElementById('collection-bar') != null) {
+    bar = document.getElementById('collection-bar');
+    side_status = true;
+  } else {
+    bar = document.getElementById('bar');
+  }
+
   if (bar != null) {
+    bar_width = bar.clientWidth;
+    $('.label-content').css('width', bar_width);
+    if (!side_status) {
     
-    slider = document.getElementById('slider');
+      slider = document.getElementById('slider');
+    
+      bar.addEventListener('mousedown', startSlide, false);	
+      bar.addEventListener('mouseup', stopSlide, false);
+      bar.addEventListener('touchstart', startSlide, false);	
+      bar.addEventListener('touchend', stopSlide, false);
   
-    bar.addEventListener('mousedown', startSlide, false);	
-    bar.addEventListener('mouseup', stopSlide, false);
-    bar.addEventListener('touchstart', startSlide, false);	
-    bar.addEventListener('touchend', stopSlide, false);
-
-    var set_perc = 0.5;
-    slider.style.width = (set_perc * 100) + '%';
+      var set_perc = 0.5;
+      slider.style.width = (set_perc * 100) + '%';
+    } else {
+      slider = document.getElementById('slider');
+      if ($(window).width() > 1024) {
+        bar.addEventListener('mousedown', collection_startSlide, false);	
+        bar.addEventListener('mouseup', collection_stopSlide, false);
+        bar.addEventListener('touchstart', collection_startSlide, false);	
+        bar.addEventListener('touchend', collection_stopSlide, false);
+      } else {
+        bar.addEventListener('mousedown', startSlide, false);	
+        bar.addEventListener('mouseup', stopSlide, false);
+        bar.addEventListener('touchstart', startSlide, false);	
+        bar.addEventListener('touchend', stopSlide, false);
+      }
+     
+  
+      var set_perc = 0.5;
+      slider.style.width = (set_perc * 100) + '%';
+    }
   }
-
-  if (collection_bar) {
-    slider = document.getElementById('slider');
-
-    collection_bar.addEventListener('mousedown', collection_startSlide, false);	
-    collection_bar.addEventListener('mouseup', collection_stopSlide, false);
-    collection_bar.addEventListener('touchstart', collection_startSlide, false);	
-    collection_bar.addEventListener('touchend', collection_stopSlide, false);
-
-    var set_perc = 0.5;
-    slider.style.width = (set_perc * 100) + '%';
-  }
+  
   
 }
 
 function collection_startSlide(event){
-  console.log(event.clientX);
-  console.log($(window).width()-$('.container').width());
-  console.log(collection_bar.offsetLeft);
-  var event_pos = event.clientX - (($(window).width()-$('.container').width())/2 + 300 + 10 + collection_bar.offsetLeft);
-  var set_perc = ((event_pos / collection_bar.offsetWidth).toFixed(2));	
-  collection_bar.addEventListener('mousemove', collection_moveSlide, false);	
-  collection_bar.addEventListener('touchmove', collection_handleMove, false);
+  var event_pos = event.clientX - (($(window).width()-$('.container').width())/2 + 200 + 10 + bar.offsetLeft);
+  var set_perc = ((event_pos / bar.offsetWidth).toFixed(2));	
+  bar.addEventListener('mousemove', collection_moveSlide, false);	
+  bar.addEventListener('touchmove', collection_handleMove, false);
   slider.style.width = ((set_perc) * 100) + '%';	
 }
 
 
 
 function collection_moveSlide(event){
-  var event_pos = event.clientX - (($(window).width()-$('.container').width())/2 + 300 + 10 + collection_bar.offsetLeft);
-  var set_perc = ((((event_pos) / collection_bar.offsetWidth)).toFixed(2));	
+  var event_pos = event.clientX - (($(window).width()-$('.container').width())/2 + 200 + 10 + bar.offsetLeft);
+  var set_perc = ((((event_pos) / bar.offsetWidth)).toFixed(2));	
   slider.style.width = ((set_perc) * 100) + '%';
 }
 
 function collection_stopSlide(event){
-  var event_pos = event.clientX - (($(window).width()-$('.container').width())/2 + 300 + 10 + collection_bar.offsetLeft);
-  var set_perc = ((((event_pos) / collection_bar.offsetWidth)).toFixed(2));	
-  collection_bar.removeEventListener('mousemove', collection_moveSlide, false);
-  collection_bar.addEventListener('touchmove', collection_handleMove, false);
+  var event_pos = event.clientX - (($(window).width()-$('.container').width())/2 + 200 + 10 + bar.offsetLeft);
+  var set_perc = ((((event_pos) / bar.offsetWidth)).toFixed(2));	
+  bar.removeEventListener('mousemove', collection_moveSlide, false);
+  bar.addEventListener('touchmove', collection_handleMove, false);
   slider.style.width = ((set_perc) * 100) + '%';
 }
 
 function collection_handleMove(evt) {
   evt.preventDefault();
   var touches = evt.changedTouches;
-  var set_perc = ((((touches[0].clientX - collection_bar.offsetLeft) / collection_bar.offsetWidth)).toFixed(2));
+  var set_perc = ((((touches[0].clientX - bar.offsetLeft) / bar.offsetWidth)).toFixed(2));
   slider.style.width = ((set_perc) * 100) + '%';
 }
 

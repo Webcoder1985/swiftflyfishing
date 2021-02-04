@@ -2253,7 +2253,7 @@ $cart--icon-width: 70px;
   }
 
   &.search-enabled--true .nav--right {
-    width: calc(45% - #{$search--box-width + 20px}); // includes 20px to account for padding on search container
+    width: calc(65% - #{$search--box-width + 20px}); // includes 20px to account for padding on search container
   }
 
   .nav {
@@ -2274,14 +2274,7 @@ $cart--icon-width: 70px;
 }
 
 .search-container {
-  width: 100%;
-  max-width: $search--box-width;
   padding-left: 20px;
-
-  .search-link {
-    display: none;
-  }
-
   input {
     z-index: 29;
   }
@@ -7179,7 +7172,7 @@ a.tag {
     {% if settings.thumbnail_hover_enabled == false %}
       display: block;
     {% endif %}
-    margin-top: 20px;
+    margin-top: 0px;
     @include respond-to('medium-down'){
       display: block;
     }
@@ -8784,7 +8777,7 @@ $topMenuHeight: 60px;
   .mobile_nav-fixed--false {
     #pagecontent {
       display: block;
-      padding-bottom: $topMenuHeight;
+      padding-bottom: 90px;
     }
     //page banner is visible
     .page-banner {
@@ -9314,7 +9307,7 @@ h3.quick-shop__title a {
   margin: 0 auto 40px;
   .gallery-cell {
     display: inline-block;
-    margin-right: 8px;
+    margin-right: 5px;
     text-align: center;
     padding: 0;
     margin-bottom: 0;
@@ -12542,7 +12535,7 @@ $delay: 0;
   content: '';
   position: absolute;
   z-index: 2;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.25);
   top: 0;
   bottom: 0;
   left: 0;

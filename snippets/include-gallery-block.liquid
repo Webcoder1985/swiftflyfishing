@@ -30,8 +30,8 @@
       {% if block.type =="image" %}
         {% if block.settings.image != blank%}
 
-          <div class="gallery-image-wrapper {% unless section.settings.gallery_type == 'horizontal' or section.settings.gallery_type == 'masonry'  %}{% if images_per_row == 2 %}two-per-row{% elsif images_per_row == 3 %}three-per-row{% elsif images_per_row == 4 %}four-per-row{% else %}five-per-row{% endif %}{% endunless %} {% unless section.settings.wide_display %}add-padding{% endunless %}" {{ block.shopify_attributes }}>
-
+          <div class="gallery-image-wrapper {% unless section.settings.gallery_type == 'horizontal' or section.settings.gallery_type == 'masonry'  %}{% if images_per_row == 2 %}two-per-row{% elsif images_per_row == 3 %}three-per-row{% elsif images_per_row == 4 %}four-per-row{% else %}five-per-row{% endif %}{% endunless %}" {{ block.shopify_attributes }}>
+ 
             <div class="gallery-cell">
               {% if section.settings.enable_lightbox %}
               <a  href="javascript:;"
@@ -79,18 +79,6 @@
         {% endif %}
       {% endif %}
       
-
-      {% unless section.settings.gallery_type == 'horizontal' or section.settings.gallery_type == 'masonry' %}
-        {% if images_per_row == 2 %}
-          {% cycle '', '<br class="clear" />' %}
-        {% elsif images_per_row == 3 %}
-          {% cycle '', '', '<br class="clear" />' %}
-        {% elsif images_per_row == 4 %}
-          {% cycle '', '', '', '<br class="clear" />' %}
-        {% elsif images_per_row == 5 %}
-          {% cycle '', '', '', '', '<br class="clear" />' %}
-        {% endif %}
-      {% endunless %}
     {% endfor %}
 
     {% if section.settings.gallery_type == 'masonry' %}

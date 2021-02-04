@@ -49,10 +49,13 @@
                   %}
                   {% endif %}
                   {% if block.settings.title != blank %}
-                    <p class="headline">
+                    <h2 class="headline">
                       {{ block.settings.title }}
-                    </p>
+                    </h2>
+                    {% if section.settings.devider_status %}
                     <div class="feature_divider"></div>
+                    {% endif %}
+                    
                   {% endif %}
                   <div class="subtitle">
                     {% include 'icon-pack' with icon: 'quote' %}
@@ -153,6 +156,11 @@
           "id": "title",
           "label": "Heading",
           "default": "Customer Testimonial"
+        },
+        {
+          "type": "checkbox",
+          "id": "divider_status",
+          "label": "Show divider"
         },
         {
           "type": "richtext",

@@ -92,7 +92,7 @@
   {% endif %}
 {% endif %}
 
-<div class="container">
+<div class="container full-width--true">
   {% paginate collection.products by section.settings.pagination_limit %}
     <div class="clearfix breadcrumb-collection">
       {% if section.settings.collection_breadcrumb %}
@@ -161,15 +161,20 @@
         </div>
       {% endif %}
     </div>
-    <div class="hide medium-down--show">
-      <a class="button full-button button-blue sidebar-toggle-button">Filters</a>
+    <div class="hide large-down--show">
+      <a class="button full-button button-center button-blue sidebar-toggle-button">Filters</a>
     </div>
     
     <div class="sidebar animated fadeInRight">
       {% include 'sidebar' %}
     </div>
     <div class="content">
-      {% assign top_desc = collection.description | split: '<!-- split -->' | first %}
+      {% if collection.description contains '<!-- split -->' %}
+        {% assign top_desc = collection.description | split: '<!-- split -->' | first %}
+      {% else %}
+        {% assign top_desc = collection.description %}
+      {% endif %}
+      
 
       {% if collection.description contains '<!--heading-->' %}
       {% assign heading = top_desc | split: '<!--heading-->' | first %}
@@ -200,9 +205,11 @@
       {% endif %}
 
       <div class="sixteen columns">
+        {% if heading != blank %}
         <div class="heading">
           {{heading}}
         </div>
+        {% endif %}
         {% include 'image-slider-block', context: 'collection' %}
         {{num_contents}}
         {% if description contains '<!--block-->' %}
@@ -213,9 +220,16 @@
               <div class="discription-slider-content sixteen columns">
                 <div class="description-slider">
                   {% for desc in description_blocks %}
+                      {% if description_blocks.size  == 1 %}
+                        <div class="one-whole description-item column gallery-cell">
+                          {{ desc }}
+                        </div>
+                      {% else %}
                       <div class="one-half description-item column gallery-cell">
                         {{ desc }}
                       </div>
+                      {% endif %}
+                      
                   {% endfor %}
                 </div>
               </div>
@@ -543,6 +557,21 @@
             {
               "value": "bottom",
               "label": "Bottom"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "position",
+          "label": "Label Position",
+          "options": [
+            {
+              "value": "background",
+              "label": "background"
+            },
+            {
+              "value": "slider",
+              "label": "slider"
             }
           ]
         }

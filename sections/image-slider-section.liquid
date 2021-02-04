@@ -5,15 +5,27 @@
   </div>
   <div id='bar'>
     {% for block in section.blocks %}
-      <div class="label-indicator align-{{block.settings.direction}}" style="left: {{block.settings.left_pos}}%; top: {{ block.settings.top_pos }}%;">
-        <span class="title">{{block.settings.title}}</span>
-        <div class="pointer"></div>
-      </div>
+      {% if block.type == 'label' and block.settings.position == 'background' %}
+        <div class="label-indicator align-{{block.settings.direction}}" style="left: {{block.settings.left_pos}}%; top: {{ block.settings.top_pos }}%;">
+          <span class="title">{{block.settings.title}}</span>
+          <div class="pointer"></div>
+        </div>
+      {% endif %}
     {% endfor %}
-    <img class="bg_image" src="{{ section.settings.bg_image | img_url: '2048x' }}">
+    <img class="bg_image" src="{{ section.settings.bg_image | img_url: '4096x' }}">
     <div id='slider'>
+      <div class="label-content">
+        {% for block in section.blocks %}
+          {% if block.type == 'label' and block.settings.position == 'slider' %}
+            <div class="label-indicator align-{{block.settings.direction}}" style="left: {{block.settings.left_pos}}%; top: {{ block.settings.top_pos }}%;">
+              <span class="title">{{block.settings.title}}</span>
+              <div class="pointer"></div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
       <div class="image-content">
-        <img class="hover_image" src="{{ section.settings.hover_image | img_url: '2048x' }}">
+        <img class="hover_image" src="{{ section.settings.hover_image | img_url: '4096x' }}">
       </div>
       <div id="slider-button"></div>
     </div>
@@ -88,6 +100,21 @@
               {
                 "value": "bottom",
                 "label": "Bottom"
+              }
+            ]
+          },
+          {
+            "type": "select",
+            "id": "position",
+            "label": "Label Position",
+            "options": [
+              {
+                "value": "background",
+                "label": "background"
+              },
+              {
+                "value": "slider",
+                "label": "slider"
               }
             ]
           }

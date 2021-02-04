@@ -2,10 +2,13 @@
   
 {% endif %}
 <div class="container full-width--true image-slider-content">
+  {% if section.settings.image_slider_title != blank %}
   <div class="heading">
     <h1>{{ section.settings.image_slider_title }}</h1>
     <h6>{{ section.settings.image_slider_desc }}</h6>
   </div>
+  {% endif %}
+  
   {% if section.settings.image_slider_bg_image != blank and section.settings.image_slider_hover_image != blank %}
     {% if context == 'collection' %}
       <div id='collection-bar'>
@@ -14,7 +17,7 @@
     {% endif %}
         
       {% for block in section.blocks %}
-        {% if block.type == 'label' %}
+        {% if block.type == 'label' and block.settings.position == 'background' %}
         {% if block.settings.top_pos != blank %}
           {% assign top = block.settings.top_pos %}
         {% else %}
@@ -27,15 +30,41 @@
         {% endif %}
           <div class="label-indicator align-{{block.settings.direction}}" style="left: {{block.settings.left_pos}}%; top: {{ top }}%;">
             <span class="title">{{block.settings.title}}</span>
-            <div class="pointer"></div>
+            {% unless block.settings.pointer_status %}
+              <div class="pointer"></div>
+            {% endunless %}
+            
           </div>
         {% endif %}
         
       {% endfor %}
-      <img class="bg_image" src="{{ section.settings.image_slider_bg_image | img_url: '2048x' }}">
+      <img class="bg_image" src="{{ section.settings.image_slider_bg_image | img_url: '4096x' }}">
       <div id='slider'>
+        <div class="label-content">
+          {% for block in section.blocks %}
+            {% if block.type == 'label' and block.settings.position == 'slider' %}
+            {% if block.settings.top_pos != blank %}
+              {% assign top = block.settings.top_pos %}
+            {% else %}
+              {% if block.settings.direction %}
+                {% assign top = 0 %}
+              {% else %}
+                {% assign top = 100 %}
+              {% endif %}
+              
+            {% endif %}
+              <div class="label-indicator align-{{block.settings.direction}}" style="left: {{block.settings.left_pos}}%; top: {{ top }}%;">
+                <span class="title">{{block.settings.title}}</span>
+                {% unless block.settings.pointer_status %}
+                <div class="pointer"></div>
+                {% endunless %}
+                
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
         <div class="image-content">
-          <img class="hover_image" src="{{ section.settings.image_slider_hover_image | img_url: '2048x' }}">
+          <img class="hover_image" src="{{ section.settings.image_slider_hover_image | img_url: '4096x' }}">
         </div>
         <div id="slider-button">
         </div>

@@ -1,24 +1,26 @@
-{% if section.settings.banner_status and section.settings.image %}
-  <header class="banner center page-banner dark-overlay-{{ section.settings.image_darken }}">
-    {% render 'image-element',
-            image: section.settings.image,
-            alt: section.settings.image.alt,
-            stretch_width: true,
-            progressive: true
-    %}
-    <div class="caption captionOverlay--true">
-      <h1 class="headline">{{ page.title }}</h1>
-    </div>    
-  </header>
-{% else %}
-  <div class="header">
-    <h2 class="uppercase center">{{section.settings.title}}</h2>
-    {% include 'icon-pack' with icon: 'world-map' %}
-  </div>
+{% if section.settings.banner_status %}
+  {% if section.settings.banner_html != blank %}
+    <div class="header">
+      <h2 class="uppercase center">{{section.settings.title}}</h2>
+      {{section.settings.banner_html}}
+    </div>
+  {% else %}
+    <header class="banner center page-banner">
+      {% render 'image-element',
+              image: section.settings.image,
+              alt: section.settings.image.alt,
+              stretch_width: true,
+              progressive: true
+      %}
+      <div class="caption captionOverlay--true">
+        <h1 class="headline">{{ section.settings.title }}</h1>
+      </div>    
+    </header>
+  {% endif %}
 {% endif %}
 
-{% assign page_contents = page.content | split: '<!--splite-->' %}
-<script>console.log({{page_contents | json}})</script>
+{% assign page_contents = page.content | split: '<!--split-->' %}
+
 {% for block in section.blocks %}
   <div {{ block.shopify_attributes }} class="block__{{ block.type }} block__{{ block.id }}
     {% if block.type == "featured_collection" %} featured-collection-section{% endif %}">
@@ -124,6 +126,11 @@
       "type": "checkbox",
       "id": "banner_status",
       "label": "Banner status"
+    },
+    {
+      "type": "html",
+      "id": "banner_html",
+      "label": "Banner html"
     },
     {
       "type": "image_picker",

@@ -1107,8 +1107,8 @@
       },
       {
         "type": "range",
-        "id": "h1_font_size",
-        "label": "heading size",
+        "id": "large_heading_font_size",
+        "label": "Large size",
         "min": 20,
         "max": 50,
         "default": 36,
@@ -1116,11 +1116,39 @@
       },
       {
         "type": "range",
-        "id": "h3_font_size",
-        "label": "regular size",
+        "id": "medium_heading_font_size",
+        "label": "medium font size",
         "min": 10,
         "max": 40,
         "default": 24,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "small_heading_font_size",
+        "label": "small font size",
+        "min": 10,
+        "max": 40,
+        "default": 18,
+        "unit": "px"
+      },
+      {
+        "type": "header",
+        "content": "Label text"
+      },
+      {
+        "type": "font_picker",
+        "id": "label__font",
+        "label": "Font",
+        "default": "open_sans_n4"
+      },
+      {
+        "type": "range",
+        "id": "Label_font_size",
+        "label": "Label font size",
+        "min": 10,
+        "max": 40,
+        "default": 13,
         "unit": "px"
       },
       {
@@ -1160,15 +1188,6 @@
         "min": 12,
         "max": 20,
         "default": 15,
-        "unit": "px"
-      },
-      {
-        "type": "range",
-        "id": "link_font_size",
-        "label": "link font size",
-        "min": 10,
-        "max": 40,
-        "default": 13,
         "unit": "px"
       },
       {
@@ -1344,6 +1363,11 @@
         "type": "checkbox",
         "id": "display_vendor",
         "label": "Show vendor"
+      },
+      {
+        "type": "checkbox",
+        "id": "display_orign_price",
+        "label": "hide Price"
       },
       {
         "type": "checkbox",

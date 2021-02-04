@@ -10,30 +10,33 @@
       <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
     </div>
   {% endif %}
-  {% if collection_handles contains 'coming-soon' %}
-    <span class="coming-soon">{{ 'collections.general.coming_soon' | t }}</span>
-  {% else %}
-    <span class="price {% if product.compare_at_price_max > product.price %}sale{% endif %}">
-      {% unless product.available == false and settings.display_price == false %}
-        <span class="current_price">
-          {% if product.price_min > 0 %}
-            {% render 'price-element', price: product.price_min %}
-          {% else %}
-            {{ settings.free_price_text }}
-          {% endif %}
-        </span>
-        {% assign variant = product.selected_or_first_available_variant %}
-        <span class="was_price">
-          {% if variant.price < variant.compare_at_price %}
-            <span class="money">{% render 'price-element', price: variant.compare_at_price %}</span>
-          {% endif %}
-        </span>
-      {% endunless %}
-      <div class="sold-out">
-        {% unless product.available %}
-          {{ settings.sold_out_text }}
+  {% if settings.display_orign_price == false %}
+    {% if collection_handles contains 'coming-soon' %}
+      <span class="coming-soon">{{ 'collections.general.coming_soon' | t }}</span>
+    {% else %}
+      <span class="price {% if product.compare_at_price_max > product.price %}sale{% endif %}">
+        {% unless product.available == false and settings.display_price == false %}
+          <span class="current_price">
+            {% if product.price_min > 0 %}
+              {% render 'price-element', price: product.price_min %}
+            {% else %}
+              {{ settings.free_price_text }}
+            {% endif %}
+          </span>
+          {% assign variant = product.selected_or_first_available_variant %}
+          <span class="was_price">
+            {% if variant.price < variant.compare_at_price %}
+              <span class="money">{% render 'price-element', price: variant.compare_at_price %}</span>
+            {% endif %}
+          </span>
         {% endunless %}
-      </div>
-    </span>
+        <div class="sold-out">
+          {% unless product.available %}
+            {{ settings.sold_out_text }}
+          {% endunless %}
+        </div>
+      </span>
+{% endif %}
   {% endif %}
+  
 </div>
