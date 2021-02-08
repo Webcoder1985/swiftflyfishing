@@ -142,7 +142,7 @@ $font-small: {{settings.subline_font_size}}px;
 $font-desc: {{settings.regular_font_size}}px;
 $font-body: {{settings.regular_font_size}}px;
 $font-price: {{settings.price_font_size}}px;
-$font-medium: {{settings.medium_heading_font_size}}px;
+$font-medium: {{settings.large_heading_font_size | times: 0.59}}px;
 $font-large: {{settings.headline_font_size}}px;
 $font-subtitle: {{settings.link_font_size}}px;
 $font-header: 22px;
@@ -676,8 +676,9 @@ input[type="text"], input[type="password"], input[type="email"], input[type="sea
     }
     h1.headline, h2{
       color: {{settings.banner_color}};
-      @include font-MontBold();
-      font-size: $font-extra;
+      font-size: {{settings.large_heading_font_size}}px;
+      font-family: {{settings.page_banner__font.family}}, {{settings.page_banner__font.fallback_families}};
+      font-weight: {{ settings.page_banner__font.weight }};
       margin: 0;
       margin-bottom: 10px;
       letter-spacing: 0.4px;
@@ -689,6 +690,9 @@ input[type="text"], input[type="password"], input[type="email"], input[type="sea
       }
     }
     h3{
+      font-size:  {{settings.small_heading_font_size}}px;
+      font-family: {{settings.page_banner__regular_font.family}}, {{settings.page_banner__regular_font.fallback_families}};
+      font-weight: {{ settings.page_banner__regular_font.weight }};
       color: {{settings.banner_color}};
     }
     p{
@@ -1030,7 +1034,7 @@ header{
           top: 18px;
           font-size: 26px;
           @include respond-to("medium-down"){
-            top: 10px;
+            top: 20px;
             font-size: 22px;
           }
         }
@@ -1267,6 +1271,30 @@ header{
 
 .image-slider-content{
   background: white;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
+  *{
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    user-drag: none;
+  }
   @include respond-to("medium-down"){
     padding-bottom: 0!important;
   }
@@ -1610,11 +1638,11 @@ header{
             @include font-MontBold();
           }
           &.style-medium{
-            font-size: {{settings.medium_heading_font_size}}px;
+            font-size: {{settings.large_heading_font_size | times: 0.59}}px;
             @include font-LatoBold();
           }
           &.style-small{
-            font-size: {{settings.small_heading_font_size}}px;
+            font-size: {{settings.large_heading_font_size | times: 0.34}}px;
             @include font-LatoRegular();
           }
         }
@@ -1979,12 +2007,12 @@ header{
           text-align: center;
         }
         &.title-medium{
-          font-size: {{settings.medium_heading_font_size}}px;
+          font-size: {{settings.large_heading_font_size | times: 0.59}}px;
           line-height: 1;
           
         }
         &.title-small {
-          font-size:{{settings.small_heading_font_size}}px;
+          font-size:{{settings.large_heading_font_size | times: 0.34}}px;
           line-height: 1;
         }
       }
@@ -2804,7 +2832,6 @@ a.close{
         bottom: 0;
       }
       h3{
-        @include font-LatoRegular();
         letter-spacing: 0.75px;
         margin-bottom: 20px;
         @include respond-to("medium-down"){
@@ -3339,7 +3366,30 @@ a.close{
       }
     } 
     .image-slider-content{
-      
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-user-drag: none;
+      -khtml-user-drag: none;
+      -moz-user-drag: none;
+      -o-user-drag: none;
+      user-drag: none;
+      *{
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        -webkit-user-drag: none;
+        -khtml-user-drag: none;
+        -moz-user-drag: none;
+        -o-user-drag: none;
+        user-drag: none;
+      }
       #bar, #collection-bar{
         margin-left: 0;
         @include respond-to("medium-down"){
@@ -5175,7 +5225,9 @@ a.close{
   .page-banner{
     .caption {
       h2{
-        font-size: {{settings.slideshow_subtitle__font}};
+        font-size: {{settings.large_heading_font_size | times: 0.59}};
+        font-family: {{settings.page_banner__font.family}}, {{settings.page_banner__font.fallback_families}};
+        font-weight: {{ settings.page_banner__font.weight }};
         color: {{settings.banner_color}};
         text-transform: unset;
         letter-spacing: {{settings.headline_letter_spacing}};
@@ -6206,7 +6258,8 @@ a.close{
         background: transparent;
         h1{
           color: $color-white;
-          @include font-MontBold();
+          font-family: {{settings.page_banner__font.family}}, {{settings.page_banner__font.fallback_families}};
+          font-weight: {{ settings.page_banner__font.weight }};
           font-size: 20px;
         }
       }

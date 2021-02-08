@@ -1106,6 +1106,12 @@
         "content": "Page banner"
       },
       {
+        "type": "font_picker",
+        "id": "page_banner__font",
+        "label": "Heading Font",
+        "default": "open_sans_n4"
+      },
+      {
         "type": "range",
         "id": "large_heading_font_size",
         "label": "Large size",
@@ -1115,18 +1121,15 @@
         "unit": "px"
       },
       {
-        "type": "range",
-        "id": "medium_heading_font_size",
-        "label": "medium font size",
-        "min": 10,
-        "max": 40,
-        "default": 24,
-        "unit": "px"
+        "type": "font_picker",
+        "id": "page_banner__regular_font",
+        "label": "Regular Font",
+        "default": "open_sans_n4"
       },
       {
         "type": "range",
         "id": "small_heading_font_size",
-        "label": "small font size",
+        "label": "Regular font size",
         "min": 10,
         "max": 40,
         "default": 18,
