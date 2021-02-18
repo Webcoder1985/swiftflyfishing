@@ -174,34 +174,25 @@
       {% else %}
         {% assign top_desc = collection.description %}
       {% endif %}
-      
 
       {% if collection.description contains '<!--heading-->' %}
       {% assign heading = top_desc | split: '<!--heading-->' | first %}
-      {% assign tmp = top_desc | split: '<!--heading-->' | last %}
-      {% else %}
-      {% assign tmp = top_desc %}
+      {% assign top_desc = top_desc | split: '<!--heading-->' | last %}
       {% endif %}
       
 
       {% if collection.description contains '<!--images-->' %}
-      {% assign images = tmp | split: '<!--images-->' | first %}
-      {% assign tmp = tmp | split: '<!--images-->' | last %}
-      {% else %}
-      {% assign tmp = top_desc %}
+      {% assign images = top_desc | split: '<!--images-->' | first %}
+      {% assign top_desc = top_desc | split: '<!--images-->' | last %}
       {% endif %}
 
       {% if collection.description contains '<!--content_list-->' %}
-      {% assign num_contents = tmp | split: '<!--content_list-->' | first %}
-      {% assign tmp = tmp | split: '<!--content_list-->' | last %}
-      {% else %}
-      {% assign tmp = top_desc %}
+      {% assign num_contents = top_desc | split: '<!--content_list-->' | first %}
+      {% assign top_desc = top_desc | split: '<!--content_list-->' | last %}
       {% endif %}
       
       {% if collection.description contains '<!--description-->' %}
-      {% assign description = tmp | split: '<!--description-->' | first %}
-      {% else %}
-      {% assign tmp = top_desc %}
+      {% assign description = top_desc | split: '<!--description-->' | first %}
       {% endif %}
 
       <div class="sixteen columns">

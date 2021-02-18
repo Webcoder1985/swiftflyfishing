@@ -435,9 +435,12 @@
             <div class="image-text-overlay-slider">
               {{image-overly-slider}}
             </div>
-            <a href="#stamped-main-widget" class="action_button second_button highlight-{{ button2_highlight }} hide medium-down--show">
-              More reviews
-            </a>
+            {% if block.settings.more_review %}
+              <a href="#stamped-main-widget" class="action_button second_button highlight-true hide medium-down--show" style="margin: 20px auto;">
+                More reviews
+              </a>
+            {% endif %}
+            
             {% assign overlay_status = false %}
           {% endif %}
           
@@ -1335,12 +1338,7 @@
           "id": "button2_highlight",
           "label": "Highlight second button"
         },
-        {
-          "type": "checkbox",
-          "id": "more_review",
-          "label": "More review button",
-          "default": true
-        },
+        
         {
           "type": "select",
           "id": "caption_position",
@@ -1429,6 +1427,12 @@
           "type": "checkbox",
           "id": "mobile_text_below_image",
           "label": "Show text below image",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "more_review",
+          "label": "More review button",
           "default": true
         },
         {

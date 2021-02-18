@@ -1864,7 +1864,7 @@ li > a.url-deadlink {
 #mobile_menu {
   margin: 10px 20px;
   max-height: calc(100vh - 183px);
-  overflow: scroll;
+  overflow-y: auto;
   li {
     padding-right: 0;
     display: block;
@@ -2929,7 +2929,7 @@ input[type="submit"].guest_button, input[type="button"].guest_button {
   bottom: 0;
   left: 0;
 
-  @include respond-to('medium-down') {
+  @include respond-to('large-down') {
     position: relative;
     bottom: initial; // reset default bottom positioning
   }
@@ -8754,6 +8754,7 @@ $topMenuHeight: 60px;
     .page-banner + #pagecontent {
       padding-bottom: 0;
     }
+
   }
 
   .index-sections .under-menu:nth-child(1) {
@@ -8779,7 +8780,6 @@ $topMenuHeight: 60px;
   .mobile_nav-fixed--false {
     #pagecontent {
       display: block;
-      padding-bottom: 90px;
     }
     //page banner is visible
     .page-banner {
@@ -8801,8 +8801,14 @@ $topMenuHeight: 60px;
   .page-banner .under-menu:nth-child(1) {
     margin-top: 0;
   }
+  .promo-banner--show{
+    #pagecontent {
+      padding-bottom: calc(#{$topMenuHeight} + #{$promoBannerHeight});
+      display: block;
+    }
+  }
   #pagecontent {
-    padding-bottom: calc(#{$topMenuHeight} + #{$promoBannerHeight});
+    padding-bottom: calc(#{$topMenuHeight});
     display: block;
   }
   //recalculate values if promo banner is visible

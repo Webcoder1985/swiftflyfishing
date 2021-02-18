@@ -27,18 +27,22 @@
                             image: block.settings.image,
                             alt: block.settings.image.alt,
                             stretch_width: true,
-                            additional_classes: 'mediumn-down--hide'
+                            back_to_basics: true,
+                            inline_style: block.settings.inline_style,
+                            additional_classes: 'medium-down--hide'
                     %}
                     {% if block.settings.mobile_image != blank %}
                       {% assign mobile_image = block.settings.mobile_image %}
                     {% else %}
                       {% assign mobile_image = block.settings.image %}
                     {% endif %}
+                    
                     {% render 'image-element',
                       image: mobile_image,
                       alt: mobile_image.alt,
                       stretch_width: true,
-                      additional_classes: 'hide mediumn-down--show'
+                      back_to_basics: true,
+                      additional_classes: 'hide medium-down--show'
                     %}
                   {% else %}
                     {% capture i %}{% cycle "1", "2", "3", "4", "5", "6" %}{% endcapture %}
@@ -48,10 +52,6 @@
                 </a>
                 {% endif %}
               </div>
-              {% if block.settings.video_status %}
-                <a href="#video-popup" class="modal_btn video_btn">{% include 'icon-pack' with icon: 'play' %}</a>
-              {% endif %}
-              
               {% if block.settings.image_caption != blank %}
                 <p class="image-caption caption-{{block.settings.caption_position}}">{{block.settings.image_caption}}</p>
               {% endif %}
@@ -67,15 +67,10 @@
                   </div>
                 {% endif %}
                 {% if block.settings.button_label != blank %}
-                  <a {% if block.settings.link != blank %}href="{{ block.settings.link }}"{% endif %} class="button {% if block.settings.highlight_button_style %} highlight-false border-brown{% else %} button-black{%endif%}">
+                  <a {% if block.settings.link != blank %}href="{{ block.settings.link }}"{% endif %} class="button {% if block.settings.read_more %}read-more{% endif %} {% if block.settings.highlight_button_style %} highlight-false border-brown{% else %} button-black{%endif%}">
                     {{ block.settings.button_label }}
                   </a>
                 {% endif %}
-              </div>
-            </div>
-            <div id="video-popup" class="modal">
-              <div class="modal-content">
-                {% include 'include-video-popup' with type: "block" %}
               </div>
             </div>
           </section>
@@ -140,8 +135,8 @@
 
 {% schema %}
 {
-  "name": "Image with text(VIDEO)",
-  "class": "image-with-text-section video-popup",
+  "name": "Image with text",
+  "class": "image-with-text-section",
   "max_blocks": 16,
   "settings": [
     {
@@ -217,6 +212,11 @@
           "label": "Mobile image"
         },
         {
+          "type": "text",
+          "id": "inline_style",
+          "label": "Inline style"
+        },
+        {
           "type": "select",
           "id": "image_crop",
           "label": "Image cropping",
@@ -275,7 +275,7 @@
         {
           "type": "checkbox",
           "id": "title_transform",
-          "label": "Title Status"
+          "label": "Uppercase title"
         },
         {
           "type": "checkbox",
@@ -339,51 +339,24 @@
           "label": "Highlight button style"
         },
         {
-          "type": "header",
-          "content": "Colors"
-        },
-        {
-          "type": "color",
-          "id": "bg_color",
-          "label": "Background"
-        },
-        {
-          "type": "color",
-          "id": "text_color",
-          "label": "Text"
-        },
-        {
-          "type": "header",
-          "content": "video"
-        },
-        {
           "type": "checkbox",
-          "id": "video_status",
-          "label": "Show video"
-        },
-        {
-          "type": "video_url",
-          "id": "iframe_video",
-          "label": "Video link",
-          "accept": ["youtube", "vimeo"],
-          "default": "https://www.youtube.com/watch?v=_9VUPq3SxOc"
-        },
-        {
-          "type": "text",
-          "id": "html5_video",
-          "label": "HTML5 MP4/OGV File URL"
+          "id": "read_more",
+          "label": "Mobile button"
         }
       ]
     }
   ],
   "presets": [{
-    "name": "Image with text(video popup)",
-    "category": "Video",
+    "name": "Image with text",
+    "category": "Image",
     "settings": {
       "featured_links_per_row": "1",
       "frontpage_text_align": "left"
     },
     "blocks": [
+      {
+        "type": "image"
+      },
       {
         "type": "image"
       }

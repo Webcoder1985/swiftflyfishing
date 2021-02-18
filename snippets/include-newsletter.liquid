@@ -21,6 +21,8 @@
   {% endif %}
 {% endif %}
 
+
+
 {% if wide_display == false %}
   <div class="container">
     <div class="sixteen columns">
@@ -40,52 +42,76 @@
               {% endif %}
             </div>
             <div class="newsletter column two-thirds medium-down--one-whole">
-            <span class="message"></span>
-            {% if settings.mailchimp_link != blank %}
-              <form action="{{ settings.mailchimp_link }}" method="post" name="mc-embedded-subscribe-form" id="contact_form" target="_blank">
-                <div class="input-row">
-                  {% if display_first_name %}
-                    <input type="text" value="" class="firstName" name="FNAME" placeholder="{{ 'general.newsletter_form.subscriber_first_name' | t }}">
-                  {% endif %}
-                  {% if display_last_name %}
-                    <input type="text" value="" name="LNAME" placeholder="{{ 'general.newsletter_form.subscriber_last_name' | t }}">
-                  {% endif %}
-                </div>
+              {%- comment -%}
+                <span class="message"></span>
+                {% if settings.mailchimp_link != blank %}
+                  <form action="{{ settings.mailchimp_link }}" method="post" name="mc-embedded-subscribe-form" id="contact_form" target="_blank">
+                    <div class="input-row">
+                      {% if display_first_name %}
+                        <input type="text" value="" class="firstName" name="FNAME" placeholder="{{ 'general.newsletter_form.subscriber_first_name' | t }}">
+                      {% endif %}
+                      {% if display_last_name %}
+                        <input type="text" value="" name="LNAME" placeholder="{{ 'general.newsletter_form.subscriber_last_name' | t }}">
+                      {% endif %}
+                    </div>
 
+                    <div class="input-row">
+                      <input type="email" value="" name="EMAIL" class="contact_email" placeholder="{{ 'general.newsletter_form.placeholder' | t }}">
+                      <input type="submit" value="{{ 'general.newsletter_form.submit' | t }}" class="action_button sign_up" name="subscribe" />
+                    </div>
+                  </form>
+                {% else %}
+                  {% form 'customer' %}
+                    {% if form.posted_successfully? %}
+                      <p class="success"><em>{{ 'general.newsletter_form.success_text' | t }}</em></p>
+                    {% elsif form.errors %}
+                      {% for field in form.errors %}
+                        <p class="false"><em>{{field}} {{ form.errors.messages[field] }}</em></p>
+                      {% endfor %}
+                    {% endif %}
+
+                    <input type="hidden" name="contact[tags]" value="prospect,newsletter"/>
+                    <div class="input-row">
+                      {% if display_first_name %}
+                        <input type="text" class="firstName" name="contact[first_name]" placeholder="{{ 'general.newsletter_form.subscriber_first_name' | t }}" />
+                      {% endif %}
+                      {% if display_last_name %}
+                        <input type="text" name="contact[last_name]" placeholder="{{ 'general.newsletter_form.subscriber_last_name' | t }}" />
+                      {% endif %}
+                    </div>
+
+                    <div class="input-row">
+                      <input type="hidden" name="challenge" value="false" />
+                      <input type="email" class="contact_email" name="contact[email]" required placeholder="{{ 'general.newsletter_form.placeholder' | t }}" />
+                    </div>
+                    <div class="input-row"> 
+                      <input type='submit' class="action_button button-white sign_up" value="{{ 'general.newsletter_form.submit' | t }}" />
+                    </div>
+                  {% endform %}
+                {% endif %}
+              {%- endcomment -%}
+              <form id="email_signup" class="klaviyo_condensed_embed_eWZv53" data-ajax-submit="//manage.kmail-lists.com/ajax/subscriptions/subscribe" method="GET" target="_blank" novalidate="novalidate" action="//manage.kmail-lists.com/subscriptions/subscribe">
+                <input type="hidden" name="g" value="eWZv53" />
+                <input type="hidden" name="$fields" value="first_name"/>
+                <div class="klaviyo_messages">
+                  <div class="success_message input-row alert alert-success" style="display: none;margin-top: 10px;"></div>
+                  <div class="error_message input-row alert alert-danger" style="display: none;margin-top: 10px;"></div>
+                </div>
                 <div class="input-row">
-                  <input type="email" value="" name="EMAIL" class="contact_email" placeholder="{{ 'general.newsletter_form.placeholder' | t }}">
-                  <input type="submit" value="{{ 'general.newsletter_form.submit' | t }}" class="action_button sign_up" name="subscribe" />
+                  <input id="klaviyo_form_first_name" type="text" class="txtbox" name="$first_name" value="" placeholder="{{ 'general.newsletter_form.subscriber_first_name' | t }}" />
+                </div>
+                <div class="input-row">
+                  <input type="email" value="" name="email" id="k_id_email" class="txtbox" placeholder="{{ 'general.newsletter_form.placeholder' | t }}" />
+                </div>
+                <div class="sumbit_email_wrapper input-row"> 
+                  <button class="btn btn-link action_button sign_up klaviyo_submit_button" type="submit" value="" name="commit" id="Subscribe">{{ 'general.newsletter_form.submit' | t }}</button>
                 </div>
               </form>
-            {% else %}
-              {% form 'customer' %}
-                {% if form.posted_successfully? %}
-                  <p class="success"><em>{{ 'general.newsletter_form.success_text' | t }}</em></p>
-                {% elsif form.errors %}
-                  {% for field in form.errors %}
-                    <p class="false"><em>{{field}} {{ form.errors.messages[field] }}</em></p>
-                  {% endfor %}
-                {% endif %}
-
-                <input type="hidden" name="contact[tags]" value="prospect,newsletter"/>
-                <div class="input-row">
-                  {% if display_first_name %}
-                    <input type="text" class="firstName" name="contact[first_name]" placeholder="{{ 'general.newsletter_form.subscriber_first_name' | t }}" />
-                  {% endif %}
-                  {% if display_last_name %}
-                    <input type="text" name="contact[last_name]" placeholder="{{ 'general.newsletter_form.subscriber_last_name' | t }}" />
-                  {% endif %}
-                </div>
-
-                <div class="input-row">
-                  <input type="hidden" name="challenge" value="false" />
-                  <input type="email" class="contact_email" name="contact[email]" required placeholder="{{ 'general.newsletter_form.placeholder' | t }}" />
-                </div>
-                <div class="input-row"> 
-                  <input type='submit' class="action_button button-white sign_up" value="{{ 'general.newsletter_form.submit' | t }}" />
-                </div>
-              {% endform %}
-            {% endif %}
+              <script type="text/javascript" src="//www.klaviyo.com/media/js/public/klaviyo_subscribe.js"></script><script type="text/javascript">
+              KlaviyoSubscribe.attachToForms('#email_signup', {
+                hide_form_on_success: true
+              });
+              </script>
             </div>
           </div>
         </div>
