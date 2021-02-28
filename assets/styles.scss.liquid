@@ -6724,7 +6724,9 @@ div.container {
 }
 
 div.content { padding: 30px 0px 15px 0; }
-
+@include respond-to('medium-down') {
+  div.content { padding: 0px 0px 15px 0; }
+}
 /* #Header
 ================================================== */
 

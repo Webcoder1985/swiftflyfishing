@@ -73,7 +73,7 @@
       {% if product.id != skip_product.id and tag == 'FastGlass' %}
       
         {% render 'product-thumbnail',
-                product: product,
+                item: product,
                 products_per_row: products_per_row,
                 collection_group_thumb: collection_group_thumb,
                 collection_group_mobile: collection_group_mobile,
@@ -141,15 +141,12 @@
 
 <div itemtype="http://schema.org/ItemList" class="product-list {{ matrixType }} clearfix equal-columns--clear equal-columns--outside-trim">
   {% for item in products limit: forLimit %}
-    {% if type == 'block' %}
-      {% assign product = all_products[item.settings.product] %}
-    {% else %}
-      {% assign product = item %}
-    {% endif %}
+    {% assign product = item %}
+    
     {% for tag in product.tags %}
     {% if product.id != skip_product.id and tag == 'Carbon Fibre' %}
       {% render 'product-thumbnail',
-              product: product,
+              item: product,
               products_per_row: products_per_row,
               collection_group_thumb: collection_group_thumb,
               collection_group_mobile: collection_group_mobile,

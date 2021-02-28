@@ -191,7 +191,7 @@
         
         {% include 'image-slider-block', context: 'collection' %}
         {{num_contents}}
-        {% if description contains '<!--block-->' %}
+        {% if description %}
         {% assign description_blocks = description | split: '<!--block-->' %}
         <ul class="toggle-list">
           <li class="active"> 
@@ -223,10 +223,12 @@
           </div>
         {% else %}
           {% assign products_per_row = section.settings.products_per_row %}
+          
           {% render 'product-loop',
                   paginate: paginate,
                   products: products,
                   products_per_row: products_per_row,
+                  type: 'collection',
                   sidebar: false
           %}
         {% endif %}

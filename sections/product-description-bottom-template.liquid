@@ -163,7 +163,6 @@
             </div>
               
             <div class="feature_divider"></div>
-
             {% assign product_tags = product.tags | join: ' ' %}
             {% if product_tags contains 'meta-size-chart-' %}
               {% for tag in product.tags %}
@@ -189,7 +188,9 @@
             {% unless collection_handles contains 'coming-soon' %}
               {% include 'product-form' with 'product' %}
             {% endunless %}
+
             {% include 'product-notify-me' %}
+
             
             <div class="icon-tags">
               <p class="icon-tag">
@@ -359,6 +360,7 @@
                         {{ block.settings.title }}
                       </a>
                     </h2>
+                    
                     {% if block.settings.text != blank %}
                       <div class="description">{{ block.settings.text }}</div>
                     {% endif %}
@@ -405,10 +407,7 @@
             <!-- Quote -->
             {% include 'include-quote', type: 'block' %}
           {% elsif block.type == 'collection' %}
-              {% if collection_list_status %}
-                {% include 'include-collection-list' %}
-                {% assign collection_list_status = false %}
-              {% endif %}
+              {% include 'include-product-collection-list' %}
           {% elsif block.type == "rich_text_and_image" %}
             <!-- Rich text and image -->
             {% include 'include-featured-text', type: 'block' %}
@@ -433,9 +432,12 @@
             <div class="image-text-overlay-slider">
               {{image-overly-slider}}
             </div>
-            <a href="#stamped-main-widget" class="action_button second_button highlight-{{ button2_highlight }} hide medium-down--show">
-              More reviews
-            </a>
+            {% if block.settings.more_review %}
+              <a href="#stamped-main-widget" class="action_button second_button highlight-true hide medium-down--show" style="margin: 20px auto;">
+                More reviews
+              </a>
+            {% endif %}
+            
             {% assign overlay_status = false %}
           {% endif %}
           
@@ -475,7 +477,7 @@
 
 {
   "name": "Product | details",
-  "class": "product-template product-details-section product-description-bottom-template",
+  "class": "product-template product-details-section",
   "max_blocks": 20,
   "settings": [
     {
@@ -722,40 +724,6 @@
       },
       {
         "type": "header",
-        "content": "collection list"
-      },
-      {
-        "type": "text",
-        "id": "title",
-        "label": "Heading",
-        "default": "Collection list"
-      },
-      {
-        "type": "checkbox",
-        "id": "align_height",
-        "label": "Align height of collection images"
-      },
-      {
-        "type": "range",
-        "id": "collection_height",
-        "label": "Collection image height",
-        "min": 150,
-        "max": 500,
-        "step": 10,
-        "default": 200,
-        "unit": "px"
-      },
-      {
-        "type": "range",
-        "id": "frontpage_collections_per_row",
-        "label": "Collections per row",
-        "min": 2,
-        "max": 5,
-        "step": 1,
-        "default": 3
-      },
-      {
-        "type": "header",
         "content": "image-gallery"
       },
       {
@@ -815,7 +783,7 @@
           "type": "image_picker",
           "id": "image",
           "label": "Image",
-          "info": "800 x 800px recommended"
+          "info": " 768 X 785px & 768 X 393px recommended"
         }
       ]
     },
@@ -824,33 +792,120 @@
       "name": "Collection",
       "settings": [
         {
-          "type": "collection",
-          "id": "feature_collection",
-          "label": "Collection"
-        },
-        {
-          "type": "image_picker",
-          "id": "image",
-          "label": "Image"
+          "type": "header",
+          "content": "collection list"
         },
         {
           "type": "text",
           "id": "title",
-          "label": "Title"
+          "label": "Heading",
+          "default": "Collection list"
         },
         {
           "type": "checkbox",
-          "id": "description_status",
+          "id": "align_height",
+          "label": "Align height of collection images"
+        },
+        {
+          "type": "range",
+          "id": "collection_height",
+          "label": "Collection image height",
+          "min": 150,
+          "max": 500,
+          "step": 10,
+          "default": 200,
+          "unit": "px"
+        },
+        {
+          "type": "checkbox",
+          "id": "collection_description_status",
           "label": "Description status"
         },
         {
+          "type": "header",
+          "content": "collection item"
+        },
+        {
+          "type": "collection",
+          "id": "feature_collection_1",
+          "label": "Collection"
+        },
+        {
+          "type": "image_picker",
+          "id": "collection_image_1",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "collection_title_1",
+          "label": "Title"
+        },
+        {
           "type": "richtext",
-          "id": "description",
+          "id": "collection_description_1",
           "label": "Description"
         },
         {
           "type": "text",
-          "id": "button_label",
+          "id": "collection_button_label_1",
+          "label": "Button label"
+        },
+        {
+          "type": "header",
+          "content": "collection item"
+        },
+        {
+          "type": "collection",
+          "id": "feature_collection_2",
+          "label": "Collection"
+        },
+        {
+          "type": "image_picker",
+          "id": "collection_image_2",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "collection_title_2",
+          "label": "Title"
+        },
+        {
+          "type": "richtext",
+          "id": "collection_description_2",
+          "label": "Description"
+        },
+        {
+          "type": "text",
+          "id": "collection_button_label_2",
+          "label": "Button label"
+        },
+        {
+          "type": "header",
+          "content": "collection item"
+        },
+        {
+          "type": "collection",
+          "id": "feature_collection_3",
+          "label": "Collection"
+        },
+        {
+          "type": "image_picker",
+          "id": "collection_image_3",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "collection_title_3",
+          "label": "Title"
+        },
+        {
+          "type": "richtext",
+          "id": "collection_description_3",
+          "label": "Description"
+        },
+        {
+          "type": "text",
+          "id": "collection_button_label_3",
           "label": "Button label"
         }
       ]
@@ -1333,12 +1388,7 @@
           "id": "button2_highlight",
           "label": "Highlight second button"
         },
-        {
-          "type": "checkbox",
-          "id": "more_review",
-          "label": "More review button",
-          "default": true
-        },
+        
         {
           "type": "select",
           "id": "caption_position",
@@ -1427,6 +1477,12 @@
           "type": "checkbox",
           "id": "mobile_text_below_image",
           "label": "Show text below image",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "more_review",
+          "label": "More review button",
           "default": true
         },
         {
@@ -1632,22 +1688,6 @@
           "id": "sub_title",
           "label": "Sub title",
           "default": "Combine Items And Save On Shipping!"
-        },
-        {
-          "type": "radio",
-          "id": "related_products_style",
-          "label": "Layout",
-          "default": "grid",
-          "options": [
-            {
-              "value": "slider",
-              "label": "Slider"
-            },
-            {
-              "value": "grid",
-              "label": "Grid"
-            }
-          ]
         },
         {
           "type": "range",

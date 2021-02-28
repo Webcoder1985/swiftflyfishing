@@ -8,11 +8,14 @@
 <div class="container">
   <div class="sixteen columns">
 {% else %}
-<div class="fifteen column">
+<div class="column sixteen">
 {% endif %}
-{% if section.settings.title != blank %}
+<div class="fifteen">
+  {% if section.settings.title != blank %}
   <h2 class="section-title title-right"><span>{{ section.settings.title | escape }}</span></h2>
 {% endif %}
+</div>
+
 {% if section.blocks.size > 0 %}
   <div  id="testimonial-{{section.id}}"
         class="testimonial-slideshow

@@ -1578,6 +1578,9 @@ header{
       }
     }
   }
+  .bottom-pannel{
+    padding: 0 20px;
+  }
 }
 
 .image-with-text-overlay-section, .block__image_with_text_overlay{
@@ -1625,7 +1628,7 @@ header{
       }
     }
     .caption{
-      margin: 0 50px;
+      
       @include respond-to("small-down"){
         margin: 0;
       }
@@ -1669,7 +1672,6 @@ header{
           line-height: 10px;
           color: black;
           p{
-            margin-bottom: 0;
             color: inherit;
             @include respond-to("small-down"){
               font-size: 13px;
@@ -1968,6 +1970,13 @@ header{
         font-size: $font-desc;
         padding: 0 20px;
         line-height: 32px;
+        span{
+          white-space: nowrap;
+          max-width: 240px;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          display: block;
+        }
       }
       &::before{
         content: " ";
@@ -2389,7 +2398,7 @@ a.close{
         }
       }
       @include respond-to("small-down"){
-        width: 85%;
+        width: 85%!important;
         &.is-selected{
           .collection-info__caption{
             opacity: 1;
@@ -2675,6 +2684,7 @@ a.close{
           width: 100%;
           .alert {
             max-width: initial!important;
+            display: block;
             margin-bottom: 10px;
             width: calc(97% - 10px);
             padding: 15px;
@@ -2980,6 +2990,9 @@ a.close{
               border-color:$color-red;
             }
           }
+          span{
+            display: none;
+          }
           @include respond-to("medium-down"){
             background-color: rgba(216 ,216, 216, 0.14);
             padding: 10px 20px;
@@ -3121,7 +3134,6 @@ a.close{
     .description-slider{
       display: flex;
       flex-wrap: wrap;
-      align-items: center;
       justify-content: flex-start;
       .flickity-viewport{
         width: 100%;
@@ -3156,16 +3168,19 @@ a.close{
         padding-left: 0;
         min-height: 100%;
         text-align: left!important;
-        margin-left: 20px; 
+        margin-left: 0;
+        
         h2, h3{
+          &:first-child{
+            margin-top: 0;
+          } 
           text-transform: unset;
-          margin-bottom: 20px;
+          margin: 20px 0;
           color: {{ settings.headline_color }}; 
           font-size: {{settings.subline_font_size}}px!important;
           line-height: 36px;
           @include font-MontSBold();
           text-align: left!important;
-          margin-top: 0;
         }
         p, div{
           text-align: left!important;
@@ -3402,7 +3417,6 @@ a.close{
       -moz-user-drag: none;
       -o-user-drag: none;
       user-drag: none;
-      margin-top: -20px;
       @include respond-to("medium-down"){
         margin-top: 0;
       }
@@ -3759,6 +3773,11 @@ a.close{
 }
 
 .product-template{
+  .breadcrumb_text{
+    span, a{
+      font-size: inherit;
+    }
+  }
   .product_section {
     display: flex;
     align-items: flex-start;
@@ -4233,12 +4252,13 @@ a.close{
           width: calc(33.3%);
           margin: 0;
           .collection-info__caption {
-            display: block;
+            display: none;
             padding: 0;
             opacity: 1;
             width: 100%;
             text-align: center;
             margin-top: 5px;
+          
             .title{
               font-size: $font-desc;
               line-height: 18px;
@@ -4837,17 +4857,24 @@ a.close{
         margin-bottom: 0;
       }
     }
+    img{
+      max-width: 100%;
+      height: auto;
+    }
     ul{
-      list-style: none;
-      padding-left: 13px;
-      &::before{
-        content: "\2022";  /* Add content: \2022 is the CSS Code/unicode for a bullet */
-        color: $color-red; /* Change the color */
-        font-weight: bold; /* If you want it to be bold */
-        display: inline-block; /* Needed to add space between the bullet and the text */
-        width: 1em; /* Also needed for space (tweak if needed) */
-        margin-left: -1em;
+      &.red-badge{
+        list-style: none;
+        padding-left: 13px;
+        &::before{
+          content: "\2022";  /* Add content: \2022 is the CSS Code/unicode for a bullet */
+          color: $color-red; /* Change the color */
+          font-weight: bold; /* If you want it to be bold */
+          display: inline-block; /* Needed to add space between the bullet and the text */
+          width: 1em; /* Also needed for space (tweak if needed) */
+          margin-left: -1em;
+        }
       }
+      
       li{
         margin-bottom: 0;
         
@@ -5629,7 +5656,7 @@ a.close{
     max-width: 800px;
     margin: auto;
     margin-bottom: 100px;
-    
+    padding: 0 20px;
     h2{
       @include font-LatoRegular();
       font-size: $font-medium;
@@ -5642,8 +5669,8 @@ a.close{
           padding-left: 15px;
           li{
             @include font-LatoBold();
-            font-size: 14px;
-            line-height: 24px;
+            font-size: {{settings.regular_font_size}}px;
+            line-height: 28px;
             margin-top: 20px;
             &:first-child{
               margin-top: 0;
@@ -5651,8 +5678,8 @@ a.close{
           }
         }
         p{
-          font-size: 14px;
-          line-height: 24px;
+          font-size: {{settings.regular_font_size}}px;
+          line-height: 28px;
           em{
             @include font-LatoLight();
           }
@@ -6612,6 +6639,6 @@ a.close{
   }
 }
 
-#privy-container #privy-inner-container .privy-mobile.privy-tab-container.privy-corne{
+#privy-container #privy-inner-container .privy-mobile.privy-tab-container.privy-corner{
   z-index: 999!important;
 }

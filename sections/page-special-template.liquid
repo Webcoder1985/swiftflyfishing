@@ -1,0 +1,296 @@
+{% if section.settings.banner_status and section.settings.image %}
+  <header class="banner center page-banner dark-overlay-{{ section.settings.image_darken }}">
+    {% render 'image-element',
+            image: section.settings.image,
+            alt: section.settings.image.alt,
+            stretch_width: true,
+            progressive: true
+    %}
+    <div class="caption captionOverlay--true">
+      <h1 class="headline {%if section.settings.title_uppercase %}uppercase{%endif%}">{{ page.title }}</h1>
+    </div>    
+  </header>
+{% endif %}
+{% assign text_block_status = true %}
+{% capture text_block_content %}
+<div class="container">
+  <div class="description-content">
+    {% for block in section.blocks %}
+        {% if block.type == 'text-block' %}
+          <div class="one-third column gallery-cell flex">
+            {% include 'description-block' with 
+              title: block.settings.title,
+              sub_title: block.settings.sub_title,
+              desc: block.settings.description,
+              style: 'style_2'
+            %}
+          </div>
+        {% endif %}
+    {% endfor %}
+  </div>
+</div>
+{% endcapture %}
+{% for block in section.blocks %}
+  <div {{ block.shopify_attributes }} class="block__{{ block.type }} block__{{ block.id }}
+    {% if block.type == "featured_collection" %} featured-collection-section{% endif %}">
+    {% if block.type == 'image-text' %}
+      {% include 'include-image-text' %}
+    {% elsif block.type == "divider" %}
+      {% include 'include-divider', type: 'block' %}
+    {% elsif block.type == 'text-block' and text_block_status %}
+      {{text_block_content}}
+      {% assign text_block_status = false %}
+    {% endif %}
+  </div>
+{% endfor %}
+<div class="container">
+  <div class="page-content {%if section.settings.toggle_list_status %}list-content{% endif %}">
+    {% if section.settings.content != blank %}
+        {% if section.settings.toggle_list_status %}
+          <ul class="toggle-list">
+            {% assign page_str = section.settings.content | replace: '<p><strong>', '</div></li><li><a class="toggle_btn">' | replace: '</strong></p>', '</a><div class="toggle_content animated fadeIn">' %}
+            {% assign page_content = page_str | remove_first: '</div></li>' %}
+            {{ page_content }}
+          </ul>
+        {% else %}
+          {{ section.settings.content }}
+        {% endif %}
+    {% else %}
+      {% if section.settings.toggle_list_status %}
+        <ul class="toggle-list">
+          {% assign page_str = page.content | replace: '<h6>', '</div></li><li><a class="toggle_btn">' | replace: '</h6>', '</a><div class="toggle_content animated fadeIn">' %}
+          {% assign page_content = page_str | remove_first: '</div></li>' %}
+          {{ page_content }}
+        </ul>
+      {% else %}
+        {{ page.content }}
+      {% endif %}
+    {% endif %}
+    
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Page section",
+  "class": "page-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Banner"
+    },
+    {
+      "type": "checkbox",
+      "id": "banner_status",
+      "label": "Banner status"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Banner image"
+    },
+    {
+      "type": "checkbox",
+      "id": "title_uppercase",
+      "label": "Title uppercase"
+    },
+    {
+      "type": "checkbox",
+      "id": "image_darken",
+      "label": "Image darken status"
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "richtext",
+      "id": "content",
+      "label": "Content text"
+    },
+    {
+      "type": "checkbox",
+      "id": "toggle_list_status",
+      "label": "Toggle list status"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image-text",
+      "name": "Image text",
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "layout",
+          "label": "Wide display"
+        },
+        {
+          "type": "select",
+          "id": "frontpage_text_align",
+          "label": "Text alignment",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "frontpage_image_position",
+          "label": "Image position",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ]
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "1024 x 1024px recommended"
+        },
+        {
+          "type": "select",
+          "id": "image_crop",
+          "label": "Image cropping",
+          "default": "none",
+          "info": "Only applied when text area is taller than image.",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "none",
+              "label": "None"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Your headline"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Promotion description appears here.</p>"
+        },
+        {
+          "type": "select",
+          "id": "grid_style",
+          "label": "Grid style",
+          "options": [
+            {
+              "value": "one",
+              "label": "Column one"
+            },
+            {
+              "value": "two",
+              "label": "Column two"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "text_style",
+          "label": "Text style",
+          "options": [
+            {
+              "value": "list",
+              "label": "List"
+            },
+            {
+              "value": "text",
+              "label": "Text"
+            }
+          ]
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button label",
+          "default": "View all"
+        }
+      ]
+    },
+    {
+      "type": "divider",
+      "name": "Divider",
+      "settings": [
+        {
+          "type": "range",
+          "id": "divider_spacing",
+          "min": 0,
+          "max": 30,
+          "step": 5,
+          "unit": "px",
+          "label": "Space",
+          "default": 20
+        },
+        {
+          "type": "checkbox",
+          "id": "divider_border",
+          "label": "Show border",
+          "default": false
+        }
+      ]
+    },
+    {
+      "type": "text-block",
+      "name": "Text block",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "text",
+          "id": "sub_title",
+          "label": "Sub title"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Description"
+        },
+        {
+          "type": "checkbox",
+          "id": "list_style",
+          "label": "List style status"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

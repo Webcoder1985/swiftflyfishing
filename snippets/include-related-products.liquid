@@ -1,13 +1,13 @@
 {% if template contains 'details' or template contains 'description-bottom' %}
   {% assign title = block.settings.title %}
   {% assign sub_title = block.settings.sub_title %}
-  {% assign related_products_style = block.settings.related_products_style %}
+  {% assign related_products_style = 'slider' %}
   {% assign related_products_limit = block.settings.related_products_limit %}
   {% assign products_per_row = block.settings.products_per %}
 {% else %}
   {% assign title = section.settings.title %}
   {% assign sub_title = section.settings.sub_title %}
-  {% assign related_products_style = section.settings.related_products_style %}
+  {% assign related_products_style = 'slider' %}
   {% assign related_products_limit = section.settings.related_products_limit %}
   {% assign products_per_row = section.settings.products_per %}
 {% endif %}

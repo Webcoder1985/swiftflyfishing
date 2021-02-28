@@ -39,6 +39,12 @@
       {% endfor %}
     </ul>
   </div>
+  {% if section.settings.button != blank %}
+  <div class="bottom-pannel container center">
+    <a href="{{section.settings.link}}" class="button button-black">{{section.settings.button}}</a>
+  </div>
+  {% endif %}
+  
 </div>
 
 {% schema %}
@@ -66,6 +72,16 @@
         "type": "image_picker",
         "id": "hover_image",
         "label": "Hover image"
+      },
+      {
+        "type": "text",
+        "id": "button",
+        "label": "Button label"
+      },
+      {
+        "type": "url",
+        "id": "link",
+        "label": "link"
       }
   ],
   "blocks": [

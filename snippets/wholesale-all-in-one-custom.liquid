@@ -3,83 +3,58 @@
 => File: wholesale-all-in-one-custom.liquid
 => Write your extra work in this file
 => Don't write <script> tag, it was already included,
-  => Write liquid, jquery and javascript code only
-  => See documentation at https://docs.google.com/document/d/19DAJWPtnmNbPV7i-3jysb9h8BAs6poxU4u0EBqUqkRw
+=> Write liquid, jquery and javascript code only
+=> See documentation at https://docs.google.com/document/d/19DAJWPtnmNbPV7i-3jysb9h8BAs6poxU4u0EBqUqkRw
 {% endcomment %}
 //console.log("file wholesale-all-in-one-custom.liquid is working");
-if(WholesaleAIO.settings.enable_app){
+if(WholesaleAIO.ws_settings.enable_app){
   {% if template.name == 'product'%}
-  setTimeout(function(){
-   
-    var sold_itm = $('span.sold_out').text();
-    if(sold_itm == ""){
-       var wn_blw = $('.custom_text').text(); console.warn('wn_blw',wn_blw)
-      var Vid = $('[name="id"]').val();
-      var _indx = current_product.variants.findIndex(function(x){return x.id == Vid})
-      if(_indx > -1){
-        var _price = current_product.variants[_indx].price;
-      }
-      WholesaleAllInOne.productTemplate({
-        productId : "default", //provide current product id
-        variantId : Vid, //provide selected variant id
-        price : _price, //provide selected variant's price or product price
-        priceDesign : "default", //price design can override existing style of price shown
-        saleBadgeDirectParent : ".product_section", //find value
-        SaleBadgeDirectChild : "h1.product_name", //find value
-        saleLabelHTML : '<div class="sale_banner_product win">Special Offer</div>', //default value is 'Saved [[saved_amount]]'. This string must include [[saved_amount]]
-        saleLabelMode : "default", //default value 'percent', others 'fixed_amount'
-        saleLabelPosition : "before", // default value is same, valid values are after,before,append,prepend
-        quickView : "default", //boolean, default false. Can be true or false
-        quickViewQBSelector : "default", //where quantity break table will shown, Default value form[action='/cart/add']
-        priceSelector : ".modal_price", //default value is 'waio'
-        qbTableSelector : "form[action='/cart/add']:after", //default value is '.add-to-cart' button;
-      });
-      if($('.sale_banner_product.win').length > 0){
-        $('.sale_banner_product').css('display','none')
-        $('.sale_banner_product.win').css('display','inline-block')
-        var labe_lngth = $('.sale_banner_product.win').length;
-        if (labe_lngth >=1){
-          $('.sale_banner_product.win').css("display", "none");
-          $('.sale_banner_product.win:nth-child(2)').css("display", "inline-block");
-        }
-      }
-      if($('.custom_text').length < 1){
-        $('.modal_price').append('<span class="custom_text">"'+ wn_blw +'"</span>')
-      }
-   }
-  },1000)
-   
+    WholesaleAllInOne.productTemplate({
+      productId : "default", //provide current product id
+      variantId : "default", //provide selected variant id
+      price : "default", //provide selected variant's price or product price
+      priceDesign : "default", //price design can override existing style of price shown
+      saleBadgeDirectParent : "default", //find value
+      SaleBadgeDirectChild : "default", //find value
+      saleLabelHTML : "default", //default value is 'Saved [[saved_amount]]'. This string must include [[saved_amount]]
+      saleLabelMode : "default", //default value 'percent', others 'fixed_amount'
+      saleLabelPosition : "default", // default value is same, valid values are after,before,append,prepend
+      quickView : "default", //boolean, default false. Can be true or false
+      quickViewQBSelector : "default", //where quantity break table will shown, Default value form[action='/cart/add']
+      priceSelector : "default", //default value is 'waio'
+      qbTableSelector : "form[action='/cart/add']:after", //default value is '.add-to-cart' button;
+    });
+  
   // Uncomment when there are related products at product (page) template.
-  setTimeout(function(){
-    WholesaleAllInOne.relatedProducts({
+  /***
+      WholesaleAllInOne.relatedProducts({
+        elementSelector : ".waio-collection-grid", // If null, it will get value from app's developer tool
+        dataIdSelector : "data-item-id", // If null, it will get value from app's developer tool
+        dataPriceSelector : "data-price", // If null, it will get value from app's developer tool
+        dataVariantSelector : "data-variant-id", // variant id attribute data-variant-id
+        priceDesign : null, // default null
+        saleBadgeDirectParent : null, // default null
+        SaleBadgeDirectChild : null, // default null
+        saleLabelMode : null, // default null
+        saleLabelHTML : null, // default null
+        saleLabelPosition : "same", // default value is same, valid values are after,before,append,prepend
+      });
+  ***/
+  
+ // Home & Collection & Search &  other pages
+  {% elsif template.name != 'product' and template.name != 'cart' %} 
+    WholesaleAllInOne.HCSRPTemplate({
       elementSelector : ".waio-collection-grid", // If null, it will get value from app's developer tool
       dataIdSelector : "data-item-id", // If null, it will get value from app's developer tool
       dataPriceSelector : "data-price", // If null, it will get value from app's developer tool
       dataVariantSelector : "data-variant-id", // variant id attribute data-variant-id
       priceDesign : null, // default null
-      saleBadgeDirectParent : '.visely-recommendation-item', // default null
-      SaleBadgeDirectChild : 'a', // default null
+      saleBadgeDirectParent : null, // default null
+      SaleBadgeDirectChild : null, // default null
       saleLabelMode : null, // default null
-      saleLabelHTML : '<span class="badge--sale banner_holder win"> <span class="sale_banner thumbnail_banner">Special Offer</span> </span>', // default null
-      saleLabelPosition : "before", // default value is same, valid values are after,before,append,prepend
+      saleLabelHTML : null, // default null
+      saleLabelPosition : "same", // default value is same, valid values are after,before,append,prepend
     });
-    win_rec(3)
-  },1000)
-
-  // Home & Collection & Search &  other pages
-  {% elsif template.name != 'product' and template.name != 'cart' %} 
-  WholesaleAllInOne.HCSRPTemplate({
-    elementSelector : ".ProductAvailable .waio-collection-grid", // If null, it will get value from app's developer tool
-    dataIdSelector : "data-item-id", // If null, it will get value from app's developer tool
-    dataPriceSelector : "data-price", // If null, it will get value from app's developer tool
-    dataVariantSelector : "data-variant-id", // variant id attribute data-variant-id
-    priceDesign : null, // default null
-    saleBadgeDirectParent : '.thumbnail', // default null
-    SaleBadgeDirectChild : '.thumbnail-overlay', // default null
-    saleLabelMode : null, // default null
-    saleLabelHTML : '<div class="banner_holder win"> <div class="sale_banner thumbnail_banner">Special Offer</div> </div>', // default null
-    saleLabelPosition : "after", // default value is same, valid values are after,before,append,prepend
-  });
   {% else %}
   WholesaleAllInOne.cartDiscount({
     shippingMessageElement: "[waio-subtotal]:after"
@@ -115,7 +90,7 @@ else{
 **/
 
 // Method TWO - Quick view 
-/**
+	/**
     $(document).ready(function(){
       var quickviewSelector = ".productitem--action-trigger.button-secondary";
       var gridSelector = ".productitem";
@@ -164,52 +139,20 @@ else{
 
 // Method 2:
 // By shopify option selection file. See instructions at https://wholesales.digitalcoo.com/docs/variant-change-instructions
-
+/**
 // When using "waio-option-selection.js" file, use bellow function to get callback when variant is changed.
 WholesaleAllInOne.variantCallBack = function(variant, selector, product){
-  var sold_itm = $('span.sold_out').text();
-  if(sold_itm == ""){
-     var wn_blw = $('.custom_text').text();
-    $('.sale_banner_product.win').remove()	
-    current_product||(current_product=product);
-    var Vid = $('.select [name="id"]').val();
-    var _indx = current_product.variants.findIndex(function(x){return x.id == Vid})
-    if(_indx > -1){
-      var _price = current_product.variants[_indx].price;
-    }
-    selected_variant_id=variant.id;
-    setTimeout(function(){
-      WholesaleAllInOne.productTemplate({
-        productId : "default", //provide current product id
-        variantId : Vid, //provide selected variant id
-        price : _price, //provide selected variant's price or product price
-        priceDesign : "default", //price design can override existing style of price shown
-        saleBadgeDirectParent : ".product_section", //find value
-        SaleBadgeDirectChild : "h1.product_name", //find value
-        saleLabelHTML : '<div class="sale_banner_product win">Special Offer</div>', //default value is 'Saved [[saved_amount]]'. This string must include [[saved_amount]]
-        saleLabelMode : "default", //default value 'percent', others 'fixed_amount'
-        saleLabelPosition : "before", // default value is same, valid values are after,before,append,prepend
-        quickView : "default", //boolean, default false. Can be true or false
-        quickViewQBSelector : "default", //where quantity break table will shown, Default value form[action='/cart/add']
-        priceSelector : ".modal_price", //default value is 'waio'
-        qbTableSelector : "form[action='/cart/add']:after", //default value is '.add-to-cart' button;
-      });
-            if($('.sale_banner_product.win').length > 0){
-        $('.sale_banner_product').css('display','none')
-        $('.sale_banner_product.win').css('display','inline-block')
-        var labe_lngth = $('.sale_banner_product.win').length;
-        if (labe_lngth >=1){
-          $('.sale_banner_product.win').css("display", "none");
-          $('.sale_banner_product.win:nth-child(2)').css("display", "inline-block");
-        }
-      }
-       if($('.custom_text').length < 1){
-        $('.modal_price').append('<span class="custom_text">"'+ wn_blw +'"</span>')
-      }
-    },1000);
-  }
+  current_product||(current_product=product);
+  selected_variant_id=variant.id;
+  WholesaleAllInOne.productTemplate({
+    productId: product.id,
+    variantId: variant.id,
+    price: variant.price,
+    //compareAtPrice: variant.compareAtPrice,
+    //priceSelector: ".waio-product-template"
+  });
 }
-
+**/
 {% endif %}
 
 /**
@@ -222,165 +165,4 @@ WholesaleAllInOne.callback = function(data){
 
 // Write down your additional scripts
 
-$('.mini_cart').hover(function() {
-  WholesaleAllInOne.cartDrawer();
-  setTimeout(function(){
-    console.warn('hover script working')
-    $('li.cart_item.clearfix').each(function(){
-      var _an_tag = $(this).find('a').attr('href')
-      var _hrf = _an_tag.split('?')[0]+'.js';
-      _an_tag = _an_tag.split('variant=')[1]
-      var _this = $(this);
-      $.getJSON(_hrf,function(p){
-        var compare_price = p.compare_at_price;
-        _this.find('.price').attr('data-compare-price',compare_price)
-      })
-      $(this).find('.price').attr('waio-item-single-id',_an_tag)
-      var _pric = $('li.cart_subtotal .money .money').html()
-      $('.cart_content  .cart_subtotal').attr('waio-subtotal',_pric)
-    })
-    $('.cart_content button.action_button.add_to_cart').attr('name','checkout')
-    var winCheck_coupan = $('.js-cart_content__form .waio-coupon-code-form').length;
-    if (winCheck_coupan <= 0){
-      $('li.cart_subtotal.js-cart_subtotal').before('<li class="coupanLi"><span class="waio-coupon-code-form"> </span> <span class="waio-additional-discount-msg"> </span></li>')
-    }
-    setTimeout(function(){
-      WholesaleAllInOne.cartDrawer();
-      WholesaleAllInOne.couponCodeForm();
-      $('.cart_item strong.right.price').css('flex-flow','column-reverse')
-      win_recTag(10)
-    },800)
-  },300)
-})
-$(document).on("click",'.js-change-quantity', function() {
-  setTimeout(function(){
-    WholesalefAllInOne.cartDrawer();
-    WholesaleAllInOne.couponCodeForm();
-    $('.cart_item strong.right.price').css('flex-flow','column-reverse')
-    win_recTag(6)
-  },1000)
-})
-$(document).on("change",'[name="updates[]"]', function() {
-  setTimeout(function(){
-    WholesaleAllInOne.cartDrawer();
-    WholesaleAllInOne.couponCodeForm();
-    $('.cart_item strong.right.price').css('flex-flow','column-reverse')
-    win_recTag(6)
-  },1000)
-})
 
-$('[name="q"]').keyup(function() {
-  console.warn('search input enter')
-  setTimeout(function(){
-    $('li.item-result').each(function(){
-      var _an_tag = $(this).find('a').attr('href')
-      _an_tag = _an_tag.split('products/')[1];
-      if(_an_tag.indexOf('?') > -1){
-        _an_tag = _an_tag.split('?');
-        _an_tag = _an_tag[0]; }
-      var _th = $(this);
-      $(this).find('.item-pricing').addClass('waio-collection-grid')
-      jQuery.getJSON('/products/'+_an_tag+'.js', function(product) {
-        console.log(product);
-        var p_price = product.price;
-        var data_id = product.id;
-        _th.find('.item-pricing').attr('data-item-id',data_id )
-        _th.find('.item-pricing').attr('data-price',p_price )
-      });
-      setTimeout(function(){
-        WholesaleAllInOne.HCSRPTemplate({
-          elementSelector : ".waio-collection-grid", // If null, it will get value from app's developer tool
-          dataIdSelector : "data-item-id", // If null, it will get value from app's developer tool
-          dataPriceSelector : "data-price", // If null, it will get value from app's developer tool
-          dataVariantSelector : "data-variant-id", // variant id attribute data-variant-id
-          priceDesign : null, // default null
-          saleBadgeDirectParent : null, // default null
-          SaleBadgeDirectChild : null, // default null
-          saleLabelMode : null, // default null
-          saleLabelHTML : null, // default null
-          saleLabelPosition : "same", // default value is same, valid values are after,before,append,prepend
-        });
-      },500)
-     
-    })
-  },2500)
-})
-
-//   function _winnn(winss){
-//     if(winss<=0) return false;
-//     WholesaleAllInOne.cartDrawer();
-//     setTimeout(function(){
-//       _winnn(--winss)
-//     },800)
-//   }
-
-// $(document).on('click','.product-plus, .icon-minus, .add_to_cart, .quick_shop ',function(){
-//   setTimeout(function(){
-//     WholesaleAllInOne.cartDrawer();
-//     _winnn(5)
-//   },1000)
-// })
-// $(document).on('change','.quantity',function(){
-//   setTimeout(function(){
-//     WholesaleAllInOne.cartDrawer();
-//   },2500)
-// })
-
-
-function win_recTag(ab){
-  if(ab<=0)return false;
-  var save_lngth = $('p.cart_savings.sale').length;
-  if(save_lngth > 0){
-    $('li.cart_savings.sale.js-cart_savings').css('display','none')
-    $('p.cart_savings.sale').css('display','block')
-  }
-  setTimeout(function(){
-    win_recTag(--ab)
-  },100)
-}
-
-function win_rec(win){
-  if(win<=0)return false;
-  $('div article.visely-recommendation-item').each(function(){
-    var p_handle = $(this).find('a').attr('href')
-    p_handle = p_handle.split('products/')[1]
-   // console.warn(p_handle);
-    var _this = $(this);
-    jQuery.getJSON('/products/'+p_handle+'.js', function(product) {
-      var p_price = current_product.price
-      _this.find('.win_dataPrice').attr('data-price',p_price);
-    });
-  })
-  setTimeout(function(){
-    WholesaleAllInOne.relatedProducts({
-      elementSelector : ".waio-collection-grid", // If null, it will get value from app's developer tool
-      dataIdSelector : "data-item-id", // If null, it will get value from app's developer tool
-      dataPriceSelector : "data-price", // If null, it will get value from app's developer tool
-      dataVariantSelector : "data-variant-id", // variant id attribute data-variant-id
-      priceDesign : null, // default null
-      saleBadgeDirectParent : '.visely-recommendation-item', // default null
-      SaleBadgeDirectChild : 'a', // default null
-      saleLabelMode : null, // default null
-      saleLabelHTML : '<span class="badge--sale banner_holder win"> <span class="sale_banner thumbnail_banner">Special Offer</span> </span>', // default null
-      saleLabelPosition : "before", // default value is same, valid values are after,before,append,prepend
-    });
-  },800)
-  setTimeout(function(){
-    win_rec(--win)
-  },1500)
-}
-setTimeout(function(){
-  var labe_lngthss = $('.modal_price span.custom_text').length
-  if (labe_lngthss >=1){
-    $('.modal_price span.custom_text').css("display", "none");
-    $('.modal_price span.custom_text:last-child').css("display", "block");
-  }
-},1500)
-
-// $(document).ready(function(){
-// var win_l = $('.banner_holder.win').length
-// if(win_l > 0){
-// $('banner_holder').css('top','10px')
-// $('banner_holder.win').css('top','0px')
-// }
-// })

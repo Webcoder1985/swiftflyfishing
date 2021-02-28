@@ -3,13 +3,12 @@
 {% endcomment %}
 <a name="pagecontent" id="pagecontent"></a>
 {% section 'kit-collection-template' %}
-
-{% section 'recently-viewed' %}
-{% section 'featured-products-gallery' %}
-{% section 'collection-kit-image-text' %}
 {% section 'collection-list' %}
-
+{% section 'featured-products-gallery' %}
 {% section 'image-reviews' %}
+{% section 'collection-kit-image-text' %}
+{% section 'recently-viewed' %}
+
 {% if collection.metafields.stamped.reviews_count and collection.metafields.stamped.reviews_count != "0" %} 
 <script type="application/ld+json">
 {

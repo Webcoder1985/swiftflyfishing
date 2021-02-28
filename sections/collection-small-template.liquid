@@ -185,7 +185,7 @@
         </div>
         {% endif %}
         {{num_contents}}
-        {% if description contains '<!--block-->' %}
+        {% if description %}
         {% assign description_blocks = description | split: '<!--block-->' %}
         <ul class="toggle-list">
           <li class="active"> 

@@ -39,9 +39,9 @@
           </div>
         {% endif %}
         {% if section.settings.title != blank %}
-          <h1 class="headline">
+          <h2 class="headline">
             {{ section.settings.title }}
-          </h1>
+          </h2>
         {% endif %}
         {% if section.settings.subtitle != blank %}
           <div class="subtitle">
@@ -71,7 +71,12 @@
 <a name="pagecontent" id="pagecontent"></a>
 
 <div class="container main content">
-  <div class="sixteen columns page clearfix">
+  {% if section.settings.wide_display %}
+  <div class="sixteen columns clearfix">
+  {% else %}
+  <div class="page-content clearfix">
+  {% endif %}
+  
     <div>
       {% render 'page-multi-column', content: page.content %}
     </div>
@@ -96,7 +101,7 @@
 
 {
   "name": "Page | banner",
-  "class": "banner-template-section",
+  "class": "banner-template-section page-section",
   "settings": [
     {
       "type": "checkbox",

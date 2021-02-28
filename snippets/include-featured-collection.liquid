@@ -100,13 +100,8 @@
   {% if section_onboarding == false %}
     {% assign limit = products_limit %}
     {% assign collection = collections[settingCollection] %}
-    {% if section.blocks.size > 0 %}
-      {% assign products = section.blocks %}
-      {% assign type = 'block' %}
-    {% else %}
-      {% assign products = collections[settingCollection].products %}
-      {% assign type = 'collection' %}
-    {% endif %}
+    {% assign products = collections[settingCollection].products %}
+    {% assign type = 'collection' %}
     
     {% assign products_per_row = products_per %}
     <div class="container featured-collection__products">
@@ -114,7 +109,7 @@
         {% render 'product-loop',
                 limit: limit,
                 products: products,
-                type: type,
+                type: 'collection',
                 products_per_row: products_per_row
         %}
       </div>

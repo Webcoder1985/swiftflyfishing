@@ -41,7 +41,7 @@
 
   <div class="twelve columns {% if sidebar == false %}offset-by-two{% endif %} medium-down--one-whole equal-columns--outside-trim">
     <div class="section clearfix">
-      <p class="blog_meta hide medium-down--show">
+      <div class="blog_meta hide medium-down--show">
         {% if section.settings.blog_byline %}
           <span><a href="/search?type=article&q={{ article.author }}">{{ a.author }}{{ 'blogs.article.by_author' | t: author: article.author }}</a></span>
         {% endif %}
@@ -73,7 +73,7 @@
             </span>
           {% endif %}
         {% endif %}
-      </p>
+      </div>
       <div class="clearfix breadcrumb">
         {% if section.settings.blog_breadcrumb %}
           <script type="application/ld+json">
@@ -124,39 +124,39 @@
           </div>
         {% endif %}
       </div>
-        <p class="blog_meta medium-down--hide">
-          {% if section.settings.blog_byline %}
-            <span><a href="/search?type=article&q={{ article.author }}">{{ a.author }}{{ 'blogs.article.by_author' | t: author: article.author }}</a></span>
-          {% endif %}
+      <div class="blog_meta medium-down--hide">
+        {% if section.settings.blog_byline %}
+          <span><a href="/search?type=article&q={{ article.author }}">{{ a.author }}{{ 'blogs.article.by_author' | t: author: article.author }}</a></span>
+        {% endif %}
 
-          {% if section.settings.blog_date %}
-            <span>{{ article.published_at | date: format: "month_day_year" }}</span>
-          {% endif %}
+        {% if section.settings.blog_date %}
+          <span>{{ article.published_at | date: format: "month_day_year" }}</span>
+        {% endif %}
 
-          {% if section.settings.read_time %}
-            {% render 'include-read-time' %}
-          {% endif %}
+        {% if section.settings.read_time %}
+          {% render 'include-read-time' %}
+        {% endif %}
 
-          {% if section.settings.blog_tags %}
-            <div class="blog_meta tags">
-              {% for tag in article.tags %}
-                <span><a href="{{ shop.url}}/blogs/{{ blog.handle }}/tagged/{{ tag | handleize }}" title="{{ blog.title }} {{ 'blogs.general.tagged' | t }} {{ tag | escape }}">{{ tag }}</a></span>
-              {% endfor %}
-            </div>
-          {% endif %}
+        {% if section.settings.blog_tags %}
+          <div class="blog_meta tags">
+            {% for tag in article.tags %}
+              <span><a href="{{ shop.url}}/blogs/{{ blog.handle }}/tagged/{{ tag | handleize }}" title="{{ blog.title }} {{ 'blogs.general.tagged' | t }} {{ tag | escape }}">{{ tag }}</a></span>
+            {% endfor %}
+          </div>
+        {% endif %}
 
-          {% if section.settings.blog_comment_count %}
-            {% if settings.disqus_enabled %}
-              <span>
-                <a href="{{ article.url }}#disqus_thread" data-disqus-identifier="{{ article.id }}" class="disqus-comment-count">{{ 'blogs.counts.comments_with_count' | t: count: 0 }}</a>
-              </span>
-            {% elsif article.comments_enabled? and article.comments_count > 0 %}
-              <span>
-                <a href="{{ article.url }}#comments">{{ 'blogs.counts.comments_with_count' | t: count: article.comments_count }}</a>
-              </span>
-            {% endif %}
+        {% if section.settings.blog_comment_count %}
+          {% if settings.disqus_enabled %}
+            <span>
+              <a href="{{ article.url }}#disqus_thread" data-disqus-identifier="{{ article.id }}" class="disqus-comment-count">{{ 'blogs.counts.comments_with_count' | t: count: 0 }}</a>
+            </span>
+          {% elsif article.comments_enabled? and article.comments_count > 0 %}
+            <span>
+              <a href="{{ article.url }}#comments">{{ 'blogs.counts.comments_with_count' | t: count: article.comments_count }}</a>
+            </span>
           {% endif %}
-        </p>
+        {% endif %}
+      </div>
 
         <div class="article_content clearfix">
           
@@ -200,49 +200,45 @@
           </script>
           <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
         {% elsif blog.comments_enabled? %}
-          {%- comment -%}
-            {% if article.comments_count > 0 %}
-              <h4>{{ 'blogs.comments.response_count' | t: count: article.comments.size }}</h4>
+          {% if article.comments_count > 0 %}
+            <h4>{{ 'blogs.comments.response_count' | t: count: article.comments.size }}</h4>
 
-              {% for comment in article.comments %}
-                <div id="comment-{{ comment.id }}" class="comment clearfix">
-                  <div class="gravatar two columns alpha center" data-email="{{ comment.email }}">
-                    <img src="//1.gravatar.com/avatar/{{ comment.email | md5 }}?s=160&r=G" alt="{{ comment.author }}" />
-                  </div>
-                  <div class="comment-body fourteen columns omega">
-                    <h6>{{ comment.author }}</h6>
-                    <p class="meta">
-                      <span class="label">{{ comment.created_at | date: format: "month_day_year" }}</span>
-                    </p>
-
-                    {{ comment.content }}
-                  </div>
+            {% for comment in article.comments %}
+              <div id="comment-{{ comment.id }}" class="comment clearfix">
+                <div class="gravatar two columns alpha center" data-email="{{ comment.email }}">
+                  <img src="//1.gravatar.com/avatar/{{ comment.email | md5 }}?s=160&r=G" alt="{{ comment.author }}" />
                 </div>
-              {% endfor %}
-            {% endif %}
-          {%- endcomment -%}
-          
-            {%- comment -%}
-              {% if comment and comment.created_at %}
-                  {% if article.comments_count == 0 %}
-                    <h4>{{ 'blogs.comments.response_count' | t: count: article.comments.size }}</h4>
-                  {% endif %}
-                  <div id="comment-{{ comment.id }}" class="comment clearfix">
-                    <div class="gravatar two columns alpha center" data-email="{{ comment.email }}">
-                      <img src="//1.gravatar.com/avatar/{{ comment.email | md5 }}?s=160&r=G" alt="{{ comment.author }}" />
-                    </div>
-                    <div class="comment-body eight columns omega">
-                      <h6>{{ comment.author }}</h6>
-                      <p class="meta">
-                        <span class="label">{{ comment.created_at | date: format: "month_day_year" }}</span>
-                      </p>
+                <div class="comment-body fourteen columns omega">
+                  <h6>{{ comment.author }}</h6>
+                  <p class="meta">
+                    <span class="label">{{ comment.created_at | date: format: "month_day_year" }}</span>
+                  </p>
 
-                      {{ comment.content }}
-                    </div>
-                  </div>
-                {% endif %}
-                {% render 'pagination', paginate: paginate %}
-              {%- endcomment -%}
+                  {{ comment.content }}
+                </div>
+              </div>
+            {% endfor %}
+          {% endif %}
+
+          {% if comment and comment.created_at %}
+              {% if article.comments_count == 0 %}
+                <h4>{{ 'blogs.comments.response_count' | t: count: article.comments.size }}</h4>
+              {% endif %}
+              <div id="comment-{{ comment.id }}" class="comment clearfix">
+                <div class="gravatar two columns alpha center" data-email="{{ comment.email }}">
+                  <img src="//1.gravatar.com/avatar/{{ comment.email | md5 }}?s=160&r=G" alt="{{ comment.author }}" />
+                </div>
+                <div class="comment-body eight columns omega">
+                  <h6>{{ comment.author }}</h6>
+                  <p class="meta">
+                    <span class="label">{{ comment.created_at | date: format: "month_day_year" }}</span>
+                  </p>
+
+                  {{ comment.content }}
+                </div>
+              </div>
+            {% endif %}
+            {% render 'pagination', paginate: paginate %}
           
 
           

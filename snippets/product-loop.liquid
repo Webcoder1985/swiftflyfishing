@@ -40,13 +40,14 @@
 <div itemtype="http://schema.org/ItemList" class="product-list {{ matrixType }} clearfix equal-columns--clear equal-columns--outside-trim">
   {% for item in products limit: forLimit %}
     {% if type == 'block' %}
-      {% assign product = all_products[item.settings.product] %}
+      {% assign product_item = all_products[item.settings.product] %}
     {% else %}
-      {% assign product = item %}
+      {% assign product_item = item %}
     {% endif %}
     {% if product.id != skip_product.id %}
+      
       {% render 'product-thumbnail',
-              product: product,
+              item: product_item,
               products_per_row: products_per_row,
               collection_group_thumb: collection_group_thumb,
               collection_group_mobile: collection_group_mobile,
