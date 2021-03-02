@@ -2398,7 +2398,7 @@ a.close{
         }
       }
       @include respond-to("small-down"){
-        width: 85%!important;
+        width: 100%!important;
         &.is-selected{
           .collection-info__caption{
             opacity: 1;
@@ -2455,6 +2455,7 @@ a.close{
           @include respond-to("medium-down"){
             display: flex!important ;
             justify-content: space-between;
+            padding: 10px 20px;
           }
           
           p{
@@ -2700,6 +2701,9 @@ a.close{
         .input-row{
           margin: 0 10px;
           width: 30.3%;
+          @include respond-to("medium-down"){
+            width: 100%;
+          }
           &:first-child{
             max-width: 33.3%;
           }
@@ -6603,6 +6607,14 @@ a.close{
 
 .collection-list-section{
   padding: 30px 0;
+  
+  .list-collections{
+    display: flex;
+    @include respond-to("medium-down"){
+      display: block;
+    }
+  }
+  
   .heading-title{
     h5{
       @include respond-to("medium-down"){
