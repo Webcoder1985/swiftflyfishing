@@ -44,8 +44,8 @@
     {% else %}
       {% assign product_item = item %}
     {% endif %}
-    {% if product.id != skip_product.id %}
-      
+
+    {% if item.id != skip_product.id %}
       {% render 'product-thumbnail',
               item: product_item,
               products_per_row: products_per_row,

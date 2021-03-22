@@ -2,6 +2,11 @@
 <!DOCTYPE html>
 <html lang="{{ shop.locale }}">
   <head>
+
+    <meta name="p:domain_verify" content="1390804ce36bd5a2570b32b39886177d"/>
+    <meta name="google-site-verification" content="0LDU4EwtFJAg9U2MR4B061MLXo3YhzQmwg7CR4anbSw" />
+    {% include 'dynamic-remarketing' %}
+
     <meta charset="utf-8">
     <meta http-equiv="cleartype" content="on">
     <meta name="robots" content="index,follow">
@@ -78,6 +83,9 @@
     {% if collection.previous_product %}<link rel="prev" href="{{ collection.previous_product }}">{% endif %}
     {% if collection.next_product %}<link rel="next" href="{{ collection.next_product }}">{% endif %}
     <script src="{{ 'jquery.min.js' | asset_url }}"></script>
+
+    {% render 'zoorix-cart-items' %}
+
   </head>
 
   {% if template contains "index" %}
@@ -174,7 +182,11 @@
       <div class="main">
     {% endunless %}
 
+    {% include 'waio_conditions'%}
+
+    {%if waio_allow %}
       {{ content_for_layout }}
+    {% endif %}
     </div>
 
     {% unless template contains 'index' or settings.secondary_newsletter_banner == false %}
@@ -259,13 +271,37 @@
     {% include 'smile-initializer' %}
     <script async type="text/javascript" data-api-key="" id="stamped-script-widget" src="https://cdn-stamped-io.azureedge.net/files/widget.min.js"></script>
     {% include 'adolab-get-clicked-seo' %}
+<!-- WPD Start -->
+                {% if customer.tags.size > 0 and template != 'cart' %}
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                      let checkoutbtninterval = setInterval(function(){
+                        var x=document.querySelectorAll("input[name='checkout'], button[name='checkout'], input[name='goto_pp'], button[name='goto_pp'], input[name='goto_gc'], button[name='goto_gc'], [href$='checkout']");
+                        var WPD_RedirectToCart = function(e) {
+                          	e.stopPropagation();
+                            e.preventDefault();
+                            window.location = '/cart';
+                            };
+                            for (var i = 0; i < x.length; i++) {
+                                x[i].addEventListener('click', WPD_RedirectToCart, false);
+                            }
+
+                      },500)
+                });
+              </script>
+               {% endif %}
+         
+
+               {% if customer.tags.size > 0 and template == 'cart' %}
+                 {% include 'wcp_cart' %}
+               {% endif %}
+               <!-- WPD End -->
     {% include 'special-offers' %}
     {% if settings.show_multiple_currencies or settings.show_multiple_currencies_shopify %}   
       {% include 'ip_stack' %}
     {% endif %}
-    {%- comment -%}
-      {% include 'wholesale-all-in-one' %}
-    {%- endcomment -%}
+    
+    {% include 'wholesale-all-in-one' %}
     
     {% if mlveda_code_flag == true %}
       {% if template != 'cart' %}
@@ -331,6 +367,10 @@
         }
       });
     </script>
+    <!-- **BEGIN** Hextom FSB Integration // Main Include - DO NOT MODIFY -->
+    {% render 'hextom_fsb_main', product: product, customer: customer %}
+    <!-- **END** Hextom FSB Integration // Main Include - DO NOT MODIFY -->
+
   </body>
 </html>
 {% endcapture %}

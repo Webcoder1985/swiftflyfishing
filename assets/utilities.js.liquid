@@ -385,6 +385,20 @@ var enableInfiniteScroll = function(){
         $('.js-load-more').hide();
       },
       onAfterPageLoad: function(data){
+        setTimeout(function(){
+          WholesaleAllInOne.HCSRPTemplate({
+            elementSelector : ".ProductAvailable .waio-collection-grid", // If null, it will get value from app's developer tool
+            dataIdSelector : "data-item-id", // If null, it will get value from app's developer tool
+            dataPriceSelector : "data-price", // If null, it will get value from app's developer tool
+            dataVariantSelector : "data-variant-id", // variant id attribute data-variant-id
+            priceDesign : null, // default null
+            saleBadgeDirectParent : '.thumbnail', // default null
+            SaleBadgeDirectChild : '.thumbnail-overlay', // default null
+            saleLabelMode : null, // default null
+            saleLabelHTML : '<div class="banner_holder"> <div class="sale_banner thumbnail_banner">Special Offer</div> </div>', // default null
+            saleLabelPosition : "after", // default value is same, valid values are after,before,append,prepend
+          });
+        },2000);
         $('.collection-matrix > .collection-matrix .thumbnail').unwrap('.collection-matrix');
         if (Shopify.theme_settings.enable_shopify_review_comments && Shopify.theme_settings.enable_shopify_collection_badges){
           SPR.$(document).ready(function() {

@@ -1,3 +1,6 @@
+{% render 'wcp_discount' with product %}
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+{% render 'wcp_variant' with current_variant %}
 <div class="product-details">
   <span class="title" itemprop="name">{{ product.title }}</span>
   {% if settings.display_vendor %}
@@ -14,19 +17,20 @@
     {% if collection_handles contains 'coming-soon' %}
       <span class="coming-soon">{{ 'collections.general.coming_soon' | t }}</span>
     {% else %}
-      <span class="price {% if product.compare_at_price_max > product.price %}sale{% endif %}">
+      {% capture collectionsOfAProduct %}{% for collect in product.collections %}{% if forloop.last %}{{collect.id}}{% else %}{{collect.id}},{% endif %}{% endfor %}{% endcapture %}{% capture waioAttributes %}data-compare-price="{{product.compare_at_price }}" data-price="{{ product.price }}" data-item-id="{{product.id}}" data-collection-ids="{{collectionsOfAProduct}}"{% endcapture %}
+      <span class="price {% if wcp_compare_at_price_max > wcp_price %}sale{% endif %} waio-collection-grid" {{waioAttributes}}>
         {% unless product.available == false and settings.display_price == false %}
           <span class="current_price">
-            {% if product.price_min > 0 %}
-              {% render 'price-element', price: product.price_min %}
+            {% if wcp_price_min > 0 %}
+              {% render 'price-element', price: wcp_price_min %}
             {% else %}
               {{ settings.free_price_text }}
             {% endif %}
           </span>
           {% assign variant = product.selected_or_first_available_variant %}
           <span class="was_price">
-            {% if variant.price < variant.compare_at_price %}
-              <span class="money">{% render 'price-element', price: variant.compare_at_price %}</span>
+            {% if wcp_price < wcp_compare_at_price_max %}
+              <span class="money">{% render 'price-element', price: wcp_compare_at_price_max %}</span>
             {% endif %}
           </span>
         {% endunless %}

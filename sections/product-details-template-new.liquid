@@ -123,7 +123,7 @@
                   <link itemprop="availability" href="http://schema.org/{% if variant.available %}InStock{% else %}OutOfStock{% endif %}">
                   <meta itemprop="itemCondition" itemtype="http://schema.org/OfferItemCondition" content="http://schema.org/NewCondition"/>
 
-                  <span class="sold_out">{% if variant.available == false %}{{ 'products.product.sold_out' | t }}{% endif %}</span>
+                  {% if variant.available == false %}<span class="sold_out">{{ 'products.product.sold_out' | t }}</span>{% endif %}
                   <span itemprop="price" content="{{ wcp_v_price | money_without_currency | remove: "," }}" class="{% if wcp_v_compare_at_price > wcp_v_price %}sale{% endif %}">
                     <span class="current_price {% if product.available == false %}hidden{% endif %}">
                       {% if wcp_price > 0 %}
@@ -147,19 +147,18 @@
                     </span>
                   {% endif %}
                 </p>
-                {% if section.settings.enable_shopify_product_badges and settings.enable_shopify_review_comments %}
-                <span class="stamped-product-reviews-badge stamped-main-badge" data-id="{{ product_original.id }}" data-product-sku="{{ product_original.handle }}" style="display: inline-block;" onclick="$('.tabs li:nth-child(3) a').click()">{{ product_original.metafields.stamped.badge }}</span>
-                {% endif %}
-                {% if product.description contains '<!--info-->' %}
-                  <div class='custom_text'>
-                    {{ product.description | split: '<!--info-->' | first }}
-                    {% assign product_description = product.description | split: '<!--info-->' | last %}
-                  </div>
-                {% else %}
-                  {% assign product_description = product.description %}
-                {% endif %}
               {% endif %}
-              
+              {% if section.settings.enable_shopify_product_badges and settings.enable_shopify_review_comments %}
+                <span class="stamped-product-reviews-badge stamped-main-badge" data-id="{{ product_original.id }}" data-product-sku="{{ product_original.handle }}" style="display: inline-block;" onclick="$('.tabs li:nth-child(3) a').click()">{{ product_original.metafields.stamped.badge }}</span>
+              {% endif %}
+              {% if product.description contains '<!--info-->' %}
+                <div class='custom_text'>
+                  {{ product.description | split: '<!--info-->' | first }}
+                  {% assign product_description = product.description | split: '<!--info-->' | last %}
+                </div>
+              {% else %}
+                {% assign product_description = product.description %}
+              {% endif %}
             </div>
               
             <div class="feature_divider"></div>

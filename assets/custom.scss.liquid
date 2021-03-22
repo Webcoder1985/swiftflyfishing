@@ -591,6 +591,8 @@ input[type="text"], input[type="password"], input[type="email"], input[type="sea
         }
         img{
           transition: transform .5s;
+          max-width: initial;
+          max-height: initial;
         }
         &:hover{
           img{
@@ -2368,9 +2370,6 @@ a.close{
     }
     &[data-prevnext="true"]{
       .flickity-button{
-        @include respond-to("small-down"){
-          display: block!important;
-        }
       }
       .flickity-page-dots{
         @include respond-to("small-down"){
@@ -3139,6 +3138,7 @@ a.close{
       display: flex;
       flex-wrap: wrap;
       justify-content: flex-start;
+      align-items: center;
       .flickity-viewport{
         width: 100%;
         order: 1;
@@ -3161,9 +3161,20 @@ a.close{
       }
       .flickity-page-dots{
         order: 3;
-        position: initial;
+        position: relative;
         width: auto;
         transform: none;
+        padding-top: 50px;
+        min-width: 87px;
+        top: 0px;
+        padding-top: 35px;
+        &::before{
+          content: "More Info";
+          position: absolute;
+          font-weight: 400;
+          color: black;
+          top: 13px;
+        }
       }
     
       .description-item{
@@ -3173,6 +3184,7 @@ a.close{
         min-height: 100%;
         text-align: left!important;
         margin-left: 0;
+        width: calc(50% - 10px);
         
         h2, h3{
           &:first-child{
@@ -6654,3 +6666,5 @@ a.close{
 #privy-container #privy-inner-container .privy-mobile.privy-tab-container.privy-corner{
   z-index: 999!important;
 }
+
+.grecaptcha-badge { visibility: hidden; }

@@ -25,7 +25,7 @@
   </div>
 {% else %}
 
-  <div class="sixteen columns hidden js-empty-cart__message">
+<div class="sixteen columns hidden js-empty-cart__message"> 
     <div class="section clearfix">
       <div class="six columns offset-by-five medium-down--one-whole">
         <p class="quote">{{ 'cart.general.continue_browsing_html' | t }}</p>
@@ -34,14 +34,20 @@
       <br class="clear" />
     </div>
   </div>
-
+  {% render 'zoorix-cart-top' %}
   <form action="{{ routes.cart_url }}" method="post" id="cart_form" data-cart-form="cart-template" data-total-discount="{{ cart.total_discount }}">
     <div class="section clearfix cart__wrapper">
       <div class="eleven columns medium-down--one-whole">
         {% assign total_saving = 0 %}
-        {% for item in cart.items %}
-          {% if item.variant.compare_at_price > item.variant.price %}
-            {% assign saving = item.variant.compare_at_price | minus: item.variant.price | times: item.quantity %}
+        {% assign wcp_total_price = 0 %}
+        {% for item in cart.items %}  
+  		    {% include 'wcp_discount' with item.product %} 
+		      {% include 'wcp_variant' with item.variant %} 
+		      {% assign wcp_line_price = wcp_v_price | minus: 0 | times: line_item.quantity %}
+          {% include 'wcp_vd_discount' with item %}
+          {% assign wcp_total_price = wcp_total_price | plus:wcp_line_price %}
+          {% if wcp_v_compare_at_price > wcp_v_price %}
+            {% assign saving = wcp_v_compare_at_price | minus: wcp_v_price | times: item.quantity %}
             {% assign total_saving = saving | plus: total_saving %}
           {% endif %}
 
@@ -54,18 +60,21 @@
                         object_fit: settings.align_height,
                         max_height: settings.collection_height
                 %}
-              </a>
+                </a>
             </div>
 
             <div class="eleven columns small-down--four-fifths omega cart_content_info cart__item--content">
               <h3 class="cart__item--title">
-                <a href="{{ item.url }}">{{ item.product.title }}</a>
+                <a href="{{ item.url }}">{{ item.product.title }}
+                  <span class="saso-cart-item-discount-notes" data-key="{{item.key}}"></span>
+                  <span class="saso-cart-item-upsell-notes" data-key="{{item.key}}"></span>
+                </a>
               </h3>
 
               {% unless item.product.has_only_default_variant or item.variant.title contains "Title" %}
                 <p class="meta">
                   {% for option in item.product.options %}
-                    <span class="label">{{ option | remove_first: ':' }}:</span> <span>{{ item.variant.options[forloop.index0] }}</span><br />
+                  <span class="label">{{ option | remove_first: ':' }}:</span> <span>{{ item.variant.options[forloop.index0] }}</span><br />
                   {% endfor %}
                 </p>
               {% endunless %}
@@ -74,64 +83,39 @@
                 <p>
                   {% for p in item.properties %}
                     {% unless p.last == blank %}
-                      {% if p.last contains '/uploads/' %}
-                        <div>
-                          {{ p.first }} : <a class="lightbox" href="{{ p.last }}">{{ 'cart.general.uploaded_file' | t }}</a>
-                        </div>
-                      {% else %}
-                        <div>
-                          {{ p.first }} : {{ p.last }}
-                        </div>
-                      {% endif %}
+                      <p class="inscription_cart_text">
+                          {% if p.last contains '/uploads/' %}
+                            <div>
+                              {{ p.first }} : <a class="lightbox" href="{{ p.last }}">{{ 'cart.general.uploaded_file' | t }}</a>
+                            </div>
+                          {% else %}
+                            <div>
+                              {{ p.first }} : {{ p.last }}
+                            </div>
+                          {% endif %}
+                      </p>
                     {% endunless %}
                   {% endfor %}
                 </p>
               {% endif %}
 
-              <p class="modal_price">
-                {% if item.price > 0 %}
-                  <span class="money {% if item.price < item.variant.compare_at_price or item.line_level_discount_allocations.size > 0 %}sale{% endif %}">
-                    {% render 'price-element', price: item.final_price %}
-                  </span>
-                  {% if item.price < item.variant.compare_at_price or item.line_level_discount_allocations.size > 0 %}
-                    <span class="money was_price">
-                      {% render 'price-element', price: item.variant.compare_at_price %}
-                    </span>
-                  {% endif %}
+              <p class="modal_price" waio-item-single-id="{% if item.final_price < item.original_price %}discounted-item-{%endif%}{{ item.variant.id}}">
+                {% if wcp_v_price > 0 %}
+                  <span class="">{{ wcp_v_price | money_with_currency }}</span>
                 {% else %}
-                    {{ settings.free_price_text }}
+                  {{ settings.free_price_text }}
+                {% endif %}
+
+                {% if wcp_v_price < wcp_v_compare_at_price %}
+                  <span class="money was_price">{{ wcp_v_compare_at_price | money_with_currency }}</span>
                 {% endif %}
               </p>
-
-              {% if item.line_level_discount_allocations.size > 0 %}
-                {% for discount_allocation in item.line_level_discount_allocations %}
-                  <p class="meta cart__item--discount">
-                    <span class="label">{{ 'cart.general.discount' | t }}:</span>
-                    {{ discount_allocation.discount_application.title }} (-<span class="money">{% render 'price-element', price: discount_allocation.amount %}</span>)
-                  </p>
-                {% endfor %}
-              {% endif %}
 
               <div class="product-quantity-box left">
                 <span class="ss-icon product-minus js-change-quantity" data-func="minus"><span class="icon-minus"></span></span>
-                <input type="number" min="0" size="2" class="quantity" name="updates[]" id="updates_{{ item.id }}" value="{{ item.quantity }}" data-cart-quantity-input="cart-template" {% if settings.limit_quantity and item.variant.inventory_management != blank and item.variant.inventory_quantity > 0 and item.variant.inventory_policy == "deny" %}max="{{ item.variant.inventory_quantity }}"{% endif %} />
+                <input type="number" min="0" size="2" class="quantity" name="updates[]" id="updates_{{ item.id }}" value="{{ item.quantity }}" data-line-id="{{ forloop.index }}" {% if settings.limit_quantity and item.variant.inventory_management != blank and item.variant.inventory_quantity > 0 and item.variant.inventory_policy == "deny" %}max="{{ item.variant.inventory_quantity }}"{% endif %} />
                 <span class="ss-icon product-plus js-change-quantity" data-func="plus"><span class="icon-plus"></span></span>
               </div>
-
-              <p class="price_total">
-                <strong>{{ 'cart.general.total' | t }}:</strong>
-                {% if item.line_level_discount_allocations.size > 0 %}
-                  <span class="money">
-                    {% render 'price-element', price: item.final_line_price %}
-                  </span>
-                {% endif %}
-                <span class="money {% if item.line_level_discount_allocations.size > 0 %}was_price{% endif %}">
-                  {% render 'price-element', price: item.original_line_price %}
-                </span>
-              </p>
-
-              <a href="{{ routes.cart_change_url }}?line={{ forloop.index }}&amp;quantity=0" class="cart__remove-btn" data-line-id="{{ forloop.index }}" data-remove-item="cart-template"><span class="remove-text">{{ 'cart.general.remove' | t }}</span> <span class="remove-icon"></span></a>
-
             </div>
           </div>
         {% endfor %}
@@ -139,47 +123,38 @@
 
       <div class="five columns medium-down--one-whole">
         <div class="section clearfix">
+         
           <div class="subtotal">
-
-            {% if cart.cart_level_discount_applications != blank %}
-              <p class="cart_discounts js-cart_discounts sale">
-              {% for discount_application in cart.cart_level_discount_applications %}
-                <span class="cart_discounts--title">{{ discount_application.title }}</span>
-                <span class="cart_discounts--price">
-                  -<span class="money">{% render 'price-element', price: discount_application.total_allocated_amount %}</span>
+            <div class="coupanLi"><span class="waio-coupon-code-form"> </span> <span class="waio-additional-discount-msg"> </span></div>
+            <div waio-subtotal="<span class="zrx-cart-total">{{ cart.total_price }}</span>">
+              <p class="cart_subtotal js-cart_subtotal">
+                <span class="right">
+                  <span class=""><span class="cart__subtotal"><span class="wcp-original-cart-total" >{{ cart.total_price | money_with_currency
+            }}</span><span class="wcp-cart-total"></span><div class="additional-notes"><span class="wcp-minimums-note"></span><span class="wcp-extra-note "></span></div>
+                    </span></span>
                 </span>
-              {% endfor %}
-
+                <span>{{ 'cart.general.subtotal' | t }}</span>
               </p>
 
-            {% endif %}
-
-            <p class="cart_subtotal js-cart_subtotal">
-              <span class="right">
-                <span class="money">{% render 'price-element', price: cart.total_price %}</span>
-              </span>
-              <span>{{ 'cart.general.subtotal' | t }}</span>
-            </p>
-
-            {% if section.settings.display_savings and total_saving > 0 or section.settings.display_savings and cart.total_discount > 0 %}
-              <p class="cart_savings js-cart_savings sale">
+              {% if section.settings.display_savings %}
+              <p class="cart_savings sale">
+                {% if total_saving > 0 %}
                 <span class="right">
-                  <span class="money">{% assign total_savings = total_saving | plus: cart.total_discount %}{% render 'price-element', price: total_savings %}</span>
+                  <span class="">{{ total_saving | money }}</span>
                 </span>
                 <span>{{ 'layout.general.savings' | t }}</span>
+                {% endif %}
               </p>
-            {% endif %}
+              {% endif %}
 
-
-              {% unless shop.enabled_currencies.size > 1 %}
-                <p>
-                  <small>
-                    {{ 'cart.general.orders_processed_in_currency_html' | t: currency: shop.currency }}
-                  </small>
-                </p>
-              {% endunless %}
-
-
+              {% if settings.show_multiple_currencies %}
+              <p>
+                <small>
+                  {{ 'cart.general.orders_processed_in_currency_html' | t: currency: shop.currency }}
+                </small>
+              </p>
+              {% endif %}
+            </div>
             {% if section.settings.display_special_instructions %}
               <label for="note">{{ 'cart.general.note' | t: shop_name: shop.name }}:</label>
               <textarea id="note" name="note" rows="2">{{ cart.note }}</textarea>
@@ -203,26 +178,38 @@
               </div>
             {% endif %}
 
-            <p class="tos_warning checkout_button">
+            <p>
+              <input type="hidden" name="discount" value="">
               <button type="submit" class="action_button full-button add_to_cart" id="checkout" name="checkout">{% if settings.show_lock_icon %}<span class="icon-lock"></span>{% endif %}{{ 'cart.general.checkout' | t }}</button>
             </p>
-
+            {% if customer.tags contains 'wpdnet' and cart.item_count > 0%}
+            {% if shop.metafields.wcp_net.isNetEnabled == 'true' or shop.metafields.wcp_net.isNetEnabled == '1' %}
+            <div style="margin-top:30px;">
+              <p>{{shop.metafields.wcp_net.netCartMsg}}</p>
+              <a id="wcp-30-open" class="btn">
+                {{shop.metafields.wcp_net.netBtnMsg}}
+              </a>
+            </div>
+            {% endif %}
+            {% endif %}
             {% if content_for_additional_checkout_buttons %}
               <div class="additional-checkout-buttons additional-checkout-buttons--vertical">
                 {{ content_for_additional_checkout_buttons }}
-              </div>
+              </div> 
             {% endif %}
 
             {% if cart.item_count > 0 %}
-              <a href="{% if cart.items.first.product.collections != blank %}{{ cart.items.first.product.collections.last.url }}{% else %}{{ routes.all_products_collection_url }}{% endif %}" class="continue-shopping">{{ 'cart.general.continue_shopping_link_html' | t }}</a>
+            <a href="{% if cart.items.first.product.collections != blank %}{{ cart.items.first.product.collections.last.url }}{% else %}{{ routes.all_products_collection_url }}{% endif %}" class="continue-shopping">{{ 'cart.general.continue_shopping_link_html' | t }}</a>
             {% endif %}
           </div>
         </div>
       </div>
     </div>
   </form>
+  {% render 'zoorix-cart-bottom' %}
 
-  {% render 'cart-shipping-calculator' %}
+
+  {% include 'cart-shipping-calculator' %}
 {% endif %}
 
 </div>
@@ -236,7 +223,22 @@
     </div>
   {% endfor %}
 </div>
-
+<script>
+         var v = setInterval(function()
+{
+         if(typeof window.wcp_data != 'undefined' && typeof window.wcp_data.discounted_hash != 'undefined')
+{
+        if((window.wcp_data.discounted_hash.discount_value || window.wcp_data.discounted_hash.shipping) 
+   	&& $('.cart-checkout-additional').children(':visible').length > 0)
+{
+	$('.cart-checkout-additional').html("Other payment options are available at checkout");
+	 clearInterval(v);
+}
+       
+}  
+},500);                 
+                        
+</script>
 {% schema %}
 
 {

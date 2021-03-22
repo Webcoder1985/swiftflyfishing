@@ -4,7 +4,7 @@
 - Uses blocks
 {% endcomment %}
 
-{% if section.settings.featured_collection_image %}
+{% if section.settings.featured_collection_image %} 
   {% if section.settings.wide_display == false %}
   <div class="container">
     <div class="sixteen columns">
@@ -202,7 +202,6 @@
                         {{ desc }}
                       </div>
                       {% endif %}
-                      
                   {% endfor %}
                 </div>
               </div>
@@ -210,18 +209,20 @@
             <a class="toggle_btn"><span class="more">Read More</span><span class="less">Read Less</span></a>
           </li>
         </ul>
-        {% endif %} 
-        
+        {% endif %}
         {% if collection.products.size == 0 %}
           <div class="section clearfix collection-matrix">
             <p class="quote">{{ 'collections.general.no_matches' | t }}</p>
           </div>
         {% else %}
           {% assign products_per_row = section.settings.products_per_row %}
+          
           {% render 'product-loop',
                   paginate: paginate,
-                  products: products,
+                  products: collection.products,
+                  limit: section.settings.pagination_limit,
                   products_per_row: products_per_row,
+                  type: 'collection',
                   sidebar: false
           %}
         {% endif %}
@@ -339,7 +340,7 @@
       "label": "Show breadcrumb links",
       "default": true
     },
-    { 
+    {
       "type": "header",
       "content": "Products"
     },

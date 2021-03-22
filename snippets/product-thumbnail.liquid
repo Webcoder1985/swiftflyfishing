@@ -42,7 +42,7 @@
   {% endif %}
   product-{{ item.id }}">
 
-  <div class="product-wrap {% if settings.collection_secondary_image != blank and secondaryImage != blank %}has-secondary-media-swap{% endif %}">
+  <div class="product-wrap {% if settings.collection_secondary_image != blank and secondaryImage != blank %}has-secondary-media-swap{% endif %} {% if item.available %}ProductAvailable{% else %}ProductNotAvailable{% endif %}">
     <div class="relative product_image">
       <a href="{{ item.url | within: collection }}">
         <div class="image__container">

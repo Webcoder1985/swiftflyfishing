@@ -26,6 +26,7 @@
       <li class="uppercase">{{ 'customer.menu.dashboard' | t | link_to : "/account" }}</li>
       <li class="uppercase active">{{ 'customer.menu.account_detail' | t | link_to: "/account/addresses#" }}</li>
       <li class="uppercase">{{ 'customer.menu.rewards' | t | link_to: "pages/swift-rewards" }}</li>
+      <li class="uppercase"><a href="/apps/downloads/orders/{{customer.id}}">{{ 'customer.menu.download_file' | t }}</a></li>
       <li class="uppercase">{{ 'customer.menu.log_out' | t | link_to: "/account/logout" }}</li>
     </ul>
   </aside>
