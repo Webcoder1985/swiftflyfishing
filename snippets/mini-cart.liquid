@@ -3,14 +3,35 @@
     <a href="/cart">{{'cart.general.title' | t }}</a>
     <a class="close"></a>
     <div class="progress-content {% if cart.item_count < 1 %}hidden{% endif %}">
-      {% assign left_price = settings.cart_limit | minus: cart.total_price %}
-      {% assign progress = cart.total_price | times: 100 | divided_by: settings.cart_limit %}
-      <div class="progress-bar" data-limit="{{settings.cart_limit}}">
+      {% case cart.currency.iso_code %}
+        {% when 'USD' %}
+          {% assign cart_limit = settings.cart_limit | times: 100 %}
+        {% when 'AUD' %}
+          {% assign cart_limit = settings.cart_limit_aud | times: 100 %}
+        {% when 'CAD' %}
+          {% assign cart_limit = settings.cart_limit_cad | times: 100 %}
+        {% when 'DKK' %}
+          {% assign cart_limit = settings.cart_limit_dkk | times: 100 %}
+        {% when 'EUR' %}
+          {% assign cart_limit = settings.cart_limit_eur | times: 100 %}
+        {% when 'GBP' %}
+          {% assign cart_limit = settings.cart_limit_gbp | times: 100 %}
+        {% when 'HKD' %}
+          {% assign cart_limit = settings.cart_limit_hkd | times: 100 %}
+        {% when 'NZD' %}
+          {% assign cart_limit = settings.cart_limit_nzd | times: 100 %}
+        {% when 'SGD' %}
+          {% assign cart_limit = settings.cart_limit_sgd | times: 100 %}          
+      {% endcase %}
+      
+      {% assign left_price = cart_limit | minus: cart.original_total_price %}
+      {% assign progress = cart.original_total_price | times: 100 | divided_by: cart_limit %}
+      <div class="progress-bar" data-limit="{{cart_limit}}">
         <div class="progress" style="width: {{progress}}%;"></div>
         {% if left_price > 0 %}
           <span>Only {{ left_price | money }} away from FREE shipping!</span>
         {% else %}
-          <span>✓ Congratulations! You've earned a FREE SIPPING!</span>
+          <span>✓ Congratulations! You've earned a FREE SHIPPING!</span>
         {% endif %}
         
       </div>
@@ -28,25 +49,25 @@
           data-shop-currency="{{ shop.currency }}"
           data-shop-name="{{ shop.name | escape }}"
           data-cart-form="mini-cart">
-      <ul class="cart_items js-cart_items">
+      <ul class="cart_items {% if settings.display_special_instructions and settings.go_to_checkout %} cart-note {% endif %} js-cart_items">
         {% assign total_saving = 0 %}
 	      {% assign wcp_total_price = 0 %}
         {% for item in cart.items %}
-  		{% include 'wcp_discount' with item.product %} 
-		{% include 'wcp_variant' with item.variant %} 
-		{% assign wcp_line_price = wcp_v_price | minus: 0 | times: line_item.quantity %}
+  		    {% include 'wcp_discount' with item.product %} 
+          {% include 'wcp_variant' with item.variant %} 
+          {% assign wcp_line_price = wcp_v_price | minus: 0 | times: line_item.quantity %}
           {% assign wcp_total_price = wcp_total_price | plus:wcp_line_price %}
                   
-                    {% if wcp_v_compare_at_price > wcp_v_price %}
-                      {% assign saving = wcp_v_compare_at_price | minus: wcp_v_price | times: item.quantity %}
-                      {% assign total_saving = saving | plus: total_saving %}
-                    {% endif %}
+          {% if wcp_v_compare_at_price > wcp_v_price %}
+            {% assign saving = wcp_v_compare_at_price | minus: wcp_v_price | times: item.quantity %}
+            {% assign total_saving = saving | plus: total_saving %}
+          {% endif %}
 
-                    <li class="cart_item clearfix">
-                      <a href="{{ item.url }}">
-                        {% if item.image %}
-                          <div class="cart_image">
-                            <img src="{{ item | img_url: '320x' }}" alt="{{ item.title | escape }}" class="lazyload" />
+          <li class="cart_item clearfix">
+            <a href="{{ item.url }}">
+              {% if item.image %}
+                <div class="cart_image">
+                  <img src="{{ item | img_url: '320x' }}" alt="{{ item.title | escape }}" class="lazyload" />
                 </div>
               {% endif %}
             </a>
@@ -101,9 +122,10 @@
   
       <ul class="sub_total_content">
         <li class="item-review">
-          {% assign product = cart.items | last %}
+          {% assign r_item = cart.items | first %}
+          {% assign product = r_item.product %}
            <div class='stamped-reviews-widget-desktop_visible visible-none'>
-             <div id="stamped-reviews-widget" data-widget-type="full-page" data-product-image="false" data-take="1" data-limit-words="50" data-fill-empty="false" data-random="false"></div>
+             <div id="stamped-reviews-widget" data-widget-type="full-page" data-product-image="false" data-take="1" data-limit-words="50" data-fill-empty="false" data-random="false"  data-product-ids="{{product.id}}"></div>
            </div>
         </li>
         <li class="cart_discounts js-cart_discounts sale">

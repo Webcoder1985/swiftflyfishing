@@ -27,26 +27,26 @@ var featuredCollectionSection = {
           wrapAround,
           initialIndex;
 
-    // function to check if browser is IE
-    var isIE11 = !!navigator.userAgent.match(/Trident.*rv\:11\./);
+      // function to check if browser is IE
+      var isIE11 = !!navigator.userAgent.match(/Trident.*rv\:11\./);
 
-    // Ensure product media libraries are present
-    if (!isIE11) {
-      window.Shopify.loadFeatures([
-        {
-          name: 'model-viewer',
-          version: '0.8'
-        },
-        {
-          name: 'shopify-xr',
-          version: '1.0',
-        },
-        {
-          name: 'model-viewer-ui',
-          version: '1.0',
-        }
-      ], productMedia.setupMedia)
-    }
+      // Ensure product media libraries are present
+      if (!isIE11) {
+        window.Shopify.loadFeatures([
+          {
+            name: 'model-viewer',
+            version: '0.8'
+          },
+          {
+            name: 'shopify-xr',
+            version: '1.0',
+          },
+          {
+            name: 'model-viewer-ui',
+            version: '1.0',
+          }
+        ], productMedia.setupMedia)
+      }
 
       if (products_per_slide == "2" && products_available > products_per_slide && products_limit > products_per_slide || products_per_slide == "4" && products_available > products_per_slide && products_limit > products_per_slide || products_per_slide == "6" && products_available > products_per_slide && products_limit > products_per_slide){
         cellAlign = "left";
@@ -54,7 +54,7 @@ var featuredCollectionSection = {
         cellAlign = "center";
       }
 
-      if (products_available > products_per_slide && products_limit > products_per_slide) {
+      if ( products_limit > products_per_slide) {
         draggable = true;
         prevNext = true;
         wrapAround = true;
@@ -249,15 +249,12 @@ var testimonial = {
         if (settings.slideshowTextAnimation != ''){
           var flkty = $testimonialSlider.data('flickity');
           setTimeout(function() {
-            $testimonialSlider.find('.gallery-cell:nth-child(1) .caption-content').addClass('animated ' + settings.slideshowTextAnimation);
           }, 400);
 
           $testimonialSlider.on( 'select.flickity', function() {
             if($testimonialSlider.is(':visible')) {
               var currentSlide = flkty.selectedIndex + 1;
               setTimeout(function() {
-                $testimonialSlider.find('.caption-content').removeClass('animated ' + settings.slideshowTextAnimation);
-                $testimonialSlider.find('.gallery-cell:nth-child(' + currentSlide + ') .caption-content').addClass('animated ' + settings.slideshowTextAnimation);
               }, 400);
             }
           });

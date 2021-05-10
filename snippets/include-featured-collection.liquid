@@ -53,11 +53,13 @@
   {% if section.blocks.size > 0 %}
       {% assign products = section.blocks %}
       {% assign type = 'block' %}
+      {% assign product_count = section.blocks.size %}
     {% else %}
       {% assign products = collections[settingCollection].products %}
       {% assign type = 'collection' %}
+      {% assign product_count = collections[col].all_products_count %}
     {% endif %}
-  {% assign product_count = collections[col].all_products_count %}
+  
   {% assign per_slide = products_per %}
 
   <div class="container js-product-slider homepage-product-slider full-width--true {% if per_slide == 2 or per_slide == 4 or per_slide == 6 %}even-num-slides{% endif %} featured-collection__products">
@@ -100,8 +102,13 @@
   {% if section_onboarding == false %}
     {% assign limit = products_limit %}
     {% assign collection = collections[settingCollection] %}
-    {% assign products = collections[settingCollection].products %}
-    {% assign type = 'collection' %}
+    {% if section.blocks.size > 0 %}
+      {% assign products = section.blocks %}
+      {% assign type = 'block' %}
+    {% else %}
+      {% assign products = collections[settingCollection].products %}
+      {% assign type = 'collection' %}
+    {% endif %}
     
     {% assign products_per_row = products_per %}
     <div class="container featured-collection__products">
@@ -109,7 +116,7 @@
         {% render 'product-loop',
                 limit: limit,
                 products: products,
-                type: 'collection',
+                type: type,
                 products_per_row: products_per_row
         %}
       </div>

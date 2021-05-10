@@ -996,6 +996,53 @@
       },
       {
         "type": "header",
+        "content": "Banner Pre headings"
+      },
+      {
+        "type": "font_picker",
+        "id": "slideshow_pre_headline__font",
+        "label": "Font",
+        "default": "open_sans_n4"
+      },
+      {
+        "type": "select",
+        "id": "slideshow_pre_headline_font_style",
+        "label": "Capitalization",
+        "options": [
+          {
+            "value": "none",
+            "label": "None"
+          },
+          {
+            "value": "uppercase",
+            "label": "Uppercase"
+          },
+          {
+            "value": "lowercase",
+            "label": "Lowercase"
+          }
+        ]
+      },
+      {
+        "type": "range",
+        "id": "slideshow_pre_headline_size",
+        "label": "Base size",
+        "min": 20,
+        "max": 70,
+        "default": 56,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "slideshow_pre_headline_letter_spacing",
+        "label": "Letter spacing",
+        "min": -5,
+        "max": 6,
+        "default": 1,
+        "unit": "px"
+      },
+      {
+        "type": "header",
         "content": "Banner headings"
       },
       {
@@ -1036,7 +1083,7 @@
         "type": "range",
         "id": "slideshow_headline_letter_spacing",
         "label": "Letter spacing",
-        "min": 0,
+        "min": -5,
         "max": 6,
         "default": 1,
         "unit": "px"
@@ -1121,6 +1168,15 @@
         "unit": "px"
       },
       {
+        "type": "range",
+        "id": "large_heading_letter_spacing",
+        "label": "Letter spacing",
+        "min": 0,
+        "max": 6,
+        "default": 1,
+        "unit": "px"
+      },
+      {
         "type": "font_picker",
         "id": "page_banner__regular_font",
         "label": "Regular Font",
@@ -1133,6 +1189,15 @@
         "min": 10,
         "max": 40,
         "default": 18,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "small_heading_letter_spacing",
+        "label": "Letter spacing",
+        "min": 0,
+        "max": 6,
+        "default": 1,
         "unit": "px"
       },
       {
@@ -1759,9 +1824,66 @@
       },
       {
         "type": "text",
-        "id": "cart_limit",
+        "id": "cart_limit_usd",
         "label": "Free Shipping limit",
-        "default": "300000"
+        "default": "3000",
+        "info": "USD($)"
+      },
+      {
+        "type": "text",
+        "id": "cart_limit_aud",
+        "label": "Free Shipping limit",
+        "default": "5000",
+        "info": "AUD($)"
+      },
+      {
+        "type": "text",
+        "id": "cart_limit_cad",
+        "label": "Free Shipping limit",
+        "default": "4000",
+        "info": "CAD($)"
+      },
+      {
+        "type": "text",
+        "id": "cart_limit_dkk",
+        "label": "Free Shipping limit",
+        "default": "5000",
+        "info": "DKK($)"
+      },
+      {
+        "type": "text",
+        "id": "cart_limit_eur",
+        "label": "Free Shipping limit",
+        "default": "2500",
+        "info": "EUR(€)"
+      },
+      {
+        "type": "text",
+        "id": "cart_limit_gbp",
+        "label": "Free Shipping limit",
+        "default": "3000",
+        "info": "GBP(£)"
+      },
+      {
+        "type": "text",
+        "id": "cart_limit_hdk",
+        "label": "Free Shipping limit",
+        "default": "15000",
+        "info": "HKD($)"
+      },
+      {
+        "type": "text",
+        "id": "cart_limit_nzd",
+        "label": "Free Shipping limit",
+        "default": "15000",
+        "info": "NZD($)"
+      },
+      {
+        "type": "text",
+        "id": "cart_limit_sgd",
+        "label": "Free Shipping limit",
+        "default": "15000",
+        "info": "SGD($)"
       },
       {
         "type": "checkbox",

@@ -86,13 +86,13 @@
                     </div>
                   {% endif %}
                   {% if forloop.first == true and block.settings.title != blank %}
-                    <h1 class="headline">
+                    <h4 class="headline">
                       {{ block.settings.title }}
-                    </h1>
+                    </h4>
                   {% elsif block.settings.title != blank %}
-                    <p class="headline">
+                    <div class="headline">
                       {{ block.settings.title }}
-                    </p>
+                    </div>
                   {% endif %}
                   {% if block.settings.subtitle != blank %}
                     <div class="subtitle">
@@ -230,10 +230,9 @@
           "label": "Preheading"
         },
         {
-          "type": "text",
-          "id": "title",
-          "label": "Heading",
-          "default": "Your headline"
+          "type": "richtext",
+          "id": "title", 
+          "label": "Heading"
         },
         {
           "type": "richtext",
@@ -360,33 +359,7 @@
         }
       ]
     }
-  ],
-  "presets": [{
-    "name": "Slideshow",
-    "category": "Image",
-    "settings": {
-    },
-    "blocks": [
-      {
-        "type": "image",
-        "settings": {
-          "image": "",
-          "title": "Turbo Shopify Theme",
-          "subtitle": "",
-          "text_align": "center"
-        }
-      },
-      {
-        "type": "image",
-          "settings": {
-          "image": "",
-          "title": "",
-          "subtitle": "",
-          "text_align": "center"
-        }
-      }
-    ]
-  }]
+  ] 
 }
 
 {% endschema %}

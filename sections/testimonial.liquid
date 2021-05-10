@@ -19,13 +19,10 @@
 {% if section.blocks.size > 0 %}
   <div  id="testimonial-{{section.id}}"
         class="testimonial-slideshow
-        js-testimonial
-        {% if section.settings.testimonial_text_animation != '' %}text-animation--true{% endif %}
-        transparentBackground--{{settings.slideshow_button_style}}
+        js-testimonial transparentBackground--{{settings.slideshow_button_style}}
         full-width--{{ section.settings.wide_display }}"
         data-slider-id="testimonial-{{section.id}}"
         data-slideshow-speed="{{section.settings.testimonial_speed}}"
-        data-slideshow-text-animation="{{section.settings.testimonial_text_animation}}"
         >
     {% for block in section.blocks %}
         <div class="testimonial-block gallery-cell slide-{{ forloop.index }} {% if block.settings.image == nil %}set-static use-mobile-color{% endif %}" {{ block.shopify_attributes }} data-block-id="{{block.id}}">
@@ -108,30 +105,6 @@
       "id": "title",
       "label": "Title",
       "default": "What People say about us"
-    },
-    {
-      "type": "select",
-      "id": "testimonial_text_animation",
-      "label": "Text animation",
-      "options": [
-        {
-          "value": "",
-          "label": "None"
-        },
-        {
-          "value": "fadeIn",
-          "label": "Fade In"
-        },
-        {
-          "value": "fadeInUp",
-          "label": "Fade Up"
-        },
-        {
-          "value": "fadeInDown",
-          "label": "Fade Down"
-        }
-      ],
-      "default": "fadeInDown"
     },
     {
       "type": "range",

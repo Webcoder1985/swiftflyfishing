@@ -80,7 +80,8 @@
             
              <!-- Product review carousel-->
             {{enable_shopify_review}}
-            <div id="stamped-reviews-widget" data-widget-type="carousel" data-auto-play="true" data-style-color-title="#ffffff" data-limit-words="30" data-min-rating="5"></div>
+
+            <div id="stamped-reviews-widget" data-widget-type="carousel" data-random="false" data-per-slide="1" data-style-color-title="#ffffff"  data-limit-words="30" data-min-rating="5"  data-title="" data-auto-play="true" data-auto-play-speed="15000" data-min-rating="5" data-product-ids="{{product.id}}"></div>
             <h4 class="uppercase text-center" onclick="$('.tabs li:nth-child(3) a').click()">MORE REVIEWS</h4>
           </div>
 
@@ -142,7 +143,7 @@
                   {% if section.settings.display_savings %}
                     <span class="sale savings">
                       {% if wcp_v_price < wcp_v_compare_at_price and variant.available %}
-                      {{ 'products.product.savings' | t }}  {{ wcp_v_compare_at_price | minus: wcp_v_price | times: 100 | divided_by: wcp_v_compare_at_price }}% (<span class="money">{{ wcp_v_compare_at_price | minus: wcp_vprice | money }}</span>)
+                      {{ 'products.product.savings' | t }}  {{ wcp_v_compare_at_price | minus: wcp_v_price | times: 100 | divided_by: wcp_v_compare_at_price }}%
                       {% endif %}
                     </span>
                   {% endif %}
@@ -152,10 +153,14 @@
                 <span class="stamped-product-reviews-badge stamped-main-badge" data-id="{{ product_original.id }}" data-product-sku="{{ product_original.handle }}" style="display: inline-block;" onclick="$('.tabs li:nth-child(3) a').click()">{{ product_original.metafields.stamped.badge }}</span>
               {% endif %}
               {% if product.description contains '<!--info-->' %}
+                {% assign top_content = product.description | split: '<!--info-->' | first %}
+                {% assign product_description = product.description | split: '<!--info-->' | last %}
+                {% if top_content != blank %}
                 <div class='custom_text'>
-                  {{ product.description | split: '<!--info-->' | first }}
-                  {% assign product_description = product.description | split: '<!--info-->' | last %}
+                  {{top_content}}
                 </div>
+                {% endif %} 
+                
               {% else %}
                 {% assign product_description = product.description %}
               {% endif %}

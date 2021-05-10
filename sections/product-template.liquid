@@ -123,13 +123,13 @@
                   <link itemprop="availability" href="http://schema.org/{% if variant.available %}InStock{% else %}OutOfStock{% endif %}">
                   <meta itemprop="itemCondition" itemtype="http://schema.org/OfferItemCondition" content="http://schema.org/NewCondition"/>
 
-                  <span class="sold_out">{% if variant.available == false %}{{ 'products.product.sold_out' | t }}{% endif %}</span>
+                  {% if variant.available == false %}<span class="sold_out">{{ 'products.product.sold_out' | t }}</span>{% endif %}
                   <span itemprop="price" content="{{ wcp_v_price | money_without_currency | remove: "," }}" class="{% if wcp_v_compare_at_price > wcp_v_price %}sale{% endif %}">
                     <span class="current_price {% if product.available == false %}hidden{% endif %}">
                       {% if wcp_price > 0 %}
                         <span class="money">{{ wcp_price | money }}</span>
                       {% else %}
-                        {{ settings.free_price_text }}
+                        {{ settings.free_price_text }} 
                       {% endif %}
                     </span>
                   </span>
@@ -142,7 +142,7 @@
                   {% if section.settings.display_savings %}
                     <span class="sale savings">
                       {% if wcp_v_price < wcp_v_compare_at_price and variant.available %}
-                      {{ 'products.product.savings' | t }}  {{ wcp_v_compare_at_price | minus: wcp_v_price | times: 100 | divided_by: wcp_v_compare_at_price }}% (<span class="money">{{ wcp_v_compare_at_price | minus: wcp_vprice | money }}</span>)
+                      {{ 'products.product.savings' | t }}  {{ wcp_v_compare_at_price | minus: wcp_v_price | times: 100 | divided_by: wcp_v_compare_at_price }}%
                       {% endif %}
                     </span>
                   {% endif %}
@@ -151,10 +151,14 @@
                 <span class="stamped-product-reviews-badge stamped-main-badge" data-id="{{ product_original.id }}" data-product-sku="{{ product_original.handle }}" style="display: inline-block;" onclick="$('.tabs li:nth-child(3) a').click()">{{ product_original.metafields.stamped.badge }}</span>
                 {% endif %}
                 {% if product.description contains '<!--info-->' %}
+                  {% assign top_content = product.description | split: '<!--info-->' | first %}
+                  {% assign product_description = product.description | split: '<!--info-->' | last %}
+                  {% if top_content != blank %}
                   <div class='custom_text'>
-                    {{ product.description | split: '<!--info-->' | first }}
-                    {% assign product_description = product.description | split: '<!--info-->' | last %}
+                    {{top_content}}
                   </div>
+                  {% endif %}
+                  
                 {% else %}
                   {% assign product_description = product.description %}
                 {% endif %}

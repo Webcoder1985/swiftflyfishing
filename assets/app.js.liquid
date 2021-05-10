@@ -280,7 +280,9 @@ $(function() {
   });
   
   utils.createAccordion('.toggle-all--true', 'h4.toggle', 'ul.toggle_list');
-  utils.createAccordion('.footer_menu', 'h6', 'ul');
+  if ($(window).width() < 768) {
+    utils.createAccordion('.footer_menu', 'h6', 'ul');
+  }
   utils.createAccordion('.footer_content', 'h6', 'div.toggle_content');
   utils.createAccordion('.product_section .accordion-tabs', '.tabs li > a', '.tabs-content li');
 
@@ -417,6 +419,7 @@ $(function() {
   }
 
   function updateCartItemQuantity(cartItem) {
+    console.log(cartItem)
     $.ajax({
       url: '/cart/change.js',
       dataType: 'json',
@@ -650,7 +653,7 @@ $(function() {
     if (left_price > 0) {
       var progressbarText = `Only ${Shopify.formatMoney(left_price, $('body').data('money-format'))} away from FREE SHIPPING!`
     } else {
-      var progressbarText = `✓ Congratulations! You've earned a FREE SIPPING!`
+      var progressbarText = `✓ Congratulations! You've earned a FREE SHIPPING!`
     }
     if (cart.item_count > 0) {
       $('.progress-content').removeClass('hidden');
@@ -686,10 +689,14 @@ $(function() {
     updateCartItemQuantity(cartItem);
   });
 
+  $('body').on('click', '#cart_form .js-change-quantity', function() {
+    $('#cart_form').submit();
+  });
+
   $('body').on('click', '[data-remove-item]', function(e) {
     e.preventDefault();
     var cartItem = {
-      lineID: $(this).parents('[data-cart-item]').data('line-id'),
+      lineID: $(this).data('line-id'),
       variantID: $(this).parents('[data-cart-item]').data('variant-id'),
       quantity: 0,
       parentCartForm: $(this).parents('[data-cart-form]'),
@@ -747,6 +754,8 @@ $(function() {
             success: function(cart) {
               setTimeout(function() {
                 refreshCart(cart);
+                $('.sub_total_content .item-review #stamped-reviews-widget').attr('data-product-ids', cart.items[0].id)
+                
                 if($('body').hasClass('fancybox-active')) {
                   $.fancybox.close();
                 }
@@ -1563,7 +1572,28 @@ $(document).ready(function () {
   }
 
   
-  
+  $.ajax({
+    url: '//www.mlveda.com/MultiCurrency/getUserCurrency',
+    type: 'POST',
+    dataType: 'text',
+    success: function (location) {
+     
+      var currency = location.trim()
+      console.log(Cookies.get())
+      if (!Cookies.get('set_local_currency') || Cookies.get('set_local_currency') == undefined) {
+        Cookies.set('set_local_currency', 'true', { expires: 30 });
+        var val = String($('.localization-wrap #header__selector-form #CurrencySelector').val())
+        if (currency.indexOf(val) == -1) {
+          $('.localization-wrap #header__selector-form .disclosure__list-wrap .disclosure-list li').each(function () {
+            var selector_currency = $(this).find('button').val()
+            if (currency.indexOf(selector_currency) > -1) {
+              $(this).find('button').trigger('click');
+            }
+          })
+        }
+      }      
+    }
+  })
 
   
   if ($(".description-slider .gallery-cell").length > 2) {
@@ -1600,7 +1630,6 @@ $(document).ready(function () {
   })
 
   $('.image-text-overlay-slider').flickity({
-    wrapAround: true,
     pageDots: true,
     initialIndex: 1,
     cellAlign: 'left',
@@ -1634,7 +1663,11 @@ $(document).ready(function () {
     $(document).scrollTop(position.top);
   })
   
-  
+  $('#shopify-section-featured-gear .featured-gear-content').each(function () {
+    var html = $(this).html();
+    $(this).remove();
+    $('#shopify-section-article-template .main .featured-gear-section').html(html);
+  })
 
 
   if(Shopify.theme_settings.cart_action == 'ajax') {
@@ -1648,6 +1681,7 @@ $(document).ready(function () {
   $('.mini-cart-content .close').on('click', function (e) {
     e.preventDefault();
     $('.mini-cart-content').removeClass('active');
+    $('.cart-container').removeClass('active_link');
     $('body').removeClass('blocked-scroll');
   })
 });
@@ -1776,3 +1810,9 @@ function handleMove(evt) {
   var set_perc = ((((touches[0].clientX - bar.offsetLeft) / bar.offsetWidth)).toFixed(2));
   slider.style.width = ((set_perc) * 100) + '%';
 }
+$(document).on('click', '.review-sticky-button', function(e){
+  e.preventDefault();
+  var top = $('#product-review').offset().top;
+  console.log(top)
+  $(document).scrollTop(top);
+});

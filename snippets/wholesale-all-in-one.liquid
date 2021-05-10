@@ -463,7 +463,7 @@ if ((typeof waioMOC) === 'undefined') {
         var general_settings={all:waio_settings,app_enabled:waio_settings.app_enabled,compare_at_price:waio_settings.compare_at_price,discount_method:waio_settings.discount_method,price_design_config:waio_settings.price_design_config?waio_settings.price_design_config[0]?waio_settings.price_design_config[0]:{}:{},pp_discount_text:waio_settings.pp_discount_text[0]?waio_settings.pp_discount_text[0]:ppDiscountTEXT,sale_clock:waio_settings.sale_clock,table_widget_style:waio_settings.table_widget_style[0],tableStyle:function(){return this.table_widget_style&&this.table_widget_style.default_table_style?"background:"+this.table_widget_style.table_hex_bg_clr+" !important;color:"+this.table_widget_style.table_hex_fg_clr+" !important;":""},tableBorderColor:function(){return this.table_widget_style&&this.table_widget_style.default_table_style?"border-color:"+this.table_widget_style.table_border_hex_clr+" !important;text-align:"+this.table_widget_style.table_text_align+" !important;":""},tableStyleThead:function(){return this.table_widget_style&&this.table_widget_style.default_table_style?"background:"+this.table_widget_style.thead_hex_bg_clr+" !important;color:"+this.table_widget_style.thead_hex_fg_clr+" !important;text-align:"+this.table_widget_style.table_text_align+" !important;":""},tableTemplateClass:function(){return this.table_widget_style&&this.table_widget_style.default_table_style?this.table_widget_style.table_template_class:""},ppDiscountStyle:function(){if(this.pp_discount_text&&this.pp_discount_text.style.ppdt_additionalStyle){var a=this.pp_discount_text.style;return"font-size:"+a.ppdtFontSize+"px !important;text-align:"+a.ppdtTextAlign+" !important;background-color:"+a.ppdt_hex_bg_color+" !important;color:"+a.ppdt_hex_fg_color+"!important;"}return""}};
         waioMOC.rules=[];waioMOC.rules=waioMOC.rules.concat(Object.keys(tem_moc).map(function(a){return tem_moc[a]}));waioMOC.cart={original_total_price:w_original_total_price,total_weight:w_total_weight,item_count:w_item_count,weight_with_unit:w_weight_with_unit};waioMOC.oc={};
         WholesaleAIO.disable_checkout=!1;
-        var win_curancy = $('.currency-selector__input-wrapper.select-group [name="currency"]').val()
+        var win_curancy = $('[name="currency_code"]').val();
         if(win_curancy == 'USD'){
         win_curancy = '';
         }
@@ -1146,6 +1146,7 @@ if ((typeof waioMOC) === 'undefined') {
             var _discounted_price = WholesaleAIO.formatMoney(discounted_price, cf_ds);
             var _strikethrough_price = WholesaleAIO.formatMoney(original_price, cf_org);
             saved_fixed_amount = WholesaleAIO.formatMoney(WholesaleAIO.priceFormat(saved_fixed_amount), currency_format);
+          console.log('sdfsdf');
             var html = html_contents.replaceMeW('[[wholesale_price]]',_discounted_price)
             .replaceMeW('[[strikethrough_price]]',_strikethrough_price)
             .replaceMeW('[[saved_in_percent]]',saved_in_percent)
@@ -3383,6 +3384,7 @@ if ((typeof waioMOC) === 'undefined') {
             var _strikethrough_price = WholesaleAIO.formatMoney(productPrice, wholesalePriceCurrencyFormat);
             saved_fixed_amount = WholesaleAIO.formatMoney(WholesaleAIO.priceFormat(saved_fixed_amount), savedPriceCurrencyFormat);
           //alert(saved_fixed_amount)
+          
             !saved_in_percent&&(saved_in_percent="");
             !saved_fixed_amount&&(saved_fixed_amount="");
             var html = html_contents.replaceMeW('[[wholesale_price]]',_discounted_price)
@@ -3414,9 +3416,10 @@ if ((typeof waioMOC) === 'undefined') {
             }
             !saved_in_percent&&(saved_in_percent="");
             !saved_fixed_amount&&(saved_fixed_amount="");
+          console.log(mF(original_price),currency_format)
             var normalPrice = WholesaleAIO.formatMoney(mF(original_price), currency_format);
           //console.warn(currency_format,'thgggggggggggggggggggggggggggggggg1122')
-        //  console.warn(normalPrice,'thgggggggggggggggggggggggggggggggg')
+//          console.warn(normalPrice,'thgggggggggggggggggggggggggggggggg')
             var compareAtPrice = WholesaleAIO.formatMoney(mF(compare_at_price), currency_format);
             var html = html_contents.replaceMeW('[[wholesale_price]]',normalPrice)
             .replaceMeW('[[strikethrough_price]]',compareAtPrice)
@@ -4492,7 +4495,13 @@ var waioLoadScript=function(c,b){var a=document.createElement("script");a.type="
 "undefined"===typeof jQuery||1.7>parseFloat(jQuery.fn.jquery)?waioLoadScript("//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js",function(){WholesaleAIO.init(jQuery.noConflict(!0))}):WholesaleAIO.init(jQuery);
 
 </script>
-<style>.parent ~ .cchild{display:none}.open_rows .parent ~ .cchild{display:table-row}.parent_row ~ .child_row{display:none}.open_rows .parent_row ~ .child_row{display:table-row}.open_rows{display:table-row!important}tr#view_more_items{cursor:pointer}tr#view_more_item{cursor:pointer}.wholesale-table{border-collapse:collapse;width:100%;margin:.5rem 0}.wholesale-table td,.wholesale-table th{padding:8px}.wholesale-table th{padding-top:12px;padding-bottom:12px}.wholesale-table thead{text-align:left}.wholesale-table-simple tr{border-bottom:1px solid #ddd}.wholesale-table-simple tr:last-child{border-bottom:0 solid #ddd}.wholesale-table-simple th{border-bottom:2px solid #ddd}.wholesale-table-striped tr:nth-child(even){background-color:#f2f2f2}.wholesale-table-striped tr{border-bottom:1px solid #ddd}.wholesale-table-no-border tr{border:0 solid #ddd!important}.wholesale-table-striped th{border-bottom:2px solid #ddd}.wholesale-table-striped tr:last-child{border-bottom:0 solid #ddd}.wholesale-table-hover tbody tr:hover{background-color:#ddd}.wholesale-table-bordered td,.wholesale-table-bordered th,.wholesale-table-bordered tr{border:1px solid #ddd!important}.wholesale-table-bordered.th{border-bottom:2px solid #ddd!important}.product-is-on-wholesale{background:#eee;padding:.7rem;margin:.5rem 0}.coupon_code_invalid_msg{color:red;margin:.5rem 0}.waio-coupon-code-form{margin:1rem 0}.waio-coupon-code-form input[type=text]{border:1px solid #eee;background:0 0}.waio-saved-amount--msg{background-color:#eee;padding:4px 8px}.wholesale-ends-notification{margin-top:25px;margin-bottom:-5px}.checkout-disabled{pointer-events:none;cursor:not-allowed}.waio-coupon-code-form input[type=button]:hover{background-color:#04736b!important;border:1px solid #04736b!important}.waio-coupon-code-form{width:100%;display:flex;justify-content:flex-end}.waio-coupon-code-form input[type=button]{background-color:#03a196;color:#fff;border:1px solid #03a196;cursor:pointer;padding:0 1.4rem;letter-spacing:1px}.waio-coupon-code-form input[type=text]{width:100%;max-width:218px}.border-square input{border-radius:0}.border-round input{border-radius:3px!important}.border-round input[type=text]{border-top-right-radius:0!important;border-bottom-right-radius:0!important}.border-round input[type=button]{border-top-left-radius:0!important;border-bottom-left-radius:0!important;margin-left:0}.field-space input[type=text]{max-width:295px!important;margin-right:7px}.hundard-percent input{max-width:100%}.hundard-percent .waio-coupon-code-form{display:block}.hundard-percent input[type=text]{margin-bottom:10px}</style>
+<style>
+  .product-template .product_section .info .price-info {
+    padding: 10px 0px 20px 0px !important;
+  }
+
+  
+  .parent ~ .cchild{display:none}.open_rows .parent ~ .cchild{display:table-row}.parent_row ~ .child_row{display:none}.open_rows .parent_row ~ .child_row{display:table-row}.open_rows{display:table-row!important}tr#view_more_items{cursor:pointer}tr#view_more_item{cursor:pointer}.wholesale-table{border-collapse:collapse;width:100%;margin:.5rem 0}.wholesale-table td,.wholesale-table th{padding:8px}.wholesale-table th{padding-top:12px;padding-bottom:12px}.wholesale-table thead{text-align:left}.wholesale-table-simple tr{border-bottom:1px solid #ddd}.wholesale-table-simple tr:last-child{border-bottom:0 solid #ddd}.wholesale-table-simple th{border-bottom:2px solid #ddd}.wholesale-table-striped tr:nth-child(even){background-color:#f2f2f2}.wholesale-table-striped tr{border-bottom:1px solid #ddd}.wholesale-table-no-border tr{border:0 solid #ddd!important}.wholesale-table-striped th{border-bottom:2px solid #ddd}.wholesale-table-striped tr:last-child{border-bottom:0 solid #ddd}.wholesale-table-hover tbody tr:hover{background-color:#ddd}.wholesale-table-bordered td,.wholesale-table-bordered th,.wholesale-table-bordered tr{border:1px solid #ddd!important}.wholesale-table-bordered.th{border-bottom:2px solid #ddd!important}.product-is-on-wholesale{background:#eee;padding:.7rem;margin:.5rem 0}.coupon_code_invalid_msg{color:red;margin:.5rem 0}.waio-coupon-code-form{margin:1rem 0}.waio-coupon-code-form input[type=text]{border:1px solid #eee;background:0 0}.waio-saved-amount--msg{background-color:#eee;padding:4px 8px}.wholesale-ends-notification{margin-top:25px;margin-bottom:-5px}.checkout-disabled{pointer-events:none;cursor:not-allowed}.waio-coupon-code-form input[type=button]:hover{background-color:#04736b!important;border:1px solid #04736b!important}.waio-coupon-code-form{width:100%;display:flex;justify-content:flex-end}.waio-coupon-code-form input[type=button]{background-color:#03a196;color:#fff;border:1px solid #03a196;cursor:pointer;padding:0 1.4rem;letter-spacing:1px}.waio-coupon-code-form input[type=text]{width:100%;max-width:218px}.border-square input{border-radius:0}.border-round input{border-radius:3px!important}.border-round input[type=text]{border-top-right-radius:0!important;border-bottom-right-radius:0!important}.border-round input[type=button]{border-top-left-radius:0!important;border-bottom-left-radius:0!important;margin-left:0}.field-space input[type=text]{max-width:295px!important;margin-right:7px}.hundard-percent input{max-width:100%}.hundard-percent .waio-coupon-code-form{display:block}.hundard-percent input[type=text]{margin-bottom:10px}</style>
 {% else %}
 <script>console.error("Wholesale all in one app not running!")</script>
 {% endif %}

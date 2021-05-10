@@ -180,7 +180,7 @@
             </div>
           {% endif %}
         </div><!--end author_share_wrap-->
-
+        <div class="featured-gear-section"></div>
         <div class="clear" id="comments"></div>
         <br class="clear" />
 
@@ -219,7 +219,7 @@
               </div>
             {% endfor %}
           {% endif %}
-
+            
           {% if comment and comment.created_at %}
               {% if article.comments_count == 0 %}
                 <h4>{{ 'blogs.comments.response_count' | t: count: article.comments.size }}</h4>
@@ -283,7 +283,6 @@
 
     {% if section.settings.blog_additional_posts and blog.articles_count > 1 %}
       <div class="section clearfix">
-        <hr />
         <h3>{{ 'blogs.article.additional_articles' | t: title: blog.title }}</h3>
 
         {% assign article_found = false %}
@@ -304,7 +303,7 @@
                           image: a.image,
                           alt: a.image.alt
                   %}
-                </a>
+                </a> 
               {% endif %}
 
 

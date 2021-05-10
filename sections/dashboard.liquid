@@ -27,49 +27,15 @@
       <ul class="select-box-menu">
         <li class="uppercase active">{{ 'customer.menu.dashboard' | t | link_to : "/account" }}</li>
         <li class="uppercase">{{ 'customer.menu.account_detail' | t | link_to: "/account/addresses#" }}</li>
-        <li class="uppercase">{{ 'customer.menu.rewards' | t | link_to: "pages/swift-rewards" }}</li>
+        <li class="uppercase"><a href="#" data-st-intent="st:points:rewards">{{ 'customer.menu.rewards' | t }}</a></li>
         <li class="uppercase"><a href="/apps/downloads/orders/{{customer.id}}">{{ 'customer.menu.download_file' | t }}</a></li>
         <li class="uppercase">{{ 'customer.menu.log_out' | t | link_to: "/account/logout" }}</li>
       </ul>
     </aside>
 
     <main class="eleven columns account-main">
-        <h4 class="uppercase heading-title">
-          {{ 'customer.orders.title' | t }}
-        </h4>
-  
-        {% if customer.orders.size != 0 %}
-          <table id="customer-orders" class="collapsible-table">
-            <thead>
-              <tr>
-                <th class="uppercase">{{ 'customer.orders.order_number' | t }}</th>
-                <th class="uppercase">{{ 'customer.orders.date' | t }}</th>
-                <th class="uppercase">{{ 'customer.orders.payment_status' | t }}</th>
-                <th class="uppercase">{{ 'customer.orders.fulfillment_status' | t }}</th>
-                <th class="uppercase">{{ 'customer.orders.total' | t }}</th>
-              </tr>
-            </thead>
-  
-            <tbody>
-              {% for order in customer.orders %}
-                <tr class="{% cycle 'odd', 'even' %} {% if order.cancelled %}cancelled_order{% endif %}">
-                  <td data-label="{{ 'customer.orders.order_number' | t }}">{{ order.name | link_to: order.customer_url }}</td>
-                  <td data-label="{{ 'customer.orders.date' | t }}">{{ order.created_at | date: format: "month_day_year" }}</td>
-                  <td data-label="{{ 'customer.orders.payment_status' | t }}">{{ order.financial_status_label }}</td>
-                  <td data-label="{{ 'customer.orders.fulfillment_status' | t }}">{{ order.fulfillment_status_label }}</td>
-                  <td data-label="{{ 'customer.orders.total' | t }}">
-                    <span class="money">{% render 'price-element', price: order.total_price %}</span>
-                  </td>
-                </tr>
-              {% endfor %}
-            </tbody>
-          </table>
-        {% else %}
-          <p>{{ 'customer.orders.none' | t }}</p>
-        {% endif %}
-  
-        {% render 'pagination', paginate: paginate %}
-        <div class="account-info">
+        
+        <div class="account-info columns">
           <div class="column one-half medium-down--one-whole">
               <h4 class="name uppercase">Details</h4>
               <p class="name note">
@@ -108,6 +74,42 @@
             </div>
           </div>
           
+        </div>
+        <div class="order-info columns">
+          <h4 class="uppercase heading-title">
+            {{ 'customer.orders.title' | t }}
+          </h4>
+          {% if customer.orders.size != 0 %}
+            <table id="customer-orders" class="collapsible-table">
+              <thead>
+                <tr>
+                  <th class="uppercase">{{ 'customer.orders.order_number' | t }}</th>
+                  <th class="uppercase">{{ 'customer.orders.date' | t }}</th>
+                  <th class="uppercase">{{ 'customer.orders.payment_status' | t }}</th>
+                  <th class="uppercase">{{ 'customer.orders.fulfillment_status' | t }}</th>
+                  <th class="uppercase">{{ 'customer.orders.total' | t }}</th>
+                </tr>
+              </thead>
+    
+              <tbody>
+                {% for order in customer.orders %}
+                  <tr class="{% cycle 'odd', 'even' %} {% if order.cancelled %}cancelled_order{% endif %}">
+                    <td data-label="{{ 'customer.orders.order_number' | t }}">{{ order.name | link_to: order.customer_url }}</td>
+                    <td data-label="{{ 'customer.orders.date' | t }}">{{ order.created_at | date: format: "month_day_year" }}</td>
+                    <td data-label="{{ 'customer.orders.payment_status' | t }}">{{ order.financial_status_label }}</td>
+                    <td data-label="{{ 'customer.orders.fulfillment_status' | t }}">{{ order.fulfillment_status_label }}</td>
+                    <td data-label="{{ 'customer.orders.total' | t }}">
+                      <span class="money">{% render 'price-element', price: order.total_price %}</span>
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          {% else %}
+            <p>{{ 'customer.orders.none' | t }}</p>
+          {% endif %}
+    
+          {% render 'pagination', paginate: paginate %}
         </div>
     </main>
   </div>

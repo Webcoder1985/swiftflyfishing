@@ -120,7 +120,11 @@
   </div>
 </div>
 {% endif %}
+{% if template contains 'product' %}
+{% else %}
 <a href="#shopify-section-newsletter" class="newsletter-sticky-button uppercase">Join Our VIP List</a>
+{% endif %}
+
 <style>
   .newsletter_section{
     background: url({{image | img_url: '2048x'}});

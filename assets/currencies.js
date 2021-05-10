@@ -607,6 +607,7 @@ function getMoneyValue(priceEl) {
 }
 
 var currencyConverter = {
+  
   init: function init(settings) {
     this.defaults = {
       switcherSelector: '[data-currency-converter] .disclosure__button',
@@ -628,7 +629,7 @@ var currencyConverter = {
     $(this.options.switcherSelector).on('click', function (e) {
       e.preventDefault();
       e.stopPropagation();
-
+     
       var $currencySelector = $(this);
       currencyConverter.setCurrency($currencySelector.val());
     });

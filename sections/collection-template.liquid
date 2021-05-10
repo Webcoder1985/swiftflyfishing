@@ -25,6 +25,7 @@
         {% assign image = collection.products.first.featured_image %}
         {% assign mobile_image =  collection.products.first.featured_image%}
       {% endif %}
+      {% if section.settings.icon_1 != blank and section.settings.icon_2 != blank and section.settings.icon_3 != blank %}
       <div class="icons-bar flex">
         {% if section.settings.icon_1 != blank and section.settings.icon_title_1 != blank %}
           <div class="icon-item flex color-white">
@@ -45,6 +46,7 @@
           </div>
         {% endif %}
       </div>
+      {% endif %}
       {% render 'image-element',
               image: image,
               alt: collection.title,

@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html lang="{{ shop.locale }}">
   <head>
+    <meta name="google-site-verification" content="GOtKyVNyDMBueBvdUw_oKDkttbXFpVp6izSMKGBjlas" />
 
     <meta name="p:domain_verify" content="1390804ce36bd5a2570b32b39886177d"/>
     <meta name="google-site-verification" content="0LDU4EwtFJAg9U2MR4B061MLXo3YhzQmwg7CR4anbSw" />
@@ -326,7 +327,9 @@
           if( !sessionStorage.collection ) {
             sessionStorage.collection = defaultLink;
           }
-          document.getElementById("continue-shopping").href = sessionStorage.collection;
+          if (document.getElementById("continue-shopping")) {
+            document.getElementById("continue-shopping").href = sessionStorage.collection;
+          }
         {% endif %}
 
       }
