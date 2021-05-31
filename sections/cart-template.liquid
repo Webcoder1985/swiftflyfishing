@@ -188,7 +188,7 @@
               </p>
               {% endif %}
             </div>
-            {% if section.settings.display_special_instructions %}
+            {% if settings.display_special_instructions %}
               <label for="note">{{ 'cart.general.note' | t: shop_name: shop.name }}:</label>
               <textarea id="note" name="note" rows="2">{{ cart.note }}</textarea>
             {% endif %}
@@ -205,15 +205,16 @@
               </p>
             {% endif %}
 
-            {% if section.settings.cart_message != blank %}
+            {% if settings.cart_message != blank %}
               <div>
-                {{ section.settings.cart_message }}
+                {{ settings.cart_message }}
               </div>
             {% endif %}
 
             <p>
               <input type="hidden" name="discount" value="">
-              <button type="submit" class="action_button full-button add_to_cart" id="checkout" name="checkout">{% if settings.show_lock_icon %}<span class="icon-lock"></span>{% endif %}{{ 'cart.general.checkout' | t }}</button>
+              <input type="hidden" name="checkout">
+              <button type="submit" class="action_button full-button add_to_cart" id="checkout">{% if settings.show_lock_icon %}<span class="icon-lock"></span>{% endif %}{{ 'cart.general.checkout' | t }}</button>
             </p>
             {% if customer.tags contains 'wpdnet' and cart.item_count > 0%}
             {% if shop.metafields.wcp_net.isNetEnabled == 'true' or shop.metafields.wcp_net.isNetEnabled == '1' %}
@@ -225,7 +226,7 @@
             </div>
             {% endif %}
             {% endif %}
-            {% if content_for_additional_checkout_buttons %}
+            {% if content_for_additional_checkout_buttons and settings.additional_checkout %}
               <div class="additional-checkout-buttons additional-checkout-buttons--vertical">
                 {{ content_for_additional_checkout_buttons }}
               </div> 
@@ -278,22 +279,6 @@
   "name": "Cart page",
   "class": "cart-section",
   "settings": [
-    {
-      "type": "checkbox",
-      "id": "display_special_instructions",
-      "label": "Show \"note\" text box"
-    },
-    {
-      "type": "checkbox",
-      "id": "display_savings",
-      "label": "Show total savings",
-      "default": true
-    },
-    {
-      "type": "richtext",
-      "id": "cart_message",
-      "label": "Cart message"
-    }
   ],
   "blocks": [
     {

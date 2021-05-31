@@ -25,28 +25,7 @@
         {% assign image = collection.products.first.featured_image %}
         {% assign mobile_image =  collection.products.first.featured_image%}
       {% endif %}
-      {% if section.settings.icon_1 != blank and section.settings.icon_2 != blank and section.settings.icon_3 != blank %}
-      <div class="icons-bar flex">
-        {% if section.settings.icon_1 != blank and section.settings.icon_title_1 != blank %}
-          <div class="icon-item flex color-white">
-            {{ section.settings.icon_1 }}
-            <span class="color-white">{{section.settings.icon_title_1}}</span>
-          </div>
-        {% endif %}
-        {% if section.settings.icon_2 != blank and section.settings.icon_title_2 != blank %}
-          <div class="icon-item flex color-white">
-            {{ section.settings.icon_2 }}
-            <span class="color-white">{{section.settings.icon_title_2}}</span>
-          </div>
-        {% endif %}
-        {% if section.settings.icon_3 != blank and section.settings.icon_title_3 != blank%}
-          <div class="icon-item flex color-white">
-            {{ section.settings.icon_3 }}
-            <span class="color-white">{{section.settings.icon_title_3}}</span>
-          </div>
-        {% endif %}
-      </div>
-      {% endif %}
+      
       {% render 'image-element',
               image: image,
               alt: collection.title,
@@ -70,7 +49,28 @@
           <h2 class="color-white">{{ collection.title }}</h2>
         </div>
       {% endif %}
-    
+      {% if section.settings.icon_1 != blank and section.settings.icon_2 != blank and section.settings.icon_3 != blank %}
+      <div class="icons-bar flex">
+        {% if section.settings.icon_1 != blank and section.settings.icon_title_1 != blank %}
+          <div class="icon-item flex color-white">
+            {{ section.settings.icon_1 }}
+            <span class="color-white">{{section.settings.icon_title_1}}</span>
+          </div>
+        {% endif %}
+        {% if section.settings.icon_2 != blank and section.settings.icon_title_2 != blank %}
+          <div class="icon-item flex color-white">
+            {{ section.settings.icon_2 }}
+            <span class="color-white">{{section.settings.icon_title_2}}</span>
+          </div>
+        {% endif %}
+        {% if section.settings.icon_3 != blank and section.settings.icon_title_3 != blank%}
+          <div class="icon-item flex color-white">
+            {{ section.settings.icon_3 }}
+            <span class="color-white">{{section.settings.icon_title_3}}</span>
+          </div>
+        {% endif %}
+      </div>
+      {% endif %}
   </header>
 
   {% if section.settings.wide_display == false %}
@@ -366,6 +366,11 @@
     {
       "type": "image_picker",
       "id": "image_slider_bg_image",
+      "label": "Bacground image"
+    },
+    {
+      "type": "html",
+      "id": "image_slider_bg_svg",
       "label": "Bacground image"
     },
     {

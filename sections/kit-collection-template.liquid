@@ -12,26 +12,7 @@
 
   <header class="banner center page-banner dark-overlay-{{ section.settings.image_darken }} full-width--{{ section.settings.wide_display }}">
             
-    <div class="icons-bar flex">
-      {% if section.settings.icon_1 != blank and section.settings.icon_title_1 != blank %}
-        <div class="icon-item flex color-white">
-          {{ section.settings.icon_1 }}
-          <span class="color-white">{{section.settings.icon_title_1}}</span>
-        </div>
-      {% endif %}
-      {% if section.settings.icon_2 != blank and section.settings.icon_title_2 != blank %}
-        <div class="icon-item flex color-white">
-          {{ section.settings.icon_2 }}
-          <span class="color-white">{{section.settings.icon_title_2}}</span>
-        </div>
-      {% endif %}
-      {% if section.settings.icon_3 != blank and section.settings.icon_title_3 != blank%}
-        <div class="icon-item flex color-white">
-          {{ section.settings.icon_3 }}
-          <span class="color-white">{{section.settings.icon_title_3}}</span>
-        </div>
-      {% endif %}
-    </div>    
+        
     {% if section.settings.image %}
           {% assign image = section.settings.image %}
           {% if section.settings.mobile_image != blank %}
@@ -80,6 +61,26 @@
           {% endif %}
         </div>
       {% endif %}
+      <div class="icons-bar flex">
+        {% if section.settings.icon_1 != blank and section.settings.icon_title_1 != blank %}
+          <div class="icon-item flex color-white">
+            {{ section.settings.icon_1 }}
+            <span class="color-white">{{section.settings.icon_title_1}}</span>
+          </div>
+        {% endif %}
+        {% if section.settings.icon_2 != blank and section.settings.icon_title_2 != blank %}
+          <div class="icon-item flex color-white">
+            {{ section.settings.icon_2 }}
+            <span class="color-white">{{section.settings.icon_title_2}}</span>
+          </div>
+        {% endif %}
+        {% if section.settings.icon_3 != blank and section.settings.icon_title_3 != blank%}
+          <div class="icon-item flex color-white">
+            {{ section.settings.icon_3 }}
+            <span class="color-white">{{section.settings.icon_title_3}}</span>
+          </div>
+        {% endif %}
+      </div>
   </header>
   <div id="video-popup" class="modal">
     <div class="modal-content">
@@ -400,6 +401,11 @@
     {
       "type": "image_picker",
       "id": "image_slider_bg_image",
+      "label": "Bacground image"
+    },
+    {
+      "type": "html",
+      "id": "image_slider_bg_svg",
       "label": "Bacground image"
     },
     {

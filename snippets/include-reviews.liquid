@@ -6,12 +6,12 @@
       data-take="0" 
       data-product-image="false" 
       data-label-subtitle="{0} Reviews" 
-      data-product-id="{{ product_original.id }}" 
-      data-name="{{ product_original.title | escape }}" 
-      data-url="{{ shop.url }}{{ product_original.url }}" 
-      data-image-url="{{ product_original.featured_image | product_img_url: "large" |replace: '?', '%3F' | replace: '&','%26'}}" 
-      data-description="{{ product_original.description | escape }}" 
-      data-product-sku="{{product_original.handle}}"> 
+      data-product-id="{{ product.id }}" 
+      data-name="{{ product.title | escape }}" 
+      data-url="{{ shop.url }}{{ product.url }}" 
+      data-image-url="{{ product.featured_image | product_img_url: "large" |replace: '?', '%3F' | replace: '&','%26'}}" 
+      data-description="{{ product.description | escape }}" 
+      data-product-sku="{{product.handle}}"> 
   </div>
   </div>
 </div>

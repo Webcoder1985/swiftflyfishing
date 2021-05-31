@@ -674,19 +674,10 @@ if ((typeof waioMOC) === 'undefined') {
                                 prev_price_rule_info: getJSONfromLocalStorage("price_rule_info"),
                                 prev_draft_order_info: getJSONfromLocalStorage("draft_order_info")
                             }, function(e,a){
-                                if(a){
-                                    try {
-                                        1 === a.status ? ("undefined" !== typeof a.price_rule_info ? localStorage.setItem("price_rule_info", JSON.stringify(a.price_rule_info)) : "undefined" !== typeof a.draft_order_info && localStorage.setItem("draft_order_info", JSON.stringify(a.draft_order_info)), a.checkout_url ? redirectToURL(a.checkout_url) : redirectToURL("https://" + shop + "/cart/" + f + ":" + d)) : redirectToURL("https://" + shop + "/cart/" + f + ":" + d)
-                                    } catch (k) {
-                                        log(k), redirectToURL("https://" + shop + "/cart/" + f + ":" + d)
-                                    }
-                                }else if(e){
-                                    log(e);
-                                    redirectToURL("https://" + shop + "/cart/" + f + ":" + d)
-                                }
-                            }) : (log("Wholesale all in one is disabled"), redirectToURL("https://" + shop + "/cart/" + f + ":" + d))
+                               
+                            }) : (log("Wholesale all in one is disabled"), 
                         } else log("This item is not available for purchase"), alert("This item is not available for purchase")
-                    } else log("Product object error from shopify end!"), log(b), window.location.href = window.location.origin + "/cart/" + f + ":" + d
+                    } else log("Product object error from shopify end!"), log(b), 
                 })
             })
         };

@@ -128,6 +128,12 @@
              <div id="stamped-reviews-widget" data-widget-type="full-page" data-product-image="false" data-take="1" data-limit-words="50" data-fill-empty="false" data-random="false"  data-product-ids="{{product.id}}"></div>
            </div>
         </li>
+        {% if settings.cart_message != blank %}
+        <li class="cart-message">
+          {{settings.cart_message}}
+        </li>
+        {% endif %}
+        
         <li class="cart_discounts js-cart_discounts sale">
           {% if cart.cart_level_discount_applications != blank %}
             {% for discount_application in cart.cart_level_discount_applications %}
@@ -174,12 +180,13 @@
   
           {% if settings.go_to_checkout %}
             {% unless customer.tags contains p_discount_tag or customer.tags contains v_discount_tag %}
-              <button type="submit" name="checkout" class="button button-black full-button action_button add_to_cart">{% if settings.show_lock_icon %}<span class="icon-lock"></span>{% endif %}{{ 'layout.general.checkout' | t }}</button>
+              <input type="hidden" name="checkout">
+              <button type="submit" class="button button-black full-button action_button add_to_cart">{% if settings.show_lock_icon %}<span class="icon-lock"></span>{% endif %}{{ 'layout.general.checkout' | t }}</button>
             {% else %}
               <a class="action_button add_to_cart" href="/cart">{% if settings.show_lock_icon %}<span class="icon-lock"></span>{% endif %}<span style="color:white">{{ 'layout.general.checkout' | t }}</span></a>
             {% endunless %}
           {% else %}
-              <button type="submit" class="action_button add_to_cart">{% if settings.show_lock_icon %}<span class="icon-lock"></span>{% endif %}{{ 'layout.general.go_to_cart' | t }} </button>
+          <a class="action_button add_to_cart" href="/cart">{% if settings.show_lock_icon %}<span class="icon-lock"></span>{% endif %}<span style="color:white">{{ 'layout.general.go_to_cart' | t }}</span></a>
           {% endif %}
         </li>
       </ul>

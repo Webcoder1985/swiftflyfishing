@@ -160,7 +160,8 @@
             {% endif %}
 
             <p>
-              <button type="submit" class="action_button add_to_cart" id="checkout" name="checkout">{% if settings.show_lock_icon %}<span class="icon-lock"></span>{% endif %}{{ 'cart.general.checkout' | t }}</button>
+              <input type="hidden"  name="checkout">
+              <button type="submit" class="action_button add_to_cart" id="checkout">{% if settings.show_lock_icon %}<span class="icon-lock"></span>{% endif %}{{ 'cart.general.checkout' | t }}</button>
             </p>
  {% if customer.tags contains 'wpdnet' and cart.item_count > 0%}
           {% if shop.metafields.wcp_net.isNetEnabled == 'true' or shop.metafields.wcp_net.isNetEnabled == '1' %}

@@ -1631,11 +1631,11 @@ $(document).ready(function () {
 
   $('.image-text-overlay-slider').flickity({
     pageDots: true,
-    initialIndex: 1,
     cellAlign: 'left',
     accessibility: true, //true by default
     autoPlay: false, // advance cells every 3 seconds
-    arrowShape: arrow
+    arrowShape: arrow,
+    contain: true,
   });
 
   if ($('.sidebar .sidebar-block [data-option-filter]').length == 0) {

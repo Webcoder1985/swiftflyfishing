@@ -768,7 +768,7 @@
         "type": "range",
         "id": "top_bar_letter_spacing",
         "label": "Letter spacing",
-        "min": 0,
+        "min": -1,
         "max": 5,
         "default": 1,
         "unit": "px"
@@ -816,7 +816,7 @@
         "type": "range",
         "id": "nav_letter_spacing",
         "label": "Letter spacing",
-        "min": 0,
+        "min": -1,
         "max": 5,
         "default": 1,
         "unit": "px"
@@ -893,7 +893,7 @@
         "type": "range",
         "id": "mega_text_letter_spacing",
         "label": "Letter spacing",
-        "min": 0,
+        "min": -1,
         "max": 5,
         "default": 1,
         "unit": "px"
@@ -941,7 +941,7 @@
         "type": "range",
         "id": "headline_letter_spacing",
         "label": "Letter spacing",
-        "min": 0,
+        "min": -1,
         "max": 6,
         "default": 2,
         "unit": "px"
@@ -989,7 +989,7 @@
         "type": "range",
         "id": "subline_letter_spacing",
         "label": "Letter spacing",
-        "min": 0,
+        "min": -1,
         "max": 6,
         "default": 2,
         "unit": "px"
@@ -1137,7 +1137,7 @@
         "type": "range",
         "id": "slideshow_subtitle_letter_spacing",
         "label": "Letter spacing",
-        "min": 0,
+        "min": -1,
         "max": 6,
         "default": 1,
         "unit": "px"
@@ -1171,7 +1171,7 @@
         "type": "range",
         "id": "large_heading_letter_spacing",
         "label": "Letter spacing",
-        "min": 0,
+        "min": -1,
         "max": 6,
         "default": 1,
         "unit": "px"
@@ -1195,7 +1195,7 @@
         "type": "range",
         "id": "small_heading_letter_spacing",
         "label": "Letter spacing",
-        "min": 0,
+        "min": -1,
         "max": 6,
         "default": 1,
         "unit": "px"
@@ -1819,8 +1819,55 @@
         "label": "\"Agree to terms\" page"
       },
       {
+        "type": "checkbox",
+        "id": "go_to_checkout",
+        "label": "Mini cart checkout",
+        "info": "Proceed to checkout from the mini cart",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "display_special_instructions",
+        "label": "Show \"note\" text box"
+      },
+      {
+        "type": "checkbox",
+        "id": "display_savings",
+        "label": "Show total savings",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "additional_checkout",
+        "label": "Additional checkout"
+      },
+      {
+        "type": "richtext",
+        "id": "cart_message",
+        "label": "Cart message"
+      },
+      {
         "type": "header",
-        "content": "Mini cart"
+        "content": "Shipping rates calculator"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_shipping_calculator",
+        "label": "Enable shipping rates calculator"
+      },
+      {
+        "type": "text",
+        "id": "shipping_calculator_default_country",
+        "label": "Shipping rates calculator default country selection",
+        "default": "United States"
+      },
+      {
+        "type": "paragraph",
+        "content": "If your customer is logged-in, the country in his default shipping address will be selected. If you are not sure about the spelling to use above, refer to your first checkout page."
+      },
+      {
+        "type": "header",
+        "content": "Free shipping bar"
       },
       {
         "type": "text",
@@ -1884,48 +1931,6 @@
         "label": "Free Shipping limit",
         "default": "15000",
         "info": "SGD($)"
-      },
-      {
-        "type": "checkbox",
-        "id": "go_to_checkout",
-        "label": "Mini cart checkout",
-        "info": "Proceed to checkout from the mini cart",
-        "default": true
-      },
-      {
-        "type": "checkbox",
-        "id": "display_special_instructions",
-        "label": "Show \"note\" text box"
-      },
-      {
-        "type": "checkbox",
-        "id": "display_savings",
-        "label": "Show total savings",
-        "default": false
-      },
-      {
-        "type": "richtext",
-        "id": "cart_message",
-        "label": "Cart message"
-      },
-      {
-        "type": "header",
-        "content": "Shipping rates calculator"
-      },
-      {
-        "type": "checkbox",
-        "id": "show_shipping_calculator",
-        "label": "Enable shipping rates calculator"
-      },
-      {
-        "type": "text",
-        "id": "shipping_calculator_default_country",
-        "label": "Shipping rates calculator default country selection",
-        "default": "United States"
-      },
-      {
-        "type": "paragraph",
-        "content": "If your customer is logged-in, the country in his default shipping address will be selected. If you are not sure about the spelling to use above, refer to your first checkout page."
       }
     ]
   },

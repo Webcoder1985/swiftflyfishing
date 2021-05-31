@@ -7557,7 +7557,13 @@ button.update {
 }
 
 
-.size_chart { float:right; padding-top: 5px; }
+.size_chart { 
+  padding-top: 5px;
+  width: 100%;
+  display: block;
+  text-align: right;
+  margin-bottom: 15px;
+}
 #size-chart { display: none; }
 #size-chart h5 {
   padding: 15px 0 0 0;
@@ -10228,13 +10234,13 @@ footer .footer-social-icons {
 footer .footer-social-icons--mobile.columns {
   display: none;
   padding-left: 0;
-  @include respond-to('medium-down'){
-    display: block;
-    > ul {
-      display: block;
-      padding-left: 0;
-    }
-  }
+  // @include respond-to('medium-down'){
+  //   display: block;
+  //   > ul {
+  //     display: block;
+  //     padding-left: 0;
+  //   }
+  // }
 }
 
 footer .social_icons {

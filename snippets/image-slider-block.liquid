@@ -1,6 +1,4 @@
-{% if section.settings.image_slider_bg_image != blank and section.settings.image_slider_hover_image != balnk %}
-  
-{% endif %}
+
 <div class="container full-width--true image-slider-content">
   {% if section.settings.image_slider_title != blank %}
   <div class="heading">
@@ -9,7 +7,6 @@
   </div>
   {% endif %}
   
-  {% if section.settings.image_slider_bg_image != blank and section.settings.image_slider_hover_image != blank %}
     {% if context == 'collection' %}
       <div id='collection-bar'>
     {% else %}
@@ -38,7 +35,13 @@
         {% endif %}
         
       {% endfor %}
-      <img class="bg_image" src="{{ section.settings.image_slider_bg_image | img_url: '4096x' }}">
+      {% if section.settings.image_slider_bg_svg != blank %}
+      <div class="bg_image">
+        {{ section.settings.image_slider_bg_svg }}
+      </div>
+      {% else %}
+        <img class="bg_image" src="{{section.settings.image_slider_bg_image | img_url : '2048x'}}">
+      {% endif %}
       <div id='slider'>
         <div class="label-content">
           {% for block in section.blocks %}
@@ -64,7 +67,7 @@
           {% endfor %}
         </div>
         <div class="image-content">
-          <img class="hover_image" src="{{ section.settings.image_slider_hover_image | img_url: '4096x' }}">
+          <img class="hover_image" src="{{ section.settings.image_slider_hover_image | img_url: '1024x' }}">
         </div>
         <div id="slider-button">
         </div>
@@ -82,6 +85,5 @@
         {% endfor %}
       </ul>
     </div>
-  {% endif %}
   
 </div>

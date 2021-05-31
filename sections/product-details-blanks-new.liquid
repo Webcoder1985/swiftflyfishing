@@ -142,7 +142,7 @@
                   {% if section.settings.display_savings %}
                     <span class="sale savings">
                       {% if wcp_v_price < wcp_v_compare_at_price and variant.available %}
-                      {{ 'products.product.savings' | t }}  {{ wcp_v_compare_at_price | minus: wcp_v_price | times: 100 | divided_by: wcp_v_compare_at_price }}%
+                      {{ 'products.product.savings' | t }}  {{ wcp_v_compare_at_price | minus: wcp_v_price | times: 100 | divided_by: wcp_v_compare_at_price }}% (<span class="money">{{ wcp_v_compare_at_price | minus: wcp_vprice | money }}</span>)
                       {% endif %}
                     </span>
                   {% endif %}
@@ -1268,7 +1268,7 @@
     },
     {
       "type": "image_with_text_overlay",
-      "name": "Image with text overlay",
+      "name": "Pro staff block",
       "settings": [
         {
           "type": "checkbox",
@@ -1396,7 +1396,7 @@
         {
           "type": "select",
           "id": "caption_position",
-          "label": "Caption position",
+          "label": "Caption vertical align",
           "options": [
             {
               "value": "top",

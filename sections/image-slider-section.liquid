@@ -12,7 +12,14 @@
         </div>
       {% endif %}
     {% endfor %}
-    <img class="bg_image" src="{{ section.settings.bg_image | img_url: '4096x' }}">
+    {% if section.settings.image_slider_bg_svg != blank %}
+    <div class="bg_image">
+      {{ section.settings.image_slider_bg_svg }}
+    </div>
+    {% else %}
+      <img class="bg_image" src="{{section.settings.image_slider_bg_image | img_url : '2048x'}}">
+    {% endif %}
+    
     <div id='slider'>
       <div class="label-content">
         {% for block in section.blocks %}
@@ -25,7 +32,7 @@
         {% endfor %}
       </div>
       <div class="image-content">
-        <img class="hover_image" src="{{ section.settings.hover_image | img_url: '4096x' }}">
+        <img class="hover_image" src="{{ section.settings.hover_image | img_url: '1024x' }}">
       </div>
       <div id="slider-button"></div>
     </div>
@@ -64,9 +71,19 @@
         "label": "Description"
       },
       {
+        "type": "html",
+        "id": "image_slider_bg_svg",
+        "label": "Bacground image(svg)"
+      },
+      {
         "type": "image_picker",
-        "id": "bg_image",
+        "id": "image_slider_bg_image",
         "label": "Bacground image"
+      },
+      {
+        "type": "image_picker",
+        "id": "image_slider_hover_image",
+        "label": "Hover image"
       },
       {
         "type": "image_picker",

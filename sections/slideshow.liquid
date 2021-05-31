@@ -51,6 +51,7 @@
           {% endif %}
           {% render 'image-element',
                   image: mobile_image,
+                  max_height: 768,
                   alt: mobile_image.alt,
                   stretch_width: true,
                   additional_classes: "medium-down--show hide"
@@ -86,9 +87,9 @@
                     </div>
                   {% endif %}
                   {% if forloop.first == true and block.settings.title != blank %}
-                    <h4 class="headline">
+                    <h1 class="headline">
                       {{ block.settings.title }}
-                    </h4>
+                    </h1>
                   {% elsif block.settings.title != blank %}
                     <div class="headline">
                       {{ block.settings.title }}
