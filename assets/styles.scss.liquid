@@ -493,35 +493,110 @@ input[type=reset],input[type=submit]{-webkit-appearance:button;cursor:pointer;}b
 
 /* #Fonts
 ================================================== */
+@font-face {
+  font-family: 'Montserrat';
+  src: url('Montserrat-Medium.eot');
+  src: url('Montserrat-Medium.eot?#iefix') format('embedded-opentype'),
+      url('Montserrat-Medium.woff2') format('woff2'),
+      url('Montserrat-Medium.woff') format('woff'),
+      url('Montserrat-Medium.ttf') format('truetype'),
+      url('Montserrat-Medium.svg#Montserrat-Medium') format('svg');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url({{'Montserrat-Regular.eot' | asset_url }});
+  src: url({{'Montserrat-Regular.eot?#iefix' | asset_url }}) format('embedded-opentype'),
+      url({{'Montserrat-Regular.woff2' | asset_url }}) format('woff2'),
+      url({{'Montserrat-Regular.woff' | asset_url }}) format('woff'),
+      url({{'Montserrat-Regular.ttf' | asset_url }}) format('truetype'),
+      url({{'Montserrat-Regular.svg#Montserrat-Regular' | asset_url }}) format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url({{'Montserrat-SemiBold.eot' | asset_url }});
+  src: url({{'Montserrat-SemiBold.eot?#iefix' | asset_url }}) format('embedded-opentype'),
+      url({{'Montserrat-SemiBold.woff2' | asset_url }}) format('woff2'),
+      url({{'Montserrat-SemiBold.woff' | asset_url }}) format('woff'),
+      url({{'Montserrat-SemiBold.ttf' | asset_url }}) format('truetype'),
+      url({{'Montserrat-SemiBold.svg#Montserrat-SemiBold' | asset_url }}) format('svg');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url({{'Montserrat-Light.eot' | asset_url }});
+  src: url({{'Montserrat-Light.eot?#iefix' | asset_url }}) format('embedded-opentype'),
+      url({{'Montserrat-Light.woff2' | asset_url }}) format('woff2'),
+      url({{'Montserrat-Light.woff' | asset_url }}) format('woff'),
+      url({{'Montserrat-Light.ttf' | asset_url }}) format('truetype'),
+      url({{'Montserrat-Light.svg#Montserrat-Light' | asset_url }}) format('svg');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url({{'Montserrat-Bold.eot' | asset_url }});
+  src: url({{'Montserrat-Bold.eot?#iefix' | asset_url }}) format('embedded-opentype'),
+      url({{'Montserrat-Bold.woff2' | asset_url }}) format('woff2'),
+      url({{'Montserrat-Bold.woff' | asset_url }}) format('woff'),
+      url({{'Montserrat-Bold.ttf' | asset_url }}) format('truetype'),
+      url({{'Montserrat-Bold.svg#Montserrat-Bold' | asset_url }}) format('svg');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
 
 {%- capture font_settings_list -%}
-  {{ settings.regular__font | font_face }}~
-  {{ settings.regular__font | font_modify: 'weight', 'bolder' | font_face }}~
-  {{ settings.regular__font | font_modify: 'style', 'italic' | font_face }}~
-  {{ settings.regular__font | font_modify: 'style', 'italic' | font_modify: 'weight', 'bolder' | font_face }}~
+  {% if settings.regular__font.family != 'Montserrat' %}
+    {{ settings.regular__font | font_face }}~
+    {{ settings.regular__font | font_modify: 'weight', 'bolder' | font_face }}~
+    {{ settings.regular__font | font_modify: 'style', 'italic' | font_face }}~
+    {{ settings.regular__font | font_modify: 'style', 'italic' | font_modify: 'weight', 'bolder' | font_face }}~
+  {% endif %}
+  {% if settings.logo__font.family != 'Montserrat' %}
   {{ settings.logo__font | font_face }}~
   {{ settings.logo__font | font_modify: 'weight', 'bolder' | font_face }}~
   {{ settings.logo__font | font_modify: 'style', 'italic' | font_face }}~
   {{ settings.logo__font | font_modify: 'style', 'italic' | font_modify: 'weight', 'bolder' | font_face }}~
+  {% endif %}
+  {% if settings.headline__font.family != 'Montserrat' %}
   {{ settings.headline__font | font_face }}~
   {{ settings.headline__font | font_modify: 'weight', 'bolder' | font_face }}~
   {{ settings.headline__font | font_modify: 'style', 'italic' | font_face }}~
   {{ settings.headline__font | font_modify: 'style', 'italic' | font_modify: 'weight', 'bolder' | font_face }}~
+  {% endif %}
+  {% if settings.nav__font.family != 'Montserrat' %}
   {{ settings.nav__font | font_face }}~
   {{ settings.nav__font | font_modify: 'weight', 'bolder' | font_face }}~
   {{ settings.nav__font | font_modify: 'style', 'italic' | font_face }}~
   {{ settings.nav__font | font_modify: 'style', 'italic' | font_modify: 'weight', 'bolder' | font_face }}~
   {{ settings.nav__font | font_modify: 'weight', 'lighter' | font_face }}~
   {{ settings.nav__font | font_modify: 'style', 'italic' | font_modify: 'weight', 'lighter' | font_face }}~
+  {% endif %}
+  {% if settings.slideshow_headline__font.family != 'Montserrat' %}
   {{ settings.slideshow_headline__font | font_face }}~
   {{ settings.slideshow_headline__font | font_modify: 'weight', 'bolder' | font_face }}~
   {{ settings.slideshow_headline__font | font_modify: 'style', 'italic' | font_face }}~
   {{ settings.slideshow_headline__font | font_modify: 'style', 'italic' | font_modify: 'weight', 'bolder' | font_face }}~
+  {% endif %}
+  {% if settings.slideshow_subtitle__font.family != 'Montserrat' %}
   {{ settings.slideshow_subtitle__font | font_face }}~
   {{ settings.slideshow_subtitle__font | font_modify: 'weight', 'bolder' | font_face }}~
   {{ settings.slideshow_subtitle__font | font_modify: 'style', 'italic' | font_face }}~
   {{ settings.slideshow_subtitle__font | font_modify: 'style', 'italic' | font_modify: 'weight', 'bolder' | font_face }}
-
+  {% endif %}
 {%- endcapture -%}
 {%- assign font_array = font_settings_list | split: '~' -%}
 
@@ -4838,7 +4913,7 @@ input[type="button"].get-rates.action_button {
 .preorder_banner_product {
   font-family: {{ settings.nav__font.family }}, {{ settings.nav__font.fallback_families }};
   font-weight: {{ settings.nav__font.weight }};
-  font-size: {{ settings.nav_font_size }}px;
+  font-size: 13px;
   font-style: {{ settings.nav__font.style }};
   text-transform: {{ settings.nav_font_style }};
   letter-spacing: {{ settings.nav_letter_spacing }}px;
@@ -6949,7 +7024,7 @@ header.secondary_logo--true:not(.feature_image) {
 }
 
 .disclosure__list-wrap {
-  background-color: {{ settings.top_bar_bg_color }};
+  background: {{ settings.border_color }};
   border: 1px solid {{ settings.border_color }};
   bottom: 100%;
   visibility: hidden;
@@ -7131,11 +7206,11 @@ a.tag {
       border-radius: 50%;
       padding: 0;
       position: relative;
-      font-size:17px;
+      font-size: 13px;
       top: 5px;
       right: 5px;
-      width: 70px;
-      height: 70px;
+      width: 60px;
+      height: 60px;
       line-height: 17px;
       white-space: normal;
       display: flex;

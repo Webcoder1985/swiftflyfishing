@@ -6,7 +6,11 @@ LAST EDITED: Jan 13
 {% endcomment %}
 {%- assign waio_version = '2.3.4' -%}
 {%- assign last_updated = 'Jan 13' -%}
-<script src="https://cdn.shopify.com/s/javascripts/currencies.js"></script>
+
+{%- comment -%}
+<script src="https://cdn.shopify.com/s/javascripts/"></script>
+{%- endcomment -%}
+
 <script>
 /****
 INSTRUCTIONS FOR DEVELOPERS
@@ -654,31 +658,35 @@ if ((typeof waioMOC) === 'undefined') {
                                 })
                             });
                             c = products_with_collections.concat(c);
-                            general_settings.app_enabled ?
-                            get_buynow_discount({
-                                preview_mode: WholesaleAIO.previewMode(),
-                                note_attributes: [],
-                                shipping_address: {},
-                                billing_address: {},
-                                order_tags: "",
-                                order_note: "",
-                                cart: b,
-                                shop: shop_domain,
-                                shopDomain: shopDomain,
-                                customer_id: customer_id,
-                                coupon_code_id: coupon_code_id,
-                                coupon_code_entitled_ids: coupon_code_entitled_ids,
-                                customer_tags: customer_tags,
-                                products_with_collections: c,
-                                shopifyCurrencies: getShopifyCurrencies(),
-                                prev_price_rule_info: getJSONfromLocalStorage("price_rule_info"),
-                                prev_draft_order_info: getJSONfromLocalStorage("draft_order_info")
-                            }, function(e,a){
-                               
-                            }) : (log("Wholesale all in one is disabled"), 
-                        } else log("This item is not available for purchase"), alert("This item is not available for purchase")
-                    } else log("Product object error from shopify end!"), log(b), 
-                })
+                            if (general_settings.app_enabled) {
+                                get_buynow_discount({
+                                    preview_mode: WholesaleAIO.previewMode(),
+                                    note_attributes: [],
+                                    shipping_address: {},
+                                    billing_address: {},
+                                    order_tags: "",
+                                    order_note: "",
+                                    cart: b,
+                                    shop: shop_domain,
+                                    shopDomain: shopDomain,
+                                    customer_id: customer_id,
+                                    coupon_code_id: coupon_code_id,
+                                    coupon_code_entitled_ids: coupon_code_entitled_ids,
+                                    customer_tags: customer_tags,
+                                    products_with_collections: c,
+                                    shopifyCurrencies: getShopifyCurrencies(),
+                                    prev_price_rule_info: getJSONfromLocalStorage("price_rule_info"),
+                                    prev_draft_order_info: getJSONfromLocalStorage("draft_order_info")
+                                }, function(e,a){
+                                
+                                })
+                            } else log("Wholesale all in one is disabled");
+                            
+                        }
+                    } else {
+                        log("Product object error from shopify end!"); log(b);
+                    }
+                });
             })
         };
         function get_buynow_discount(data, callback){

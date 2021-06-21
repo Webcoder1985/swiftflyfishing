@@ -1960,13 +1960,6 @@
         "info": "If custom converter is enabled, the native multi-currency converter will be disabled. [Learn more](https:\/\/help.shopify.com\/en\/manual\/payments\/shopify-payments\/multi-currency\/setup)"
       },
       {
-        "type": "checkbox",
-        "id": "show_multiple_currencies",
-        "label": "Enable custom theme currency converter",
-        "info": "Orders will be processed in store currency",
-        "default": false
-      },
-      {
         "type": "text",
         "id": "supported_currencies",
         "label": "Supported currencies",

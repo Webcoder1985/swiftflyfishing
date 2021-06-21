@@ -38,27 +38,29 @@ additional_classes: <string>
       </div>
     {%- endif -%}
 
-    {%- if settings.show_multiple_currencies == true and show_currency == true -%}
-      {% capture codes %},USD,EUR,GBP,CAD,ARS,AUD,ILS,BBD,BDT,BSD,BHD,BRL,BOB,BND,BGN,MMK,KYD,CLP,CNY,COP,CRC,HRK,CZK,DKK,DOP,XCD,EGP,XPF,FJD,GHS,GTQ,GYD,GEL,HKD,HUF,ISK,INR,IDR,NIS,JMD,JPY,JOD,KZT,KES,KWD,LVL,LTL,MXN,MYR,MUR,MDL,MAD,MNT,MZN,ANG,NZD,NGN,NOK,OMR,PKR,PYG,PEN,PHP,PLN,QAR,RON,RUB,SAR,RSD,SCR,SGD,SYP,ZAR,KRW,LKR,SEK,CHF,TWD,THB,TZS,TTD,TRY,TND,UAH,AED,UYU,VEB,VND,ZMK,{% endcapture %}
-      {% assign supported_codes = settings.supported_currencies | split: ' ' %}
-
-      <div class="selectors-form__item selectors-form__currency" value="{{ shop.currency }}" data-currency-converter data-default-shop-currency="{{ shop.currency }}">
+    {%- if settings.supported_currencies != blank -%}
+      <div class="selectors-form__item selectors-form__currency">
         <h2 class="hidden" id="currency-heading">
           {{ 'general.currency.dropdown_label' | t }}
         </h2>
 
+        <input type="hidden" name="currency_code" id="CurrencySelector" value="{{ form.current_currency.iso_code }}" data-disclosure-input/>
+
         <div class="disclosure disclosure--currency disclosure-text-style-{{ settings.nav_font_style }}" data-disclosure data-disclosure-currency>
           <button type="button" class="disclosure__toggle disclosure__toggle--currency" aria-expanded="false" aria-controls="currency-list" aria-describedby="currency-heading" data-disclosure-toggle>
-            <span class="currency-code">{{ shop.currency }}</span>
+            {{ form.current_currency.iso_code }}
           </button>
           <div class="disclosure__list-wrap">
-            <ul id="currency-list" class="disclosure-list" data-disclosure-list data-default-shop-currency="{{ shop.currency }}" data-currency-converter>
-              {% for code in supported_codes %}
-                <li class="disclosure-list__item {% if code == shop.currency %}disclosure-list__item--current{% endif %}">
-                  <button class="disclosure__button" name="currency_code" value="{{ code }}">
-                    {{ code }}
+            <ul id="currency-list" class="disclosure-list" data-disclosure-list>
+              {% for currency in form.available_currencies %}
+                {% if settings.supported_currencies contains currency.iso_code %}
+                <li class="disclosure-list__item {% if currency.iso_code == form.current_currency.iso_code %}disclosure-list__item--current{% endif %}">
+                  <button type="submit" class="disclosure__button" name="currency_code" value="{{ currency.iso_code }}">
+                    {{ currency.iso_code }} {%- if currency.symbol -%}{{ currency.symbol }}{%- endif -%}
                   </button>
                 </li>
+                {% endif %}
+                
               {%- endfor -%}
             </ul>
           </div>

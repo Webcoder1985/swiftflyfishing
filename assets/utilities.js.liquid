@@ -428,9 +428,6 @@ var enableInfiniteScroll = function(){
         if (Shopify.theme_settings.collection_secondary_image){
           imageFunctions.showSecondaryImage();
         }
-
-        // Refresh waypoints
-        Waypoint.refreshAll()
       }
     })
   }
@@ -636,10 +633,10 @@ var searchAutocomplete = {
     }
 
     //Submit wildcard searches
-    $(".search_form, .search__form, .header_search_form").on("submit", function(e){
+    $(".search_form, .header_search_form").on("submit", function(e){
       var formValue = $(this).find('input[name="q"]').val();
       var cleanFormValue = encodeURI(formValue);
-
+      console.log(cleanFormValue)
       e.preventDefault();
 
       if(cleanFormValue == null) {

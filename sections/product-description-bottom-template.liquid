@@ -416,7 +416,6 @@
             <!-- Reviews -->
             <div id="product-review" class="container">
               {% include 'include-reviews', type: 'block' %}
-              <a class="review-sticky-button" href="#product-review">Product Reviews</a>
             </div>
 
           {% elsif block.type == 'divider' %}
@@ -1068,12 +1067,6 @@
         {
           "type": "paragraph",
           "content": "Reviews app must be enabled [(?)](https://help.outofthesandbox.com/hc/en-us/articles/360008549274#section2)"
-        },
-        {
-          "type": "text",
-          "id": "title",
-          "label": "Title",
-          "default": "Product Reviews"
         }
       ]
     },

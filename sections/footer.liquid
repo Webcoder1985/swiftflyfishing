@@ -104,6 +104,12 @@
                       <li><p><a href="{{ link.url }}">{{ link.title }}</a></p></li>
                     {% endfor %}
                   </ul>
+                  {% if block.settings.social_icons_footer %}
+                    {% assign social_icons = true %}
+                    <div class="footer-social-icons {% if block.type == 'logo' %}text-align--{{block.settings.text_align}}{% endif %}">
+                      {% render 'social-icons' %}
+                    </div>
+                  {% endif %}
                 </div>
               {% else %}
                 <h6>Menu title<span class="right icon-down-arrow"></span></h6>
@@ -149,12 +155,7 @@
 
           {% endif %}
 
-          {% if block.settings.social_icons_footer %}
-            {% assign social_icons = true %}
-            <div class="footer-social-icons {% if block.type == 'logo' %}text-align--{{block.settings.text_align}}{% endif %}">
-              {% render 'social-icons' %}
-            </div>
-          {% endif %}
+          
 
         </div>
         {% if forloop.last and social_icons %}

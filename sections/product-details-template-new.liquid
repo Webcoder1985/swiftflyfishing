@@ -211,7 +211,7 @@
             {% if product_description != blank %}
               <ul class="toggle-list">
                 <li>
-                  <a class="toggle_btn">Description</a>
+                  <a class="toggle_btn">Product Details</a>
                   <div class="toggle_content animated fadeIn">
                     {% if product_description contains "split" %}
                       {% assign description_parts = product_description | split: '<!-- split -->' %}
@@ -226,7 +226,7 @@
                    
                   {% if description_parts[1] != blank %}
                     <li>
-                      <a class="toggle_btn">Specs</a>
+                      <a class="toggle_btn">Specifications</a>
                         <div class="toggle_content animated fadeIn">
                           {{ description_parts[1] }}
                         </div>
@@ -239,7 +239,7 @@
                   
                   {% if description_parts[2] != blank %}
                   <li>
-                    <a class="toggle_btn">Benefits</a>
+                    <a class="toggle_btn">Why You'll love it</a>
                     <div class="toggle_content animated fadeIn">
                       {{ description_parts[2] }}
                     </div>
@@ -423,7 +423,6 @@
             <!-- Reviews -->
             <div id="product-review" class="container">
               {% include 'include-reviews', type: 'block' %}
-              <a class="review-sticky-button" href="#product-review">Product Reviews</a>
             </div>
 
           {% elsif block.type == 'divider' %}
@@ -1075,12 +1074,6 @@
         {
           "type": "paragraph",
           "content": "Reviews app must be enabled [(?)](https://help.outofthesandbox.com/hc/en-us/articles/360008549274#section2)"
-        },
-        {
-          "type": "text",
-          "id": "title",
-          "label": "Title",
-          "default": "Product Reviews"
         }
       ]
     },
