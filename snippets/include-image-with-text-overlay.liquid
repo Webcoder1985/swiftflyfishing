@@ -107,13 +107,13 @@
 {% endstyle %}
 
   {% if image != nil %}
-    {% render 'image-element',
+    {% render 'image-element-lazy',
             image: image,
             alt: image.alt,
             stretch_width: true,
             additional_classes: 'small-down--hide'
     %}
-    {% render 'image-element',
+    {% render 'image-element-lazy',
             image: mobile_image,
             alt: image.alt,
             stretch_width: true,

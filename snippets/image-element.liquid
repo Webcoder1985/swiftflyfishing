@@ -72,9 +72,6 @@ max_height: <number>
 {% comment %}Build image element{% endcomment %}
 <div class="image-element__wrap" style="{{ background_color }}{{ crop_to_aspect_ratio }}">
   <img  alt="{{ alt | escape }}"
-        {% if low_quality_image %}
-          src="{{ low_quality_image }}"
-        {% endif %}
         {% if max_height %}
         data-src="{{ image | img_url: '320x' }}"
         {% else %}

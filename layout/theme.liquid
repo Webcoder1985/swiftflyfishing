@@ -97,7 +97,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     
 
     {% render 'zoorix-cart-items' %}
-    <script src="{{ 'vendor.min.js' | asset_url }}" async></script>
+    
+    <script src="{{ 'vendor.min.js' | asset_url }}"></script> 
   </head>
 
   {% if template contains "index" %}
@@ -229,11 +230,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <script>
       {% render 'js-variables' %}
     </script>
-    
+    <script src="{{'jquery.lazy.min.js' | asset_url }}"></script>
 
     <script src="{{ 'sections.js' | asset_url }}"></script>
+    {%- comment -%}
     <script src="{{ 'utilities.js' | asset_url }}"></script>
     <script src="{{ 'app.js' | asset_url }}"></script>
+    {%- endcomment -%}
+    
+    <script src="{{ 'theme.min.js' | asset_url }}"></script>
     {%- comment -%}
     
     {%- endcomment -%}

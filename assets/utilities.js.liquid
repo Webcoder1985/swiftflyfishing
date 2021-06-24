@@ -22,14 +22,6 @@ var imageFunctions = {
   zoom: function(){
     var $image = $(event.target);
     var zoomSrc = $image.data('zoom-src');
-
-    if (zoomSrc) {
-      $image.wrap('<span class="zoom-container"></span>').css('display', 'block').parent().zoom({
-        url: zoomSrc,
-        touch: false,
-        magnify: 1
-      });
-    }
   },
   linkGalleryAndCarousel: function($gallery, $carousel){
 

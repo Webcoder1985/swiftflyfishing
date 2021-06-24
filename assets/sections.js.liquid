@@ -2303,3 +2303,7 @@ $('body').on('click','.show_Multiple_form .add_to_cart', function(e) {
     $addToCartBtn.find('span').text({{ 'products.product.add_to_cart' | t | json }}).removeClass('zoomOut').addClass('zoomIn');
   }
 });
+
+$(function() {
+  $('.lazy').lazy();
+});

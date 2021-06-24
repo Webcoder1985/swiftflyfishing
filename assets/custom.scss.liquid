@@ -2061,6 +2061,7 @@ header{
     .info{
       max-width: 600px;
       width: 100%;
+      padding-bottom: 0!important;
       @include respond-to("medium-down"){
         padding: 20px;
         padding-top: 40px;
@@ -3992,6 +3993,9 @@ a.close{
         @include respond-to("medium-down"){
           display: none;
         }
+        .stamped-pagination{
+          display: none;
+        }
         .stamped-widget-buttons{
           display: none!important;
         }
@@ -4647,10 +4651,12 @@ a.close{
               display: none;
             }
             .stamped-verified-badge{
-              display: none;
+              width: 100%;
+              order: 4;
             }
             .review-location{
-              display: none;
+              width: 100%;
+              order: 3;
             }
           }
           .stamped-review-content{
@@ -7078,4 +7084,13 @@ a.close{
 
 .flickity-viewport {
   transition: height 0.2s;
+}
+
+.image-element__wrap{
+  position: relative;
+  .lazy{
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
 }
