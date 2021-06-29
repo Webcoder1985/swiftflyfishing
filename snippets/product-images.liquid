@@ -116,7 +116,13 @@ quickshop: <boolean>
             </div>
           {% when 'video' %}
             <div class="product-gallery__video" data-html5-video>
-              {{ media | video_tag: controls: true }}
+              {% assign video_source = media.sources %}
+              {% for video_source in media.sources %}
+                  {% if video_source.format == 'mp4' %}
+                    <div class="youtube-player" data-id="{{video_source.url}}" data-poster="{{media.preview_image | img_url: '1024x'}}"></div>
+                  {% endif %}
+              {% endfor %}
+              
             </div>
           {% when 'model' %}
             <div class="product-gallery__model">

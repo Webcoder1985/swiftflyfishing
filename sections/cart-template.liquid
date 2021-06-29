@@ -87,7 +87,7 @@
           <div class="section clearfix cart__item" data-cart-item data-line-id="{{ forloop.index }}" data-variant-id="{{ item.id }}">
             <div class="five columns small-down--one-fifth alpha cart__item--image">
               <a href="{{ item.url }}" title="{{ item.title | escape }}" class="cart_page_image">
-                {% render 'image-element',
+                {% render 'image-element-lazy',
                         image: item.image,
                         alt: item.title,
                         object_fit: settings.align_height,

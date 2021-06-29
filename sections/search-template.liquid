@@ -9,7 +9,7 @@
 
 {% if section.settings.image != blank %}
   <header class="banner center page-banner dark-overlay-{{ section.settings.image_darken }}">
-    {% render 'image-element',
+    {% render 'image-element-lazy',
             image: section.settings.image,
             alt: section.settings.image.alt,
             stretch_width: true
@@ -120,7 +120,7 @@
               {% assign featured_image = true %}
               <div class="four columns alpha">
                 <a href="{{ item.url }}" title="{{ item.title | escape }}">
-                    {% render 'image-element',
+                    {% render 'image-element-lazy',
                             image: item.featured_media.preview_image,
                             alt: item.title,
                             object_fit: settings.align_height,
@@ -132,7 +132,7 @@
               {% assign featured_image = true %}
               <div class="four columns alpha">
                 <a href="{{ item.url }}" title="{{ item.title | escape }}">
-                    {% render 'image-element',
+                    {% render 'image-element-lazy',
                             image: item.featured_image,
                             alt: item.title,
                             object_fit: settings.align_height,

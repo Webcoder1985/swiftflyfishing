@@ -41,7 +41,7 @@
                   rel="gallery">
               {% endif %}
               <i class="image-{{ block.id }}"></i>
-              {% render 'image-element',
+              {% render 'image-element-lazy',
                       image: block.settings.image,
                       alt: block.settings.image.alt
               %}

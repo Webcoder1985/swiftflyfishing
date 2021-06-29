@@ -22,7 +22,7 @@
       <div class="border-style--{{ block.settings.border_style }} text-align--{{ block.settings.align_text }}">
         {% if block.settings.enable_image %}
           {% if block.settings.image != blank %}
-            {% render 'image-element',
+            {% render 'image-element-lazy',
                     image: block.settings.image.src,
                     alt: block.settings.image.alt
             %}

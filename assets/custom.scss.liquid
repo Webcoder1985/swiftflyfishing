@@ -3986,6 +3986,9 @@ a.close{
         }
         .flickity-button{
           position: absolute;
+          &[disabled]{
+            display: none;
+          }
           &.next{
             right: 0;
           }
@@ -4644,6 +4647,12 @@ a.close{
                 &::before{
                   background: url(https://cdn.shopify.com/s/files/1/0120/5852/files/Star.svg?v=1607545746);
                   color: transparent !important;
+                }
+                &.stamped-fa-star-o {
+                  &::before{
+                    background: transparent ;
+                    color: transparent !important;
+                  }
                 }
               }
             }
@@ -5936,6 +5945,8 @@ a.close{
         .caption-content{
           max-width: 100%;
           background: $color-white;
+          padding: 20px 50px;
+          min-width: 550px;
           .headline{
             font-size: $font-large;
             color: {{settings.headline_color}};
@@ -7089,8 +7100,56 @@ a.close{
 .image-element__wrap{
   position: relative;
   .lazy{
+    width: 100%;
     position: absolute;
     top: 0;
     left: 0;
   }
+}
+
+.youtube-player {
+  display: block;
+  margin: 20px auto;
+  padding-bottom: 80%;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  cursor: hand;
+  cursor: pointer;
+  display: block;
+  background: black;
+}
+
+img.youtube-thumbnail {
+  bottom: 0;
+  display: block;
+  left: 0;
+  margin: auto;
+  max-width: 100%;
+  width: 100%;
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: auto;
+}
+
+div.youtube-play-btn {
+  height: 50px;
+  width: 50px;
+  left: 50%;
+  top: 50%;
+  margin-left: -25px;
+  margin-top: -25px;
+  position: absolute;
+  background: url("https://freepngimg.com/thumb/categories/1398.png") no-repeat center center;
+background-size: 50px;
+}
+
+.youtube-iframe {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
 }

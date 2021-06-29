@@ -30,7 +30,7 @@
         <div class="{% if home_page_articles == 2 %}eight columns{% elsif home_page_articles == 3 %}one-third column{% else %}four columns{% endif %} article medium-down--one-whole">
           {% if article.image %}
             <a href="{{ article.url }}">
-              {% render 'image-element',
+              {% render 'image-element-lazy',
                       image: article.image,
                       alt: article.image.alt
               %}

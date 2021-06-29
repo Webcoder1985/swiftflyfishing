@@ -49,7 +49,7 @@
   {% else %}
     <div id="map--{{id}}" class="map__placeholder maps">
       {% if map_image %}
-        {% render 'image-element',
+        {% render 'image-element-lazy',
                 image: map_image,
                 alt: map_image.alt
         %}

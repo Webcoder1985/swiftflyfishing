@@ -24,7 +24,7 @@
                 <div class="mega-menu__image-caption-link">
                   <a {% if block.settings.image_link_top != blank %}href="{{ block.settings.image_link_top }}"{% endif %} >
                     {% if block.settings.image_top != nil %}
-                      {% render 'image-element',
+                      {% render 'image-element-lazy',
                               image: block.settings.image_top,
                               alt: block.settings.image_top.alt
                       %}
@@ -121,7 +121,7 @@
                 <div class="mega-menu__image-caption-link">
                   <a {% if block.settings.image_link_bottom != blank %}href="{{ block.settings.image_link_bottom }}"{% endif %} >
                     {% if block.settings.image_bottom != nil %}
-                      {% render 'image-element',
+                      {% render 'image-element-lazy',
                               image: block.settings.image_bottom,
                               alt: block.settings.image_bottom.alt
                       %}
@@ -146,7 +146,7 @@
       </div>
       {% if section.settings.banner_image != blank %}
         <div class="banner_content omega one-half columns">
-          {% render 'image-element',
+          {% render 'image-element-lazy',
             image: section.settings.banner_image,
             alt: section.settings.banner_image.alt,
             stretch_width: true
@@ -185,7 +185,7 @@
           <li class="mobile-mega-menu_block">
             <a {% if block.settings.image_link_top != blank %}href="{{ block.settings.image_link_top }}"{% endif %} >
               {% if block.settings.image_top != nil %}
-                {% render 'image-element',
+                {% render 'image-element-lazy',
                         image: block.settings.image_top,
                         alt: block.settings.image_top.alt
                 %}
@@ -285,7 +285,7 @@
           <li class="mobile-mega-menu_block"  >
             <a {% if block.settings.image_link_bottom != blank %}href="{{ block.settings.image_link_bottom }}"{% endif %} >
               {% if block.settings.image_bottom != nil %}
-                {% render 'image-element',
+                {% render 'image-element-lazy',
                         image: block.settings.image_bottom,
                         alt: block.settings.image_bottom.alt
                 %}

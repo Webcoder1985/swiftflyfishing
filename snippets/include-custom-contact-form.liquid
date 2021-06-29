@@ -30,7 +30,7 @@
 <div class="custom-contact-form custom-contact-form__position--{{ contact_text_position }} {% if contact_text_position == 'left' %}seven{% elsif contact_text_position == 'right' %}seven{% else %}ten offset-by-three{% endif %} columns">
   {% if contact_image %}
     <div class="custom-contact-form__image">
-      {% render 'image-element',
+      {% render 'image-element-lazy',
               image: contact_image.src,
               alt: contact_image.alt
       %}
@@ -56,7 +56,7 @@
   {% if section.blocks.size > 0 %}
     {% if contact_logo %}
       <div class="custom-contact-form__logo">
-        {% render 'image-element',
+        {% render 'image-element-lazy',
                 image: contact_logo.src,
                 alt: contact_logo.alt
         %}

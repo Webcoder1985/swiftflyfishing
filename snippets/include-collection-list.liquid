@@ -72,14 +72,14 @@
                 <div class="product-wrap">
                   {% if collection_image != nil %}
                     <div class="image__container">
-                      {% render 'image-element',
+                      {% render 'image-element-lazy',
                               image: collection_image.src,
                               alt: collection_image_alt,
                               object_fit: align_height,
                               max_height: height,
                               additional_classes: "medium-down--hide"
                       %}
-                      {% render 'image-element',
+                      {% render 'image-element-lazy',
                               image: mobile_collection_image.src,
                               alt: mobile_collection_image_alt,
                               object_fit: align_height,

@@ -1651,7 +1651,10 @@ if (Cookies.get('set_local_currency') == "false" || Cookies.get('set_local_curre
     autoPlay: false, // advance cells every 3 seconds
     arrowShape: arrow,
     contain: true,
-  });
+  }).on( 'select.flickity', function( event, index ) {
+    console.log( event )
+    $('.image-text-overlay-slider .lazy').lazy();
+  });;
 
   if ($('.sidebar .sidebar-block [data-option-filter]').length == 0) {
     $('.collection-seperate-template-section .sidebar').hide();

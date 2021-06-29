@@ -41,7 +41,7 @@
       {% comment %} Add div for placeholder / poster image {% endcomment %}
       {% if object.settings.pop_image != blank %}
         <div class="video-wrapper__image">
-          {% render 'image-element',
+          {% render 'image-element-lazy',
                   image: image,
                   alt: image.alt,
                   stretch_width: true

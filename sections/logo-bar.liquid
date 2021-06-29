@@ -19,7 +19,7 @@
               <a href="{{ block.settings.link }}" class="logo-bar__link">
             {% endif %}
             {% if block.settings.image != blank %}
-              {% render 'image-element',
+              {% render 'image-element-lazy',
                       image: block.settings.image,
                       alt: block.settings.image.alt
               %}

@@ -51,7 +51,7 @@
                 <a href="{{ block.settings.link }}" title="{{ block.settings.title }}">
                 {% endif %}
                   {% if block.settings.image %}
-                    {% render 'image-element',
+                    {% render 'image-element-lazy',
                             image: block.settings.image,
                             alt: block.settings.image.alt
                     %}

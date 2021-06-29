@@ -6,7 +6,7 @@
     </div>
   {% else %}
     <header class="banner center page-banner">
-      {% render 'image-element',
+      {% render 'image-element-lazy',
               image: section.settings.image,
               alt: section.settings.image.alt,
               stretch_width: true,
@@ -33,13 +33,13 @@
               <a href="{{ block.settings.link }}" title="{{ block.settings.title }}">
               {% endif %}
                 {% if block.settings.image %}
-                  {% include 'image-element', image: block.settings.image, alt: block.settings.image.alt, additional_classes: "medium-down--hide",back_to_basics: true %}
+                  {% render 'image-element-lazy', image: block.settings.image, alt: block.settings.image.alt, additional_classes: "medium-down--hide",back_to_basics: true %}
                   {% if block.settings.mobile_image != blank %}
                     {% assign mobile_image = block.settings.mobile_image %}
                   {% else %}
                     {% assign mobile_image = block.settings.image %}
                   {% endif %}
-                  {% include 'image-element', image: mobile_image, alt: mobile_image.alt, additional_classes: "hide medium-down--show",back_to_basics: true %}
+                  {% render 'image-element-lazy', image: mobile_image, alt: mobile_image.alt, additional_classes: "hide medium-down--show",back_to_basics: true %}
                 {% elsif block.settings.svg != blank %}
                   {{ block.settings.svg }}
                 {% else %}
@@ -74,14 +74,14 @@
     {% elsif block.type == 'image-overlay' %}
       <section id="banner-{{block.id}}" class="banner full-width--true">
         {% if block.settings.image != nil %}
-          {% render 'image-element',
+          {% render 'image-element-lazy',
                   image: block.settings.image,
                   alt: image.alt,
                   stretch_width: true,
                   back_to_basics: true,
                   additional_classes: "small-down--hide"
           %}
-          {% render 'image-element',
+          {% render 'image-element-lazy',
                   image: block.settings.mobile_image,
                   alt: image.alt,
                   stretch_width: true,

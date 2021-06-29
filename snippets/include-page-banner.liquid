@@ -1,6 +1,6 @@
 <section id="banner-{{ section.id }}" class="banner page-banner dark-overlay-{{ section.settings.image_darken }} full-width--{{ section.settings.wide_display }}">
   {% if section.settings.image != nil %}
-    {% render 'image-element',
+    {% render 'image-element-lazy',
             image: section.settings.image,
             alt: section.settings.image.alt,
             stretch_width: true

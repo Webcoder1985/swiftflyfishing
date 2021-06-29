@@ -22,7 +22,7 @@
       {% assign collection_image_alt = collection.products.first.featured_image.alt %}
     {% endif %}
 
-    {% render 'image-element',
+    {% render 'image-element-lazy',
             image: collection_image.src,
             alt: collection_image_alt,
             stretch_width: true,

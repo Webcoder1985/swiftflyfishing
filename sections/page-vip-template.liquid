@@ -5,7 +5,7 @@
 {% endif %}
 {% if section.settings.banner_status and section.settings.image %}
   <header class="banner center page-banner dark-overlay-{{ section.settings.image_darken }}">
-    {% render 'image-element',
+    {% render 'image-element-lazy',
             image: section.settings.image,
             alt: section.settings.image.alt,
             stretch_width: true,

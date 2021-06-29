@@ -9,13 +9,13 @@
           <a href="{{ block.settings.link }}" title="{{ block.settings.title }}">
         {% endif %}
           {% if block.settings.image %}
-            {% include 'image-element', image: block.settings.image, alt: block.settings.image.alt, back_to_basics: true, additional_classes: "medium-down--hide" %}
+            {% render 'image-element-lazy', image: block.settings.image, alt: block.settings.image.alt, back_to_basics: true, additional_classes: "medium-down--hide" %}
             {% if block.settings.mobile_image != blank %}
               {% assign mobile_image = block.settings.mobile_image %}
             {% else %}
               {% assign mobile_image = block.settings.image %}
             {% endif %}
-            {% include 'image-element', image: mobile_image, alt: image.alt, back_to_basics: true, additional_classes: "hide medium-down--show" %}
+            {% render 'image-element-lazy', image: mobile_image, alt: image.alt, back_to_basics: true, additional_classes: "hide medium-down--show" %}
           {% else %}
             {% capture i %}{% cycle "1", "2", "3", "4", "5", "6" %}{% endcapture %}
             {{ 'collection-' | append: i | placeholder_svg_tag: 'placeholder-svg placeholder-svg--promotions' }}
@@ -59,7 +59,7 @@
         <div class="author-images">
           {% if block.settings.author_image_1 != blank %}
             <div class="image-item">
-              {% include 'image-element' with
+              {% render 'image-element-lazy' with
                 image: block.settings.author_image_1,
                 alt: block.settings.author_title_1,
                 back_to_basics: true
@@ -69,7 +69,7 @@
           {% endif %}
           {% if block.settings.author_image_2 != blank %}
             <div class="image-item">
-              {% include 'image-element' with
+              {% render 'image-element-lazy' with
                 image: block.settings.author_image_2,
                 alt: block.settings.author_title_2,
                 back_to_basics: true

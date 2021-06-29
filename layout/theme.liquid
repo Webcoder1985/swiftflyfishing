@@ -99,6 +99,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     {% render 'zoorix-cart-items' %}
     
     <script src="{{ 'vendor.min.js' | asset_url }}"></script> 
+    <script>
+      $(function() {
+        $('.lazy').lazy();
+      });
+    </script>
   </head>
 
   {% if template contains "index" %}
@@ -233,14 +238,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <script src="{{'jquery.lazy.min.js' | asset_url }}"></script>
 
     <script src="{{ 'sections.js' | asset_url }}"></script>
-    {%- comment -%}
     <script src="{{ 'utilities.js' | asset_url }}"></script>
     <script src="{{ 'app.js' | asset_url }}"></script>
-    {%- endcomment -%}
     
-    <script src="{{ 'theme.min.js' | asset_url }}"></script>
+    
     {%- comment -%}
-    
+    <script src="{{ 'theme.min.js' | asset_url }}"></script>
     {%- endcomment -%}
     {%- if settings.show_multiple_currencies or shop.enabled_currencies.size > 1 -%}
       <script defer src="{{ 'currencies.js' | asset_url }}"></script>

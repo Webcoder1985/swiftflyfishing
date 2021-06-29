@@ -48,7 +48,7 @@
       </div>
       {% endif %}
       
-      {% render 'image-element',
+      {% render 'image-element-lazy',
               image: image,
               alt: collection.title,
               stretch_width: true,
@@ -57,7 +57,7 @@
               additional_classes: 'medium-down--hide'
       %}
 
-      {% render 'image-element',
+      {% render 'image-element-lazy',
               image: mobile_image,
               alt: collection.title,
               stretch_width: true,

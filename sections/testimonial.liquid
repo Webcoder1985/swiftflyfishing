@@ -28,7 +28,7 @@
         <div class="testimonial-block gallery-cell slide-{{ forloop.index }} {% if block.settings.image == nil %}set-static use-mobile-color{% endif %}" {{ block.shopify_attributes }} data-block-id="{{block.id}}">
             {% assign image = block.settings.image %}
             {% if image != nil %}
-              {% render 'image-element',
+              {% render 'image-element-lazy',
                       image: image,
                       alt: image.alt,
                       stretch_width: true,
@@ -42,7 +42,7 @@
             <div class="caption position-{{block.settings.text_position}} js-caption">
                 <div class="caption-content testimonial-text {% if image != nil %}testimonial-text-mobile{% endif %} align-{{block.settings.text_align}}">
                   {% if block.settings.icon != blank %}
-                  {% render 'image-element',
+                  {% render 'image-element-lazy',
                     image: block.settings.icon,
                     alt: block.settings.icon.alt,
                     additional_classes: 'testimonial-icon'

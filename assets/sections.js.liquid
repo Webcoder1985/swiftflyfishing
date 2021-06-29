@@ -14,6 +14,7 @@
 /*============================================================================
   Featured collection
 ==============================================================================*/
+getVideos();
 
 var featuredCollectionSection = {
   init: function(){
@@ -2304,6 +2305,88 @@ $('body').on('click','.show_Multiple_form .add_to_cart', function(e) {
   }
 });
 
-$(function() {
-  $('.lazy').lazy();
+
+
+/**
+ * Get videos on load
+ */
+
+/**
+ * For each video player, create custom thumbnail or
+ * use Youtube max resolution default thumbnail and create
+ * iframe video.
+ */
+ function getVideos() {
+  var v = document.getElementsByClassName("youtube-player");
+  for (var n = 0; n < v.length; n++) {
+      
+
+      var placeholder = v[n].hasAttribute("data-thumbnail")
+          ? v[n].getAttribute("data-thumbnail")
+          : "";
+
+      if (placeholder != 'placeholder' ) {
+          var p = document.createElement("div");
+          var id = v[n].getAttribute("data-id");
+          var poster =  v[n].getAttribute("data-poster");
+          p.innerHTML = createThumbail(poster);
+          v[n].setAttribute("data-thumbnail", "placeholder");
+          v[n].appendChild(p);
+          p.addEventListener("click", function () {
+              var parent = this.parentNode;
+              createIframe(parent, parent.getAttribute("data-id"));
+          });
+      } 
+
+      
+  }
+}
+
+/**
+* Create custom thumbnail from data-attribute provided url
+* @param {string} url
+* @return {string} The HTML containing the <img> tag
+*/
+function createCustomThumbail(url) {
+  return (
+      '<img class="youtube-thumbnail" src="' +
+      url +
+      '" alt="Youtube Preview" /><div class="youtube-play-btn"></div>'
+  );
+}
+
+/**
+* Get Youtube default max resolution thumbnail
+* @param {string} id The Youtube video id
+* @return {string} The HTML containing the <img> tag
+*/
+function createThumbail(poster) {
+  return (
+      '<img class="youtube-thumbnail" src="'+ poster +'" alt="Youtube Preview"><div class="youtube-play-btn"></div>'
+  );
+}
+
+/**
+* Create and load iframe in Youtube container
+**/
+function createIframe(v, id) {
+  var iframe = document.createElement("iframe");
+  console.log(v);
+  iframe.setAttribute(
+      "src",id
+  );
+  iframe.setAttribute("autoplay", "1");
+  iframe.setAttribute("frameborder", "0");
+  iframe.setAttribute("class", "youtube-iframe");
+  v.firstChild.replaceWith(iframe);
+}
+
+/** Pause video on modal close **/
+$("#video-modal").on("hidden.bs.modal", function (e) {
+  $(this).find("iframe").remove();
+});
+
+/** Pause video on modal close **/
+$("#video-modal").on("show.bs.modal", function (e) {
+  getVideos();
 });

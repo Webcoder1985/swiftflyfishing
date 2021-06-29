@@ -1,6 +1,6 @@
 {% if section.settings.banner_status and section.settings.image %}
   <header class="banner center page-banner dark-overlay-{{ section.settings.image_darken }}">
-    {% render 'image-element',
+    {% render 'image-element-lazy',
             image: section.settings.image,
             alt: section.settings.image.alt,
             stretch_width: true,
@@ -30,7 +30,7 @@
       {% if block.type == 'video_block' %}
         <div class="one-third medium-down--whole columns video-block">
           <a target="_blank" href="{{ block.settings.video_link }}" title="{{ block.settings.title | escape }}">
-            {% render 'image-element',
+            {% render 'image-element-lazy',
                     image: block.settings.image,
                     alt: block.settings.title
             %}

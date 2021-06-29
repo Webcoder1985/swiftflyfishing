@@ -43,7 +43,7 @@
                   <a href="{{ block.settings.link }}" title="{{ block.settings.title }}">
                   {% endif %}
                     {% if block.settings.image %}
-                      {% include 'image-element', image: block.settings.image, alt: block.settings.image.alt %}
+                      {% render 'image-element-lazy', image: block.settings.image, alt: block.settings.image.alt %}
                     {% else %}
                       {% capture i %}{% cycle "1", "2", "3", "4", "5", "6" %}{% endcapture %}
                       {{ 'collection-' | append: i | placeholder_svg_tag: 'placeholder-svg placeholder-svg--promotions' }}

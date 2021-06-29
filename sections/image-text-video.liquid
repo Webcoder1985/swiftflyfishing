@@ -23,7 +23,7 @@
                 <a href="{{ block.settings.link }}" title="{{ block.settings.title }}">
                 {% endif %}
                   {% if block.settings.image %}
-                    {% render 'image-element',
+                    {% render 'image-element-lazy',
                             image: block.settings.image,
                             alt: block.settings.image.alt,
                             stretch_width: true,
@@ -34,7 +34,7 @@
                     {% else %}
                       {% assign mobile_image = block.settings.image %}
                     {% endif %}
-                    {% render 'image-element',
+                    {% render 'image-element-lazy',
                       image: mobile_image,
                       alt: mobile_image.alt,
                       stretch_width: true,

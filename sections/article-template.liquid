@@ -11,7 +11,7 @@
 
 {% if article.image and section.settings.featured_image == 'banner' %}
   <header class="banner center page-banner dark-overlay-{{ section.settings.image_darken }} full-width--{{ section.settings.wide_display }}">
-    {% render 'image-element',
+    {% render 'image-element-lazy',
             image: article.image,
             alt: article.image.alt,
             stretch_width: true
@@ -299,7 +299,7 @@
             <div class="one-third columns article">
               {% if a.image %}
                 <a href="{{ a.url }}" title="{{ a.title | escape }}">
-                  {% render 'image-element',
+                  {% render 'image-element-lazy',
                           image: a.image,
                           alt: a.image.alt
                   %}

@@ -1,6 +1,6 @@
 {% if section.settings.image != blank %}
   <header class="banner center page-banner dark-overlay-{{ section.settings.image_darken }}">
-    {% render 'image-element',
+    {% render 'image-element-lazy',
             image: section.settings.image,
             alt: section.settings.image.alt,
             stretch_width: true,

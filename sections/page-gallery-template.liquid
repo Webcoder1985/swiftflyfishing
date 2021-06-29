@@ -73,7 +73,7 @@
                   {% assign use_basic = false %}
               {% endif %}
 
-              {% render 'image-element',
+              {% render 'image-element-lazy',
                       image: block.settings.image,
                       alt: block.settings.image.alt,
                       back_to_basics: use_basic

@@ -15,7 +15,7 @@
           <figure class="feature-section section-{{ forloop.index }} promo-{{ forloop.index }} title-overlay-{{ title_on_image }} {% if section.settings.featured_links_animation != blank %}promo-animation--true{% endif %}" {{ block.shopify_attributes }}>
               <div class="feature-inner feature-style--{{ section.settings.feature_style }} ">
                 {% if block.settings.image != nil %}
-                  {% render 'image-element',
+                  {% render 'image-element-lazy',
                           image: block.settings.image,
                           alt: block.settings.image.alt,
                           stretch_width: true

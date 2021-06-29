@@ -1,14 +1,14 @@
 {% assign heading_title = 'customer.account.title' | t %}
 
 <header class="banner center page-banner dark-overlay-{{ section.settings.image_darken }}">
-  {% render 'image-element',
+  {% render 'image-element-lazy',
           image: section.settings.feature_image,
           alt: section.settings.feature_image.alt,
           stretch_width: true,
           progressive: true,
           additional_classes: "medium-down--hide"
   %}
-  {% render 'image-element',
+  {% render 'image-element-lazy',
           image: section.settings.mobile_feature_image,
           alt: section.settings.mobile_feature_image.alt,
           stretch_width: true,
@@ -60,7 +60,7 @@
           <tr id="{{ line_item.id }}">
             <td data-label="{{ 'customer.order.product' | t }}">
               <div class="order-details__product">
-                {% include 'image-element' with 
+                {% render 'image-element-lazy' with 
                     image: line_item.image,
                     alt: line_item.title,
                 %}

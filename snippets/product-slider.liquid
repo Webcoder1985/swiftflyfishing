@@ -56,7 +56,7 @@
         <div class="relative product_image">
           <a href="{{ product.url | within: collection }}">
             <div class="image__container">
-              {% render 'image-element',
+              {% render 'image-element-lazy',
                       image: product.featured_media.preview_image,
                       alt: alt_text,
                       object_fit: settings.align_height,
@@ -74,7 +74,7 @@
                     {{ product.media[1] | video_tag: controls: false }}
                   </div>
                 {% else %}
-                  {% render 'image-element',
+                  {% render 'image-element-lazy',
                           image: product.media[1].preview_image,
                           alt: alt_text,
                           additional_classes: 'secondary lazypreload secondary-media-hidden'

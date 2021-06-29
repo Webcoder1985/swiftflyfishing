@@ -7,7 +7,7 @@
 
 {% if section.settings.image %}
   <header class="banner center page-banner dark-overlay-{{ section.settings.image_darken }}">
-    {% render 'image-element',
+    {% render 'image-element-lazy',
             image: section.settings.image,
             alt: section.settings.image.alt,
             stretch_width: true,
@@ -122,7 +122,7 @@
             {% else %}
               {% assign collection_image = collection.products.first.featured_image %}
             {% endif %}
-            {% render 'image-element',
+            {% render 'image-element-lazy',
                     image: collection_image,
                     alt: collection.title,
                     object_fit: section.settings.align_height,

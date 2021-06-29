@@ -18,6 +18,6 @@
 {% endif %}
 
 {% comment %}Build image element{% endcomment %}
-<div class="image-element__wrap {{additional_classes}}" style="{{ background_color }} padding-top:{{ 1 | divided_by: aspect_ratio | times: 100}}%;">
+<div class="image-element__wrap layzy-content {{additional_classes}}" style="{{ background_color }} padding-top:{{ 1 | divided_by: aspect_ratio | times: 100}}%;">
   <img class="lazy" data-src="{{ image | img_url: '2048x' }}"  data-srcset="{{ srcset }}"/>
 </div>

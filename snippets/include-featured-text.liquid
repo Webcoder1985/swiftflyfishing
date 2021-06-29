@@ -24,7 +24,7 @@
   <div class="sixteen columns">
     <div class="rich-text__content section {{ text_alignment }} clearfix">
       {% if image %}
-        {% render 'image-element',
+        {% render 'image-element-lazy',
                 image: image.src,
                 alt: image.alt,
                 stretch_width: true

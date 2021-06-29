@@ -8,7 +8,7 @@
 
 {% if section.settings.image != blank %}
   <header class="banner center page-banner dark-overlay-{{ section.settings.image_darken }}">
-    {% render 'image-element',
+    {% render 'image-element-lazy',
             image: section.settings.image,
             alt: section.settings.image.alt,
             stretch_width: true,
@@ -41,7 +41,7 @@
       <div class="team-page__content--{{ section.settings.image_position }} {% if section.settings.image != blank and section.settings.text != blank %}teamPage__content--multiple{% endif %}">
         {% if section.settings.block_image != blank %}
           <div class="team-page__image">
-            {% render 'image-element',
+            {% render 'image-element-lazy',
                     image: section.settings.block_image,
                     alt: section.settings.image.alt,
                     progressive: true
@@ -97,7 +97,7 @@
           <div class="{{ perRow }} center team-member__profile">
             <figure class="team-member__wrap">
               {% if block.settings.image %}
-                {% render 'image-element',
+                {% render 'image-element-lazy',
                         image: block.settings.image,
                         alt: block.settings.image.alt
                 %}
