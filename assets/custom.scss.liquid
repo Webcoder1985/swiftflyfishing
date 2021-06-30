@@ -5941,12 +5941,20 @@ a.close{
         @include respond-to("large-down"){
           width: 100%;
           margin-left: 0;
+          position: initial;
+          transform: none;
+          max-width: initial;
+          padding: 0;
         }
         .caption-content{
           max-width: 100%;
           background: $color-white;
           padding: 20px 50px;
           min-width: 550px;
+          @include respond-to("large-down"){
+             min-width: initial;
+             width: 100%;
+          }
           .headline{
             font-size: $font-large;
             color: {{settings.headline_color}};
@@ -7119,6 +7127,10 @@ a.close{
   cursor: pointer;
   display: block;
   background: black;
+  iframe{
+    height: 100%;
+    min-height: auto;
+  }
 }
 
 img.youtube-thumbnail {
