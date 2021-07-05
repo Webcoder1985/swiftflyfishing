@@ -95,15 +95,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     {% if collection.previous_product %}<link rel="prev" href="{{ collection.previous_product }}">{% endif %}
     {% if collection.next_product %}<link rel="next" href="{{ collection.next_product }}">{% endif %}
     
-
+    <script src="{{ 'jquery.min.js' | asset_url }}" ></script> 
     {% render 'zoorix-cart-items' %}
-    
-    <script src="{{ 'vendor.min.js' | asset_url }}"></script> 
-    <script>
-      $(function() {
-        $('.lazy').lazy();
-      });
-    </script>
   </head>
 
   {% if template contains "index" %}
@@ -235,8 +228,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <script>
       {% render 'js-variables' %}
     </script>
+    
+    <script src="{{ 'vendors.js' | asset_url }}" ></script> 
+    <script src="{{ 'fancybox.min.js' | asset_url }}" ></script> 
+    <script src="{{ 'player.min.js' | asset_url }}" ></script> 
     <script src="{{'jquery.lazy.min.js' | asset_url }}"></script>
-
     <script src="{{ 'sections.js' | asset_url }}"></script>
     <script src="{{ 'utilities.js' | asset_url }}"></script>
     <script src="{{ 'app.js' | asset_url }}"></script>

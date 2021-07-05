@@ -421,7 +421,6 @@ $(function() {
   }
 
   function updateCartItemQuantity(cartItem) {
-    console.log(cartItem)
     $.ajax({
       url: '/cart/change.js',
       dataType: 'json',
@@ -651,7 +650,6 @@ $(function() {
     var limit = $('.progress-content .progress-bar').data('limit');
     var left_price = limit - cart.total_price;
     var progress = cart.total_price * 100 / limit;
-    console.log(progress);
     if (left_price > 0) {
       var progressbarText = `Only ${Shopify.formatMoney(left_price, $('body').data('money-format'))} away from FREE SHIPPING!`
     } else {
@@ -1577,7 +1575,6 @@ $(document).ready(function () {
 
   
 
-console.log('cookie', Cookies.get())
 $('.localization-wrap #header__selector-form .disclosure__list-wrap .disclosure-list li button').on('click', function (e) {
   Cookies.set('set_local_currency', "true");
 })
@@ -1590,8 +1587,6 @@ if (Cookies.get('set_local_currency') == "false" || Cookies.get('set_local_curre
     success: function (location) {
      
       var currency = location.trim()
-      console.log(currency)
-      console.log('cookie',   Cookies.get())
       var selected_currency = $('#header__selector-form .disclosure__toggle').text().trim();
       if (currency != selected_currency) {
         var val = String($('.localization-wrap #header__selector-form #CurrencySelector').val())
@@ -1652,7 +1647,6 @@ if (Cookies.get('set_local_currency') == "false" || Cookies.get('set_local_curre
     arrowShape: arrow,
     contain: true,
   }).on( 'select.flickity', function( event, index ) {
-    console.log( event )
     $('.image-text-overlay-slider .lazy').lazy();
   });;
 
@@ -1706,7 +1700,6 @@ if (Cookies.get('set_local_currency') == "false" || Cookies.get('set_local_curre
 
 
 $(document).on('stamped:reviews:loaded', function (e) {
-  console.log(e)
   var interval = setInterval(() => {
       if ($('.product-template .product_section .image #stamped-reviews-widget .stamped-reviews-wrapper').length > 0) {
         $('.product-template .product_section .image #stamped-reviews-widget .stamped-reviews-wrapper > div:last-child').remove();
@@ -1834,6 +1827,5 @@ function handleMove(evt) {
 $(document).on('click', '.review-sticky-button', function(e){
   e.preventDefault();
   var top = $('#product-review').offset().top;
-  console.log(top)
   $(document).scrollTop(top);
 });
