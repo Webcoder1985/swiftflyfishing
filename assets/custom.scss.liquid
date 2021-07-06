@@ -430,11 +430,22 @@ input[type="text"], input[type="password"], input[type="email"], input[type="sea
 .stamped-product-reviews-badge{
   .stamped-badge{
     white-space: nowrap;
-    .stamped-badge-caption{
+    .stamped-badge-caption[data-version="2"]{
       font-size: $font-desc;
       white-space: nowrap;
+      @media screen and (max-width: 768px) {
+        &::before{
+          content: "(";
+        }
+        &::after{
+          content: ")"!important;
+        }
+      }
       span{
         font-size: $font-desc;
+        @media screen and (max-width: 768px) {
+          display: none!important;
+        }
       }
     }
   }
@@ -603,7 +614,7 @@ input[type="text"], input[type="password"], input[type="email"], input[type="sea
   .product-wrap {
     .product_image{
       .image__container{
-        max-height: 300px;
+        height: 300px;
         display: flex;
         align-items: center;
         overflow: hidden;
@@ -1847,7 +1858,7 @@ header{
         margin: 0;
         @include respond-to("small-down"){
           max-width: 100%;
-          width: auto;
+          min-width: 100px;
           padding: 0 10px;
           height: 65px;
         }
@@ -2599,17 +2610,20 @@ a.close{
       margin: 0 30px;
       margin-top: 60px;
       @include respond-to("medium-down"){
-        margin-top: 0;
+        margin: 0;
       }
       .flickity-viewport{
         width: 100%;
         order: 1;
         .gallery-cell{
           width: 100%;
+          @include respond-to("medium-down"){
+            padding-bottom: 20px;
+          }
           .info{
             padding-left: 50px;
             @include respond-to("medium-down"){
-              padding-left: 0;
+              padding: 20px;
             }
             .collection_title{
               margin-left: -41px;
@@ -2631,6 +2645,10 @@ a.close{
             }
             .author{
               margin-left: 0;
+              @include respond-to("medium-down"){
+                text-align: center;
+                width: 100%;
+              }
             }
           }
           
@@ -4972,7 +4990,7 @@ a.close{
         z-index: 1;
         position: relative;
         @include respond-to("medium-down"){
-          font-size: 9px;
+          font-size: 12px;
         }
       }
     }

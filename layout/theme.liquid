@@ -32,12 +32,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <title>
       {% if template contains "index" %}{{ page_title }}{% else %}{{ page_title }}{% if current_tags %} {{ 'general.meta.tagged_html' | t: tags: meta_tags }}{% endif %}{% if current_page != 1 %} {{ 'general.meta.page' | t: page_number: current_page }}{% endif %}{% unless page_title contains shop.name %} - {{ shop.name }}{% endunless %}{% endif %}
     </title>
-    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="preconnect dns-prefetch" href="https://fonts.shopifycdn.com" />
     <link rel="preconnect dns-prefetch" href="https://cdn.shopify.com" />
     <link rel="preconnect dns-prefetch" href="https://v.shopify.com" />
     <link rel="preconnect dns-prefetch" href="https://cdn.shopifycloud.com" />
-
+    
     {% if settings.enable_shopify_review_comments %}
       <link rel="preconnect dns-prefetch" href="https://productreviews.shopifycdn.com" />
     {% endif %}
@@ -96,6 +98,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     {% if collection.next_product %}<link rel="next" href="{{ collection.next_product }}">{% endif %}
     
     <script src="{{ 'jquery.min.js' | asset_url }}" ></script> 
+    <script src="{{'jquery.lazy.min.js' | asset_url }}"></script>
+    <script>
+      $(function() {
+        $('.lazy').lazy({
+          delay: 100
+        });
+      });
+    </script>
     {% render 'zoorix-cart-items' %}
   </head>
 
@@ -232,7 +242,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <script src="{{ 'vendors.js' | asset_url }}" ></script> 
     <script src="{{ 'fancybox.min.js' | asset_url }}" ></script> 
     <script src="{{ 'player.min.js' | asset_url }}" ></script> 
-    <script src="{{'jquery.lazy.min.js' | asset_url }}"></script>
     <script src="{{ 'sections.js' | asset_url }}"></script>
     <script src="{{ 'utilities.js' | asset_url }}"></script>
     <script src="{{ 'app.js' | asset_url }}"></script>

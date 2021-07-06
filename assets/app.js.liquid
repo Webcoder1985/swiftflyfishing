@@ -1603,6 +1603,8 @@ if (Cookies.get('set_local_currency') == "false" || Cookies.get('set_local_curre
   })
 } else{
   Cookies.set('set_local_currency', "false");
+  var val = String($('.localization-wrap #header__selector-form #CurrencySelector').val());
+  console.log(val)
 }
 
   
