@@ -17,7 +17,7 @@
       {{ section.settings.image_slider_bg_svg }}
     </div>
     {% else %}
-      <img class="bg_image" src="{{section.settings.image_slider_bg_image | img_url : '2048x'}}">
+      <img class="bg_image" src="{{section.settings.image_slider_bg_image | img_url : '2048x'}}" width="2048">
     {% endif %}
     
     <div id='slider'>
@@ -32,7 +32,19 @@
         {% endfor %}
       </div>
       <div class="image-content">
-        <img class="hover_image" src="{{ section.settings.hover_image | img_url: '2048x' }}">
+        {%- capture srcset -%}
+          {{ section.settings.hover_image | img_url: '2000x' }} 2000w,
+          {{ section.settings.hover_image | img_url: '1800x' }} 1800w,
+          {{ section.settings.hover_image | img_url: '1600x' }} 1600w,
+          {{ section.settings.hover_image | img_url: '1400x' }} 1400w,
+          {{ section.settings.hover_image | img_url: '1200x' }} 1200w,
+          {{ section.settings.hover_image | img_url: '1000x' }} 1000w,
+          {{ section.settings.hover_image | img_url: '800x' }} 800w,
+          {{ section.settings.hover_image | img_url: '600x' }} 600w,
+          {{ section.settings.hover_image | img_url: '400x' }} 400w,
+          {{ section.settings.hover_image | img_url: '200x' }} 200w
+        {%- endcapture -%}
+        <img class="hover_image lazyload" data-src="{{ section.settings.hover_image | img_url: '2048x' }}"  data-srcset="{{ srcset }}" width="{{section.settings.hover_image.width}}" height="{{section.settings.hover_image.height}}">
       </div>
       <div id="slider-button"></div>
     </div>

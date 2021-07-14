@@ -27,19 +27,10 @@
   <div class="container">
     <div class="sixteen columns">
 {% endif %}
-      <div class="newsletter_section
-                  {% if display_first_name and display_last_name %}newsletter-both-names--true {% else %}newsletter-both-names--false {% endif %}
-                  text-align--{{newsletter_section_text_align}} lazyload
-                  "
+      <div class="newsletter_section {% if display_first_name and display_last_name %}newsletter-both-names--true {% else %}newsletter-both-names--false {% endif %}
+                  text-align--{{newsletter_section_text_align}} lazyload" 
                   {% if image != nil %}
-                  data-bgset="  {{ image | img_url: '2048x' }} 2048w,
-                                {{ image | img_url: '1600x' }} 1600w,
-                                {{ image | img_url: '1200x' }} 1200w,
-                                {{ image | img_url: '1000x' }} 1000w,
-                                {{ mobile_image | img_url: '800x' }} 800w,
-                                {{ mobile_image | img_url: '600x' }} 600w,
-                                {{ mobile_image | img_url: '400x' }} 400w"
-                  data-sizes="100vw"
+                  data-bg="{{ image | img_url: '2048x' }}"
                 {% endif %}
                   >
         <div class="container">

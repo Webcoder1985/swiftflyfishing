@@ -1478,8 +1478,7 @@ $(document).ready(function () {
     accessibility: true, //true by default
     autoPlay: true, // advance cells every 3 seconds
     arrowShape: arrow,
-    pauseAutoPlayOnHover: false,
-    adaptiveHeight: true
+    pauseAutoPlayOnHover: false
   });
   $('.sidebar-wrap .close').on('click', function(e){
     if ($('.sidebar').hasClass('active')) {
@@ -1573,42 +1572,65 @@ $(document).ready(function () {
     }
   }
 
-  
-
-$('.localization-wrap #header__selector-form .disclosure__list-wrap .disclosure-list li button').on('click', function (e) {
-  Cookies.set('set_local_currency', "true");
-})
-
-if (Cookies.get('set_local_currency') == "false" || Cookies.get('set_local_currency') == undefined) {
-  $.ajax({
-    url: '//www.mlveda.com/MultiCurrency/getUserCurrency',
-    type: 'POST',
-    dataType: 'text',
-    success: function (location) {
-     
-      var currency = location.trim()
-      var selected_currency = $('#header__selector-form .disclosure__toggle').text().trim();
-      if (currency != selected_currency) {
-        var val = String($('.localization-wrap #header__selector-form #CurrencySelector').val())
-        if (currency.indexOf(val) == -1) {
-          $('.localization-wrap #header__selector-form .disclosure__list-wrap .disclosure-list li').each(function () {
-            var selector_currency = $(this).find('button').val()
-            if (currency.indexOf(selector_currency) > -1) {
-              $(this).find('button').trigger('click');
-            }
-          })
-        }  
-      }
+  var currency_text =$('#CurrencySelector').val();
+  console.log()
+  var currentUrl = location.href;
+  if (currentUrl.indexOf('?ip-manual-country=') > -1) {
+    var currency_val = currentUrl.split('?ip-manual-country=')[1]
+    if (currentUrl.split('?ip-manual-country=')[1].indexOf('&') > -1) {
+      currency_val = currentUrl.split('?ip-manual-country=')[1].split('&')[0];
+    } else {
+      currency_val = currentUrl.split('?ip-manual-country=')[1];
     }
-  })
-} else{
-  Cookies.set('set_local_currency', "false");
-  var val = String($('.localization-wrap #header__selector-form #CurrencySelector').val());
-  console.log(val)
-}
+    
+    currentUrl = currentUrl.replace('?ip-manual-country='+currency_val, '');
+  }
+  if (currentUrl.indexOf('?') > -1) {
+    currentUrl = currentUrl.replace('?', '?ip-manual-country='+currency_text+'_&')
+  } else {
+    currentUrl = currentUrl + '?ip-manual-country='+currency_text+'_'
+  }
+  window.history.replaceState({ path: currentUrl }, '', currentUrl);
 
-  
-  if ($(".description-slider .gallery-cell").length > 2) {
+
+// $('.localization-wrap #header__selector-form .disclosure__list-wrap .disclosure-list li button').on('click', function (e) {
+//   e.preventDefault();
+//   Cookies.set('set_local_currency', "true");
+//  
+//   
+//   $(this).closest( "#header__selector-form" ).submit();
+// })
+
+// if (Cookies.get('set_local_currency') == "false" || Cookies.get('set_local_currency') == undefined) {
+//   $.ajax({
+//     url: '//www.mlveda.com/MultiCurrency/getUserCurrency',
+//     type: 'POST',
+//     dataType: 'text',
+//     success: function (location) {
+     
+//       var currency = location.trim()
+//       var selected_currency = $('#header__selector-form .disclosure__toggle').text().trim();
+//       if (currency != selected_currency) {
+//         var val = String($('.localization-wrap #header__selector-form #CurrencySelector').val())
+//         if (currency.indexOf(val) == -1) {
+//           $('.localization-wrap #header__selector-form .disclosure__list-wrap .disclosure-list li').each(function () {
+//             var selector_currency = $(this).find('button').val()
+//             if (currency.indexOf(selector_currency) > -1) {
+//               $(this).find('button').trigger('click');
+//             }
+//           })
+//         }  
+//       }
+//     }
+//   })
+// } else{
+//   Cookies.set('set_local_currency', "false");
+//   var val = String($('.localization-wrap #header__selector-form #CurrencySelector').val());
+//   console.log(val)
+// }
+
+
+if ($(".description-slider .gallery-cell").length > 2) {
     $(".description-slider").flickity({
       wrapAround: true,
       pageDots: true,
@@ -1648,9 +1670,7 @@ if (Cookies.get('set_local_currency') == "false" || Cookies.get('set_local_curre
     autoPlay: false, // advance cells every 3 seconds
     arrowShape: arrow,
     contain: true,
-  }).on( 'select.flickity', function( event, index ) {
-    $('.image-text-overlay-slider .lazy').lazy();
-  });;
+  });
 
   if ($('.sidebar .sidebar-block [data-option-filter]').length == 0) {
     $('.collection-seperate-template-section .sidebar').hide();
@@ -1697,7 +1717,7 @@ if (Cookies.get('set_local_currency') == "false" || Cookies.get('set_local_curre
     $('.mini-cart-content').removeClass('active');
     $('.cart-container').removeClass('active_link');
     $('body').removeClass('blocked-scroll');
-  })
+  });
 });
 
 
