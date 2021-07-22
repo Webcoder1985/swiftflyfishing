@@ -26,6 +26,27 @@
 .search-matrix .product_row {
   padding: 20px 0;
   border-bottom: 1px solid {{ settings.border_color }};
+  .excerpt{
+    img{
+      @media screen and (max-width: 768px) {
+        width: 100%;
+      }
+    }
+    .wistia_responsive_padding{
+      width: 240px;
+      padding: 0!important;
+      float: left;
+      margin-right: 10px;
+      @media screen and (max-width: 768px) {
+        width: 100%;
+      }
+      &::before{
+        content: " ";
+        padding-top: 60%;
+        display: block;
+      }
+    }
+  }
 }
 
 .search-matrix .product_row:last-child {
