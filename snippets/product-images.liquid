@@ -84,12 +84,31 @@ quickshop: <boolean>
               {% endif %}
               <div class="image__container" style="max-width: {{ media.width }}">
                 {% if product.images.size > 0 %}
-                  {% render 'image-element-lazy',
-                    image: media,
-                    alt: alt_text,
-                    object_fit: align_height,
-                    max_height: collection_height
-                  %}
+                {%- capture srcset -%}
+                  {{ media | img_url: '2000x' }} 2000w,
+                  {{ media | img_url: '1800x' }} 1800w,
+                  {{ media | img_url: '1600x' }} 1600w,
+                  {{ media | img_url: '1400x' }} 1400w,
+                  {{ media | img_url: '1200x' }} 1200w,
+                  {{ media | img_url: '1000x' }} 1000w,
+                  {{ media | img_url: '800x' }} 800w,
+                  {{ media | img_url: '600x' }} 600w,
+                  {{ media | img_url: '400x' }} 400w,
+                  {{ media | img_url: '200x' }} 200w
+                {%- endcapture -%}
+                  <img  data-zoom-src="{{ image_5000x }}"
+                        alt="{{ image_alt | escape }}"
+                        class=" lazyload {{ settings.image_loading_style }}"
+                        data-image-id="{{ product.media[forloop.index0].id }}"
+                        data-index="{{ forloop.index0 }}"
+                        data-sizes="{% if section.settings.enable_product_lightbox %}100vw{% else %}auto{% endif %}"
+                        data-aspectratio="{{ media.width }}/{{ media.height }}"
+                        data-src="{{ media | img_url: '1200x' }}"
+                        data-srcset="{{srcset}}"
+                        height="{{ media.height }}"
+                        width="{{ media.width }}"
+                        srcset="data:image/svg+xml;utf8,<svg%20xmlns='http://www.w3.org/2000/svg'%20width='{{ media.width }}'%20height='{{ media.height }}'></svg>"
+                        />
                 {% else %}
                   <img src="{{ image | img_url: 'master' }}" />
                 {% endif %}

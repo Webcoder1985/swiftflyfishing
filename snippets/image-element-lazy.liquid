@@ -26,7 +26,15 @@
 
 {% comment %}Build image element{% endcomment %}
 <div id="image--{{image.id}}" class="image-element__wrap layzy-content {{additional_classes}}" style="{{ background_color }}">
-  <img alt="{{image.alt}}" class="lazyload" data-src="{{ image | img_url: '2048x' }}"  data-srcset="{{ srcset }}" sizes="200vw, 400vw, 600vw, 800vw, 1000vw, 1200w, 1400w,1600w, 1800w, 2000w" width="{{image.width}}" height="{{image.height}}"/>
+  <img 
+    alt="{{image.alt}}" 
+    class="lazyload" 
+    data-src="{{ image | img_url: '2048x' }}"  
+    data-srcset="{{ srcset }}" sizes="200vw, 400vw, 600vw, 800vw, 1000vw, 1200w, 1400w,1600w, 1800w, 2000w" 
+    width="{{image.width}}" 
+    height="{{image.height}}"
+    srcset="data:image/svg+xml;utf8,<svg%20xmlns='http://www.w3.org/2000/svg'%20width='{{ media.width }}'%20height='{{ media.height }}'></svg>"
+  />
 </div>
 
 <style>

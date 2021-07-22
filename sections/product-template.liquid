@@ -443,13 +443,13 @@
             
             {% assign overlay_status = false %}
           {% endif %}
-          
+                    
           {% elsif block.type == "image" and image_status %}
             {% include 'include-gallery-block' %}
             {% assign image_status = false %}
           {% elsif block.type == "zoorix"  %}
           <div class="zoorix">
-            {% render 'zoorix-product-bottom' %} 
+            {% render 'zoorix-product-bottom' %}
           </div>
           {% elsif block.type == "recently_viewed_products" %}
             <!-- Recently Viewed Products -->

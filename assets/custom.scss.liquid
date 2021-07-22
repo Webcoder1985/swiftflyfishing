@@ -925,106 +925,97 @@ header{
     }
   }
   .main-nav__wrapper{
-    .main-nav{
-      padding: 20px 50px;
-      @media screen and (max-width: 768px) {
-        padding-left: 20px;
-        padding-right: 20px;
-      }
-      .nav{
-        .menu{
-          li{
-            padding-right: 20px;
-            @media screen and (max-width: 1215px) {
-              padding-right: 10px;
-              a{
-                font-size: 12px;
-              }
-            }
-  
+    .nav{
+      .menu{
+        li{
+          padding-right: 20px;
+          @media screen and (max-width: 1215px) {
+            padding-right: 10px;
             a{
-              margin: 20px 0;
-              padding: 0;
-              display: flex;
-              align-items: center;
-  
-              position: relative;
-              border: none!important;
-              color: {{settings.top_bar_color}};
-              &:hover{
-                color: {{settings.top_bar_color_hover}};
-                &::after{
-                  content: " ";
-                  width: 40px;
-                  height: 3px;
-                  display: table;
-                  position: absolute;
-                  background-color: #ed1c24;
-                  left: 50%;
-                  transform: translateX(-50%);
-                  bottom: -5px;
-                }
+              font-size: 12px;
+            }
+          }
+
+          a{
+            margin: 20px 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+
+            position: relative;
+            border: none!important;
+            color: {{settings.top_bar_color}};
+            &:hover{
+              color: {{settings.top_bar_color_hover}};
+              &::after{
+                content: " ";
+                width: 40px;
+                height: 3px;
+                display: table;
+                position: absolute;
+                background-color: #ed1c24;
+                left: 50%;
+                transform: translateX(-50%);
+                bottom: -5px;
               }
             }
-            &.localization-wrap{
-              #header__selector-form{
-                .localization {
-                  .disclosure {
-                    height: 65px;
+          }
+          &.localization-wrap{
+            #header__selector-form{
+              .localization {
+                .disclosure {
+                  height: 65px;
+                  padding: 0;
+                  display: flex;
+                  align-items: center;
+                  .disclosure__toggle {
+                    height: 25px;
+                    width: 50px;
                     padding: 0;
-                    display: flex;
-                    align-items: center;
-                    .disclosure__toggle {
-                      height: 25px;
-                      width: 50px;
-                      padding: 0;
-                      background: black;
-                      color: $color-white;
-                      border-radius: 30px;
-                      margin-right: 0;
-                    }
+                    background: black;
+                    color: $color-white;
+                    border-radius: 30px;
+                    margin-right: 0;
                   }
                 }
               }
             }
-            .account{
-              svg{
-                margin-top: -4px;
-              }
+          }
+          .account{
+            svg{
+              margin-top: -4px;
             }
           }
         }
-        .cart-container{
-          .mini_cart {
+      }
+      .cart-container{
+        .mini_cart {
+          display: flex;
+          align-items: center;
+          margin-left: 20px;
+          height: 65px;
+          @media screen and (max-width: 1080px) {
+            margin-left: 5px;
+          }
+          svg{
+            width: 23px;
+            height: 29px;
+            margin-top: -2px;
+          }
+          .cart_count{
+            padding: 0;
+            width: 15px;
+            height: 15px;
             display: flex;
             align-items: center;
-            margin-left: 10px;
-            height: 65px;
-            padding: 0;
-            width: auto;
-            @media screen and (max-width: 1080px) {
-              margin-left: 5px;
-            }
-            svg{
-              width: 23px;
-              height: 29px;
-              margin-top: -2px;
-            }
-            .cart_count{
-              padding: 0;
-              width: 15px;
-              height: 15px;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              color: $color-white;
-              background: red;
-              border-radius: 50%;
-              font-size: 10px;
-              line-height: 13px;
-              letter-spacing: 0px;
-              margin-top: -13px;
-            }
+            justify-content: center;
+            color: $color-white;
+            background: red;
+            border-radius: 50%;
+            font-size: 10px;
+            line-height: 13px;
+            letter-spacing: 0px;
+            margin-top: -13px;
           }
         }
       }
@@ -1794,7 +1785,9 @@ a.close{
     }
   }
 }
-
+.splide__arrow{
+  min-height: initial;
+}
 .newsletter-section{
   .newsletter_section{
     padding: 100px 0;
@@ -2075,12 +2068,12 @@ a.close{
   .content{
     padding-top: 0;
     form{
-      overflow: auto;
-      max-height: calc(100vh - 150px);
       @include respond-to("medium-down"){
         margin-top: 0;
       }
       .cart_items{
+        overflow: auto;
+        max-height: calc(100vh - 510px);
         li{
           border: none;
           display: flex;
@@ -2466,5 +2459,23 @@ a.close{
     position: absolute;
     top: 0;
     left: 0;
+  }
+}
+
+.ooo-instagram-container{
+  max-width: initial!important;
+  padding: 0 20px;
+  .ooo-instagram-header{
+    h2{
+      font-size: 24px;
+      font-family: Montserrat,sans-serif;
+      line-height: 29px;
+      letter-spacing: 1px;
+    }
+  }
+  .ooo-instagram-feed{
+    .ooo-instagram-feed__list{
+      gap: 10px;
+    }
   }
 }

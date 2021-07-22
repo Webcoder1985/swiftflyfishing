@@ -106,7 +106,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     {% if settings.show_multiple_currencies or settings.show_shipping_calculator %}
       <script type="text/javascript" src="/services/javascripts/currencies.js" data-no-instant></script>
     {% endif %}
-    {% render 'zoorix-cart-items' %}
+    
+    {% render 'zoorix-head' %}
+    
   </head>
 
   {% if template contains "index" %}

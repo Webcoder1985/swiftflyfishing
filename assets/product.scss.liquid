@@ -947,6 +947,40 @@ $product-media-bg-color: {{ settings.shop_bg_color }};
             background-repeat: no-repeat;
           }
           .stamped-reviews-wrapper{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            align-items: center;
+            .flickity-viewport{
+              width: 100%;
+              order: 1;
+              margin-bottom: 20px;
+            }
+            .flickity-prev-next-button{
+              opacity: 1;
+              position: inherit;
+              padding: 0;
+              width: 40px;
+              background: 0 0!important;
+              &.previous{
+                order: 2;
+                margin-left: auto;
+              }
+              &.next{
+                order: 4;
+                margin-right: auto;
+              }
+            }
+            .flickity-page-dots{
+              order: 3;
+              position: relative;
+              width: auto;
+              transform: none;
+              padding-top: 50px;
+              min-width: 87px;
+              top: 0;
+              padding-top: 35px;
+            }
             .stamped-review-card{
               width: 100%!important;
               .stamped-reviews-date{
@@ -1250,7 +1284,7 @@ $product-media-bg-color: {{ settings.shop_bg_color }};
         margin: 0 30px;
         margin-top: 60px;
         @media screen and (max-width: 768px) {
-          margin-top: 0;
+          margin: 0;
         }
         .banner{
           width: calc(80% - 20px);
@@ -2052,5 +2086,18 @@ $product-media-bg-color: {{ settings.shop_bg_color }};
   #shopify-section-product-template{
     .klaviyo-bis-trigger{
       display: none!important;
+    }
+  }
+  .product-section__lightbox {
+    .zoom-wrap {
+      width: 100%;
+      height: 100%;
+    }
+  
+    @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+      .fancybox-content {
+        top: 50%;
+        -ms-transform: translateY(-50%) !important; /* Overwrite Fancybox transform */
+      }
     }
   }

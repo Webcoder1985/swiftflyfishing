@@ -1538,6 +1538,7 @@ var productPage = {
   initializeQuantityBox: function(){
 
     $('body').on('click', '.js-change-quantity', function() {
+      console.log("asdf")
         var $this = $(this),
             $input = $(this).siblings('input'),
             val = parseInt($input.val()),

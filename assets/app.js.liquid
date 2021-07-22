@@ -488,7 +488,7 @@ $(function() {
 
         } else if (cartItem.parentCartForm.data('cart-form') === 'cart-template') {
           // Refreshes cart if inventory is available
-          cartItem.parentCartForm.submit();
+          location = '/cart'
         } else {
           refreshCart(data);
         }
@@ -689,9 +689,9 @@ $(function() {
     updateCartItemQuantity(cartItem);
   });
 
-  $('body').on('click', '#cart_form .js-change-quantity', function() {
-    $('#cart_form').submit();
-  });
+  // $('body').on('click', '#cart_form .js-change-quantity', function() {
+  //   updateCartItemQuantity(cartItem);
+  // });
 
   $('body').on('click', '[data-remove-item]', function(e) {
     e.preventDefault();
@@ -757,6 +757,27 @@ $(function() {
                 $('.sub_total_content .item-review #stamped-reviews-widget').empty();
                 $('.sub_total_content .item-review #stamped-reviews-widget').attr('data-product-ids', cart.items[0].product_id)
                 StampedFn.reloadUGC();
+                $('.product_section .image #stamped-reviews-widget').removeClass('active');
+                $('.product-template .product_section .image #stamped-reviews-widget').html('');
+                var interval = setInterval(() => {
+                  if ($('.product-template .product_section .image #stamped-reviews-widget .stamped-reviews-wrapper').length > 0) {
+                    $('.product-template .product_section .image #stamped-reviews-widget .stamped-reviews-wrapper > div:last-child').remove();
+                    var arrow = 'm54 30h-39.899l15.278-14.552c.8-.762.831-2.028.069-2.828-.761-.799-2.027-.831-2.828-.069l-17.448 16.62c-.755.756-1.172 1.76-1.172 2.829 0 1.068.417 2.073 1.207 2.862l17.414 16.586c.387.369.883.552 1.379.552.528 0 1.056-.208 1.449-.621.762-.8.731-2.065-.069-2.827l-15.342-14.552h39.962c1.104 0 2-.896 2-2s-.896-2-2-2z';
+                    var $productReviewCarousel = $('.product_section .image #stamped-reviews-widget .stamped-reviews-wrapper').flickity({
+                      wrapAround: true,
+                      pageDots: false,
+                      initialIndex: 1,
+                      cellAlign: 'left',
+                      accessibility: true, //true by default
+                      autoPlay: false, // advance cells every 3 seconds
+                      arrowShape: arrow,
+                      adaptiveHeight: true
+                    });
+                
+                    $('.product_section .image #stamped-reviews-widget').addClass('active');
+                    clearInterval(interval);
+                  }
+                }, 500);  
                 if($('body').hasClass('fancybox-active')) {
                   $.fancybox.close();
                 }
@@ -1588,7 +1609,7 @@ $(document).ready(function () {
   if (currentUrl.indexOf('?') > -1) {
     currentUrl = currentUrl.replace('?', '?ip-manual-country='+currency_text+'_&')
   } else {
-    currentUrl = currentUrl + '?ip-manual-country='+currency_text+'_'
+    currentUrl = currentUrl.split('&')[0] + '?ip-manual-country='+currency_text+'_' + currentUrl.replace(currentUrl.split('&')[0], '');
   }
   window.history.replaceState({ path: currentUrl }, '', currentUrl);
 

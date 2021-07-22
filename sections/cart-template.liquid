@@ -67,7 +67,6 @@
       <br class="clear" />
     </div>
 </div>
-  {% render 'zoorix-cart-top' %}
   <form action="{{ routes.cart_url }}" method="post" id="cart_form" data-cart-form="cart-template" data-total-discount="{{ cart.total_discount }}">
     <div class="section clearfix cart__wrapper">
       <div class="eleven columns medium-down--one-whole">
@@ -146,7 +145,7 @@
 
               <div class="product-quantity-box left">
                 <span class="ss-icon product-minus js-change-quantity" data-func="minus"><span class="icon-minus"></span></span>
-                <input type="number" min="0" size="2" class="quantity" name="updates[]" id="updates_{{ item.id }}" value="{{ item.quantity }}" data-line-id="{{ forloop.index }}" {% if settings.limit_quantity and item.variant.inventory_management != blank and item.variant.inventory_quantity > 0 and item.variant.inventory_policy == "deny" %}max="{{ item.variant.inventory_quantity }}"{% endif %} />
+                <input type="number" min="0" size="2" data-cart-quantity-input class="quantity" name="updates[]" id="updates_{{ item.id }}" value="{{ item.quantity }}" data-line-id="{{ forloop.index }}" {% if settings.limit_quantity and item.variant.inventory_management != blank and item.variant.inventory_quantity > 0 and item.variant.inventory_policy == "deny" %}max="{{ item.variant.inventory_quantity }}"{% endif %} />
                 <span class="ss-icon product-plus js-change-quantity" data-func="plus"><span class="icon-plus"></span></span>
               </div>
             </div>
@@ -240,9 +239,6 @@
       </div>
     </div>
   </form>
-  {% render 'zoorix-cart-bottom' %}
-
-
   {% include 'cart-shipping-calculator' %}
 {% endif %}
 
