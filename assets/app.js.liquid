@@ -292,12 +292,7 @@ $(function() {
   utils.mobileAccordion('#mobile_menu', 'li.sublink > a.parent-link--false', 'li.sublink ul');
 
   utils.initializeTabs();
-  utils.resizeActionButtons();
   globalAccordions.init();
-
-  $(window).on('resize', function() {
-    utils.resizeActionButtons();
-  });
 
   //Sidebar toggle check
   if (Shopify.media_queries.medium.matches) {
@@ -1236,8 +1231,6 @@ $(document)
         }
       }
     }
-
-    utils.resizeActionButtons();
 
 });
 

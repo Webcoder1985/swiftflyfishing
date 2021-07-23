@@ -4144,6 +4144,9 @@ input[type="button"].get-rates.action_button {
   h2 {
     color: {{ settings.newsletter_section_color }};
     margin-top: 0;
+    @include respond-to('small-down') {
+      text-align: center;
+    }
   }
 }
 
@@ -7843,86 +7846,6 @@ $backgroundTransparency: 0.6;
   }
 }
 
-a.highlight-false, input[type="button"].highlight-false,
-a.highlight-true, input[type="button"].highlight-true,
-a.continue-button.action_button {
-  background-color: rgba(255,255,255,0);
-  color: {{ settings.btn_text_color }};
-  border: 1px solid {{ settings.btn_text_color }};
-  transition: background-color 0.2s linear, color 0.2s linear;
-  margin: 25px 0;
-
-  &:hover {
-    background-color: {{ settings.btn_text_color }};
-    border-color: {{ settings.btn_text_color }};
-    {% if settings.caption_background %}
-      color: {{ settings.banner_background_color }};
-    {% else %}
-      @if (lightness({{ settings.banner_color }}) > 50) {
-        color: #030300;
-      } @else {
-        color: #fff;
-      }
-    {% endif %}
-  }
-
-  @include respond-to('small-down') {
-    color: {{ settings.regular_color }};
-    border-color: {{ settings.regular_color }};
-    background-color: transparent;
-    &:hover {
-      border-color: {{ settings.regular_color }};
-      background-color: {{ settings.regular_color }};
-      @if (lightness({{ settings.regular_color }}) > 50) {
-        color: #333;
-      } @else {
-        color: #fff;
-      }
-    }
-  }
-}
-
-a.highlight-true, input[type="button"].highlight-true {
-  background-color: {{ settings.banner_button_color }};
-  border-color: {{ settings.banner_button_color }};
-
-  {% if settings.caption_background %}
-    color: {{ settings.banner_background_color }};
-  {% else %}
-    @if (lightness({{ settings.banner_button_color }}) > 50) {
-      color: #333;
-    } @else {
-      color: #fff;
-    }
-  {% endif %}
-
-  @include respond-to('small-down') {
-    border-color: {{ settings.regular_color }};
-    background-color: {{ settings.regular_color }};
-    @if (lightness({{ settings.regular_color }}) > 50) {
-      color: #333;
-    } @else {
-      color: #fff;
-    }
-  }
-}
-
-a.continue-button.action_button a.continue-button,
-a.highlight-false--dark,
-input[type="button"].highlight-false--dark {
-  color: {{ settings.regular_color }};
-  border-color: {{ settings.regular_color }};
-  background-color: transparent;
-  &:hover {
-    border-color: {{ settings.regular_color }};
-    background-color: {{ settings.regular_color }};
-    @if (lightness({{ settings.regular_color }}) > 50) {
-      color: #333;
-    } @else {
-      color: #fff;
-    }
-  }
-}
 
 /* Slideshow */
 
@@ -8298,7 +8221,6 @@ input[type="button"].highlight-false--dark {
   }
   .button {
     height: auto;
-    border: 1px solid;
     transition: background-color 0.2s cubic-bezier(0.55, 0.09, 0.68, 0.53), color 0.3s linear, border 0.2s cubic-bezier(0.55, 0.09, 0.68, 0.53);
     line-height: 1.5;
     padding-top: 10px;

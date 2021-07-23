@@ -1,9 +1,11 @@
 <ul class="icon-bar-content flex" style="background-color: {{ section.settings.bg-color }};">
   {% for block in section.blocks %}
-    <li class="icon-item">
-      {{ block.settings.icon }}
-      <p>{{ block.settings.title }}</p>
-    </li>
+    {% if block.settings.title != blank %}
+      <li class="icon-item">
+        {{ block.settings.icon }}
+        <p>{{ block.settings.title }}</p>
+      </li>
+    {% endif %}
   {% endfor %}
   </ul>
 {% schema %}
