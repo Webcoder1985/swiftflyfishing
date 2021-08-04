@@ -32,9 +32,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <title>
       {% if template contains "index" %}{{ page_title }}{% else %}{{ page_title }}{% if current_tags %} {{ 'general.meta.tagged_html' | t: tags: meta_tags }}{% endif %}{% if current_page != 1 %} {{ 'general.meta.page' | t: page_number: current_page }}{% endif %}{% unless page_title contains shop.name %} - {{ shop.name }}{% endunless %}{% endif %}
     </title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="preconnect dns-prefetch">
     <link rel="preconnect dns-prefetch" href="https://fonts.shopifycdn.com" />
     <link rel="preconnect dns-prefetch" href="https://cdn.shopify.com" />
     <link rel="preconnect dns-prefetch" href="https://v.shopify.com" />
@@ -44,12 +41,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <link rel="preconnect dns-prefetch" href="https://productreviews.shopifycdn.com" />
     {% endif %}
     <!-- Stylesheets for Turbo "6.1.2" -->
-    <link rel="preload" href="{{ 'vendor.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="{{ 'vendor.css' | asset_url }}"></noscript>
-    <link rel="preload" href="{{ 'styles.scss.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="{{ 'styles.scss.css' | asset_url }}"></noscript>
-    <link rel="preload" href="{{ 'custom.scss.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet';">
-    <noscript><link rel="stylesheet" href="{{ 'custom.scss.css' | asset_url }}"></noscript>
+    
+    <link rel="stylesheet" href="{{ 'vendor.css' | asset_url }}">
+    <link rel="stylesheet" href="{{ 'styles.scss.css' | asset_url }}">
+    <link rel="stylesheet" href="{{ 'custom.scss.css' | asset_url }}">
     {% if template contains'index' %}
       {{ 'index.scss.css' | asset_url | stylesheet_tag }}
     {% endif %}
@@ -63,11 +58,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       {{ 'search.scss.css' | asset_url | stylesheet_tag }}
     {% endif %}
     {% if template contains 'page' %}
-    {{ 'page.scss.css' | asset_url | stylesheet_tag }}
+      {{ 'page.scss.css' | asset_url | stylesheet_tag }}
     {% endif %}
-
-    {% if template contains 'customer' %}
-    {{ 'account.scss.css' | asset_url | stylesheet_tag }}
+    {% if template contains 'customers' %}
+      {{ 'account.scss.css' | asset_url | stylesheet_tag }}
     {% endif %}
 
     {% if template contains 'blog' or template contains 'article' %}
@@ -92,7 +86,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <link rel="shortcut icon" type="image/x-icon" href="{{ 'favicon.png' | asset_url }}">
     {% endif %}
     <link rel="canonical" href="{{ canonical_url }}" />
-
+    <script src="{{ 'jquery.min.js' | asset_url }}"></script>
+    <script src="{{ 'vendors.js' | asset_url }}" ></script> 
     {% if template contains 'customer' %}
       {{ "shopify_common.js" | shopify_asset_url | script_tag }}
       {{ "customer_area.js" | shopify_asset_url | script_tag }}
@@ -102,7 +97,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     {% render 'social-meta-info' %}
     {% if collection.previous_product %}<link rel="prev" href="{{ collection.previous_product }}">{% endif %}
     {% if collection.next_product %}<link rel="next" href="{{ collection.next_product }}">{% endif %}
-    {% comment pluginspeed replaced-js%}<script src="{{ 'jquery.min.js' | asset_url }}"></script>{% endcomment %}<script>{%- include 'pluginspeed.min.jquery.min.js'-%}</script>
+    
     {% if settings.show_multiple_currencies or settings.show_shipping_calculator %}
       <script type="text/javascript" src="/services/javascripts/currencies.js" data-no-instant></script>
     {% endif %}
@@ -237,7 +232,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       {% render 'js-variables' %}
     </script>
     
-    <script src="{{ 'vendors.js' | asset_url }}" ></script> 
+    
     <script src="{{ 'fancybox.min.js' | asset_url }}" ></script> 
     <script src="{{ 'player.min.js' | asset_url }}" ></script> 
     <script src="{{'jquery.lazy.min.js' | asset_url }}"></script>

@@ -21,6 +21,15 @@ quickshop: <boolean>
 }
 {% endstyle %}
 
+<style>
+ .product_gallery::after{
+    content: " ";
+    width: 100%;
+    padding-top:{{ 1 | divided_by: product.media[0].aspect_ratio | times: 100}}%;
+    display: block;
+  }
+</style>
+
 <div class="clearfix
             gallery-wrap
             gallery-arrows--{{ section.settings.gallery_arrows }}
@@ -44,7 +53,8 @@ quickshop: <boolean>
             data-product-lightbox="{{ section.settings.enable_product_lightbox }}"
             data-media-count="{{ product.media.size }}"
             data-product-gallery>
-
+    
+    {% assign index = 0 %}
     {% for media in product.media %}
       <div class="gallery-cell" data-product-id="{{ product.id }}" data-media-type="{% if media.alt contains 'youtube' or media.alt contains 'vimeo' %}external_video{% else %}{{ media.media_type }}{% endif %}" data-thumb="{{ image_large }}" data-title="{% if image_alt contains 'youtube' or image_alt contains 'vimeo' %}{{ product.title }}{% else %}{{ image_alt | escape }}{% endif %}">
         {% case media.media_type %}
@@ -83,32 +93,19 @@ quickshop: <boolean>
                     tabindex="-1">
               {% endif %}
               <div class="image__container" style="max-width: {{ media.width }}">
+                {% assign index = index | plus: 1 %}
                 {% if product.images.size > 0 %}
-                {%- capture srcset -%}
-                  {{ media | img_url: '2000x' }} 2000w,
-                  {{ media | img_url: '1800x' }} 1800w,
-                  {{ media | img_url: '1600x' }} 1600w,
-                  {{ media | img_url: '1400x' }} 1400w,
-                  {{ media | img_url: '1200x' }} 1200w,
-                  {{ media | img_url: '1000x' }} 1000w,
-                  {{ media | img_url: '800x' }} 800w,
-                  {{ media | img_url: '600x' }} 600w,
-                  {{ media | img_url: '400x' }} 400w,
-                  {{ media | img_url: '200x' }} 200w
-                {%- endcapture -%}
-                  <img  data-zoom-src="{{ image_5000x }}"
-                        alt="{{ image_alt | escape }}"
-                        class=" lazyload {{ settings.image_loading_style }}"
-                        data-image-id="{{ product.media[forloop.index0].id }}"
-                        data-index="{{ forloop.index0 }}"
-                        data-sizes="{% if section.settings.enable_product_lightbox %}100vw{% else %}auto{% endif %}"
-                        data-aspectratio="{{ media.width }}/{{ media.height }}"
-                        data-src="{{ media | img_url: '1200x' }}"
-                        data-srcset="{{srcset}}"
-                        height="{{ media.height }}"
-                        width="{{ media.width }}"
-                        srcset="data:image/svg+xml;utf8,<svg%20xmlns='http://www.w3.org/2000/svg'%20width='{{ media.width }}'%20height='{{ media.height }}'></svg>"
-                        />
+                  {% if index > 1 %}
+                    <img class="carousel-cell-image" 
+                      data-flickity-lazyload="{{ media | img_url: '1200x' }}"
+                      data-image-id="{{ product.media[forloop.index0].id }}"
+                      data-index="{{ forloop.index0 }}"
+                      data-sizes="{% if section.settings.enable_product_lightbox %}100vw{% else %}auto{% endif %}"
+                       />
+                  {% else %}
+                    <img class="carousel-cell-image" src="{{ media | img_url: '1200x' }}" />
+                  {% endif %}
+                  
                 {% else %}
                   <img src="{{ image | img_url: 'master' }}" />
                 {% endif %}

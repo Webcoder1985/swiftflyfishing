@@ -153,17 +153,20 @@ var slideshow = {
       //initiate the slideshow
       if (!$homepageSlider.hasClass('flickity-enabled')){
         var arrowShow = $homepageSlider.find('.gallery-cell').length === 1 ? false : true;
-        $homepageSlider.flickity({
-                    adaptiveHeight: settings.adaptiveHeight,
-                    wrapAround: true,
-                    cellAlign: 'left',
-                    imagesLoaded: true,
-                    prevNextButtons: false,
-                    draggable: arrowShow,
-                    pageDots: false,
-                    autoPlay: settings.slideshowSpeed,
-                    arrowShape: arrowSize
-                  });
+        if ($homepageSlider.find('.gallery-cell').length > 1) {
+          $homepageSlider.flickity({
+            adaptiveHeight: settings.adaptiveHeight,
+            wrapAround: true,
+            cellAlign: 'left',
+            imagesLoaded: true,
+            prevNextButtons: false,
+            draggable: arrowShow,
+            pageDots: false,
+            autoPlay: settings.slideshowSpeed,
+            arrowShape: arrowSize
+          });
+        }
+        
 
         if (settings.slideshowTextAnimation != ''){
           var flkty = $homepageSlider.data('flickity');
@@ -1064,7 +1067,6 @@ var productPage = {
     });
 
     $productGallery.flickity({
-      wrapAround: true,
       adaptiveHeight: true,
       dragThreshold: 10,
       imagesLoaded: true,
@@ -1073,6 +1075,7 @@ var productPage = {
       autoPlay: slideshowSpeed * 1000,
       fade: slideshowAnimation === 'fade' ? true : false,
       watchCSS: false,
+      lazyLoad: 2, 
       arrowShape: arrowSize
     });
 

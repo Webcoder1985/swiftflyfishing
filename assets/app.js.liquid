@@ -1561,6 +1561,7 @@ $(document).ready(function () {
     arrowShape: arrow
   });
   if ($(window).innerWidth() < 800) {
+    
     $('.collection-list-section .list-collections').flickity({
       wrapAround: true,
       loop: true,
@@ -1572,6 +1573,7 @@ $(document).ready(function () {
       arrowShape: arrow,
       adaptiveHeight: true
     });
+    
     if ($('.description-content .gallery-cell').length > 2) {
       $('.description-content').flickity({
         wrapAround: true,

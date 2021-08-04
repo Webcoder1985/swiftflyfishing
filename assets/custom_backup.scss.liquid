@@ -439,21 +439,20 @@ button.shopify-payment-button__button.shopify-payment-button__button--unbranded{
     background: transparent;
     color: black;
   }
-  
-  &.second_button {
-    background-color: {{ settings.blue_button_color }};
-    color: {{settings.btn_text_color}};
-    border-color: {{ settings.blue_button_color }};
-  }
   &.highlight-true{
-    background-color: rgba(255,255,255,1);
-    color: {{ settings.btn_color }};
-    border: 1px solid  rgba(255,255,255,1);
+    background-color: rgba(255,255,255,0);
+    color: {{ settings.btn_text_color }};
+    border: 1px solid {{ settings.btn_text_color }};
     transition: background-color 0.2s linear, color 0.2s linear;
     @media screen and (max-width: 768px) {
       border: 1px solid {{ settings.btn_hover_color }};
       color: {{ settings.btn_hover_color }};
     }
+  }
+  &.second_button {
+    background-color: {{ settings.blue_button_color }};
+    color: {{settings.btn_text_color}};
+    border-color: {{ settings.blue_button_color }};
   }
   &:hover {
     border-color: {{ settings.btn_hover_color }};
@@ -621,7 +620,6 @@ textarea{
         display: flex;
         align-items: baseline;
         justify-content: space-between;
-        flex-wrap: wrap;
         @include respond-to("medium-down"){
           flex-wrap: wrap;
         }
@@ -658,7 +656,6 @@ textarea{
       display: flex;
       align-items: baseline;
       justify-content: space-between;
-      flex-wrap: wrap;
       @include respond-to("medium-down"){
         flex-wrap: wrap;
       }
@@ -1465,13 +1462,12 @@ header{
       font-size: $font-header;
       color: $color-white;
       @include font-MontRegular();
-      @include respond-to("large-down"){
+      @include respond-to("medium-down"){
         right: 0;
         transform: none;
         font-size: $font-desc;
         padding: 5px 20px;
-        line-height: 23px;
-        text-align: left;
+        line-height: 32px;
         span{
           max-width: 240px;
           display: block;
@@ -1498,10 +1494,9 @@ header{
     .info{
       max-width: 600px;
       width: 100%;
-      @include respond-to("large-down"){
+      @include respond-to("medium-down"){
         padding: 20px;
         padding-top: 40px;
-        max-width: initial;
       }
       .collection_title {
         cursor: auto;
@@ -2536,81 +2531,7 @@ a.close{
   }
 }
 
-.recently-viewed-section{
-  .recently-viewed-products__title{
-   h3{
-       text-transform: uppercase;
-       color: {{ settings.headline_color }};
-    }
-    p{
-      text-align: center;
-    }
-  }
-}
-
-.recently-viewed__section,.featured-collection-section{
-  h3{
-    text-transform: uppercase;
-  }
-  .thumbnail {
-    .product-wrap {
-      .product-info__caption {
-        .product-details{
-          display: flex;
-          align-items: baseline;
-          justify-content: end;
-          flex-wrap: wrap;
-          .title{
-            width: 100%;
-  
-          }
-        }
-      }
-    }
-  }
-}
-
-.featured-product-gallery{
-  h3{
-       text-transform: uppercase;
-       color: {{ settings.headline_color }};
-    }
-  .featured-collection__products{
-    .product-info__caption {
-      .product-details{
-        display: flex;
-        align-items: baseline;
-        justify-content: space-between;
-        @media screen and (max-width: 768px) {
-          flex-wrap: wrap;
-        }
-        .title{
-          @include font-LatoBold();
-          font-size: $font-body;
-          text-align: left;
-          margin-right: 20px;
-          @media screen and (max-width: 768px) {
-            width: 65%;
-          }
-        } 
-        .price{
-            white-space: nowrap;
-           font-size: $font-extra_small;
-           text-align: left;
-           @media screen and (max-width: 768px) {
-            width: 35%;
-            white-space: nowrap;
-            text-align: right;
-          }
-        }
-      }
-    }
-    .flickity-page-dots{
-      display: none!important;
-    }
-  }
-}
-
 .loader-overlay{
   display: none!important;
 }
+

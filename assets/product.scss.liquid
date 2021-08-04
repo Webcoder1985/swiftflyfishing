@@ -106,7 +106,10 @@ $product-media-bg-color: {{ settings.shop_bg_color }};
   border-bottom: none;
 }
 .breadcrumb-collection{
-  padding: 0 20px;
+  padding: 10px 0;
+  @media screen and (max-width: 768px) {
+    padding: 0 20px;
+  }
 }
 .sale_banner_product,
 .new_banner_product,
@@ -845,11 +848,15 @@ $product-media-bg-color: {{ settings.shop_bg_color }};
     padding: 0 50px;
     @media screen and (max-width: 768px) {
       padding: 0;
+      padding-top: 20px;
     }
     .breadcrumb_text{
-  
+      
       span, a{
         font-size: inherit;
+        @media screen and (max-width: 768px) {
+          font-size: 14px;
+        }
       }
     }
     .product_section {
@@ -863,12 +870,20 @@ $product-media-bg-color: {{ settings.shop_bg_color }};
         padding: 0 20px;
       }
       .image{
-        paadding-left:0px;
+        padding-left:0px;
         .gallery-wrap{                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
           &.gallery-thumbnails--bottom-thumbnails{
             .product_gallery {
+              display: flex;
+              overflow: hidden;
+              position: relative;
+              .flickity-viewport{
+                top: 0;
+                position: absolute;
+              }
               .gallery-cell{
-                width: 100%;
+                min-width: 101%;
+                position: absolute;
               }
               .flickity-button{
                 display: none;
@@ -1758,80 +1773,7 @@ $product-media-bg-color: {{ settings.shop_bg_color }};
     }
 }
   
-.recently-viewed-section{
-    .recently-viewed-products__title{
-     h3{
-         text-transform: uppercase;
-         color: {{ settings.headline_color }};
-      }
-      p{
-        text-align: center;
-      }
-    }
-}
-  
-.recently-viewed__section,.featured-collection-section{
-    h3{
-      text-transform: uppercase;
-    }
-    .thumbnail {
-      .product-wrap {
-        .product-info__caption {
-          .product-details{
-            display: flex;
-            align-items: baseline;
-            justify-content: end;
-            flex-wrap: wrap;
-            .title{
-              width: 100%;
-    
-            }
-          }
-        }
-      }
-    }
-}
-  
-.featured-product-gallery{
-    h3{
-         text-transform: uppercase;
-         color: {{ settings.headline_color }};
-      }
-    .featured-collection__products{
-      .product-info__caption {
-        .product-details{
-          display: flex;
-          align-items: baseline;
-          justify-content: space-between;
-          @media screen and (max-width: 768px) {
-            flex-wrap: wrap;
-          }
-          .title{
-            @include font-LatoBold();
-            font-size: $font-body;
-            text-align: left;
-            margin-right: 20px;
-            @media screen and (max-width: 768px) {
-              width: 65%;
-            }
-          } 
-          .price{
-              white-space: nowrap;
-             font-size: $font-extra_small;
-             text-align: left;
-             @media screen and (max-width: 768px) {
-              width: 35%;
-              white-space: nowrap;
-              text-align: right;
-            }
-          }
-        }
-      }
-      .flickity-page-dots{
-        display: none!important;
-      }
-    }
-}
+
   
 .toggle-list{
     padding: 0!important;

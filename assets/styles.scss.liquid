@@ -64,6 +64,8 @@ Description: Shopify Theme (https://www.shopify.com/&ref=out-of-the-sandbox)
 /* #Variables
 ================================================== */
 
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
 $font-size-header: {{ settings.headline_font_size }};
 $font-size-column: {{ settings.headline_font_size | times: 1.3 }};
 
@@ -4994,6 +4996,8 @@ header.secondary_logo--true:not(.feature_image) {
 
   button.disclosure__button {
     letter-spacing: {{ settings.top_bar_letter_spacing }}px;
+    background: transparent;
+    border: none;
   }
 
   .currency-preview {
@@ -7850,8 +7854,11 @@ $backgroundTransparency: 0.6;
 /* Slideshow */
 
 .homepage-slideshow {
-  .gallery-cell:not(:first-child) {
-    height: 0;
+  display: flex;
+  overflow: hidden;
+  .gallery-cell{
+    min-width: 100%;
+
   }
 }
 
@@ -8842,6 +8849,3 @@ $delay: 0;
 ================================================== */
 
 
-.loader-overlay{
-  display: none!important;
-}

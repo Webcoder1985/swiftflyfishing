@@ -11,6 +11,9 @@ $color-brown: #AB987A;
 $color-trans-white:rgba(255,255,255,0.38);
 $color-green: #47c1bf;
 
+$table-background-color: #f9f9f9;
+$table-border-color: #dcdcdc;
+
 $font-extra_small: {{settings.link_font_size}}px;
 $font-span: {{settings.span_font_size}}px;
 $font-small: {{settings.subline_font_size}}px;
@@ -61,7 +64,6 @@ $font-extra: {{settings.large_heading_font_size}}px;
   -webkit-font-smoothing: antialiased;
 }
 
-
 .account-header-logout {
   text-align: right;
   text-transform: uppercase;
@@ -70,9 +72,8 @@ $font-extra: {{settings.large_heading_font_size}}px;
 .account-sidebar {
   box-sizing: border-box;
   padding-right: 10px;
-  @include overflow-wrap(anywhere);
 
-  @include respond-to('medium-down'){
+  @media screen and (max-width: 768px) {
     border: 0;
     padding-right: 0;
   }
@@ -87,7 +88,7 @@ $font-extra: {{settings.large_heading_font_size}}px;
     box-sizing: border-box;
     border-left: 1px solid {{ settings.headline_border_color }};
     padding-left: 20px;
-    @include respond-to('medium-down'){
+    @media screen and (max-width: 768px) {
       border: 0;
       padding-left: 0;
     }
@@ -117,7 +118,7 @@ $font-extra: {{settings.large_heading_font_size}}px;
   td {
     padding: 10px;
 
-    @include respond-to('medium-down') {
+    @media screen and (max-width: 768px) {
       border-left: none;
     }
   }
@@ -130,7 +131,7 @@ $font-extra: {{settings.large_heading_font_size}}px;
     display: block;
   }
 
-  @include respond-to('medium-down') {
+  @media screen and (max-width: 768px) {
     thead {
       display: none;
     }
@@ -150,9 +151,13 @@ $font-extra: {{settings.large_heading_font_size}}px;
 
     td {
       display: block;
-      @include flexbox();
-      @include align-items(center);
-      @include justify-content(space-between);
+      display: -webkit-box;
+      display: -moz-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       padding: 0 10px 0 0;
 
       &:before {
@@ -215,7 +220,7 @@ $font-extra: {{settings.large_heading_font_size}}px;
     &:first-child {
       border-left: 1px solid $table-border-color;
 
-      @include respond-to('medium-down') {
+      @media screen and (max-width: 768px) {
         border-left: none;
       }
     }
@@ -229,7 +234,7 @@ $font-extra: {{settings.large_heading_font_size}}px;
     }
   }
 
-  @include respond-to('medium-down') {
+  @media screen and (max-width: 768px) {
     tr {
       border: 1px solid $table-border-color;
       border-bottom: none;
