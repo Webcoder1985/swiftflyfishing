@@ -38,8 +38,6 @@
 </div>
 {% endif %}
 
-<a name="pagecontent" id="pagecontent"></a>
-
 <div class="main content">
   <div class="container">
 {% paginate blog.articles by section.settings.blog_posts_per_page %}
@@ -104,7 +102,7 @@
     }
   </script>
 
-  <div class="{% if sidebar %}twelve medium-down--one-whole {% else %}sixteen{% endif %} columns equal-columns--outside-trim equal-columns--clear">
+  <div class="blog-content {% if sidebar %}twelve medium-down--one-whole {% else %}sixteen{% endif %} columns equal-columns--outside-trim equal-columns--clear">
     <h3 class="center uppercase">{{ section.settings.content_title }}</h3>
     <h5 class="text-center">{{section.settings.content_text}}</h5>
     {% for article in blog.articles %}
@@ -188,6 +186,8 @@
 
         {% if article.excerpt != blank %}
           <div class="excerpt"> {{ article.excerpt | strip_html | truncate: 150, '...' }}</div>
+        {% else %}
+          <div class="excerpt"> {{ article.content | strip_html | truncate: 150, '...' }}</div>
         {% endif %}
         {% if section.settings.read_more_link %}
           <a href="{{ article.url }}" title="{{ article.title | escape }}" class="{% if settings.read_more_style == 'button' %}action_button continue-button read-more-button{% else %}read-more-link{% endif %}">{{ 'blogs.general.continue_reading_html' | t }}</a>

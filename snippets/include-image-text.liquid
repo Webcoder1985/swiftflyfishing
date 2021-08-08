@@ -59,11 +59,7 @@
         <div class="author-images">
           {% if block.settings.author_image_1 != blank %}
             <div class="image-item">
-              {% render 'image-element-lazy' with
-                image: block.settings.author_image_1,
-                alt: block.settings.author_title_1,
-                back_to_basics: true
-              %}
+              <img src="{{block.settings.author_image_1 | img_url: '200x'}}">
               <p class="uppercase center">{{block.settings.author_title_1}}</p>
             </div>
           {% endif %}

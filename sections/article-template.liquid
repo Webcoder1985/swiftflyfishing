@@ -6,7 +6,7 @@
 
 {% if section.settings.wide_display == false %}
 <div class="container">
-  <div class="twelve columns offset-by-two medium-down--one-whole equal-columns--outside-trim">
+  <div class="twelve m-auto columns offset-by-two medium-down--one-whole equal-columns--outside-trim">
 {% endif %}
 
 {% if article.image and section.settings.featured_image == 'banner' %}
@@ -39,7 +39,7 @@
     {% assign sidebar = false %}
   {% endif %}
 
-  <div class="twelve columns {% if sidebar == false %}offset-by-two{% endif %} medium-down--one-whole equal-columns--outside-trim">
+  <div class="twelve columns {% if sidebar == false %}m-auto{% endif %} medium-down--one-whole equal-columns--outside-trim">
     <div class="section clearfix">
       <div class="blog_meta hide medium-down--show">
         {% if section.settings.blog_byline %}

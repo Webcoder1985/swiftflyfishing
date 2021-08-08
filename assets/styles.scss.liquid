@@ -2294,7 +2294,7 @@ div.cart_content form {
 
 .cart__item {
   @include flexbox();
-  @include align-items(center);
+  @include align-items(flex-start);
   margin: 10px 0;
   padding: 10px 0;
   position: relative;
@@ -2302,7 +2302,8 @@ div.cart_content form {
   @include respond-to('medium-down') {
 
     .cart__item--image {
-      max-width: 33.333%;
+      max-width: 20%;
+      margin-top: 20px;
     }
 
     .cart__item--content {
@@ -3249,8 +3250,7 @@ button.shopify-payment-button__more-options {
 }
 
 .smart-payment-button--true .purchase-details {
-  padding-bottom: 50px;
-
+  padding-bottom: 15px;
   .shopify-payment-button__button--branded {
     padding-bottom: 30px;
   }
@@ -4242,10 +4242,10 @@ input[type="button"].get-rates.action_button {
     th,
     td {
       padding: 10px;
-      border-right: 1px solid $table-border-color;
+      border: 1px solid $table-border-color;
 
       &:first-child {
-        border-left: 1px solid $table-border-color;
+        border: 1px solid $table-border-color;
       }
     }
 
@@ -6403,6 +6403,7 @@ img.footer-logo {
 .footer a:visited {
   color: {{ settings.sub_footer_link_color }};
   font-size: {{ settings.footer_font_size }}px;
+  text-transform: capitalize;
 }
 
 .footer a:hover,
@@ -6414,6 +6415,10 @@ img.footer-logo {
   list-style: none;
   margin: 0;
   padding: 15px 0 0 0;
+  @media screen and (max-width: 768px) {
+    padding: 0;
+    padding-bottom: 15px;
+  }
 }
 
 .footer ul li {
@@ -7457,6 +7462,7 @@ footer .social_icons a:active, footer .social_icons a:hover {
 
 .products-slider.slider-gallery {
   .gallery-cell {
+    margin-right: 10px;
     &.visible-2 {
       width: calc(50% - 10px);
       @include respond-to('medium-down'){

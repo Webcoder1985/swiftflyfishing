@@ -1000,21 +1000,3 @@ http://flickity.metafizzy.co
 img[data-flickity-lazyload] {
   width: auto;
 }
-
-.slideshow-transition--fade {
-  .flickity-slider {
-    transform: none !important;
-  }
-
-  .gallery-cell {
-    left: 0 !important;
-    opacity: 0;
-    transition: opacity 0.5s ease-in-out;
-    z-index: -1;
-  }
-
-  .gallery-cell.is-selected {
-    opacity: 1;
-    z-index: 0
-  }
-}

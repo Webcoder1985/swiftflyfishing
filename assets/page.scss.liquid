@@ -530,9 +530,10 @@ div.container.contact-form-container {
                 margin-top: 15px;
                 margin-bottom: 0;
                 &::before{
-                  margin-top: 12px;
+                  margin-top: 9px;
                   margin-right: 10px;
                   content: " ";
+                  min-width: 7px;
                   width: 7px;
                   height: 7px;
                   display: table;
@@ -570,23 +571,37 @@ div.container.contact-form-container {
         @include font-MontBold();
         color: {{settings.headline_color}};
         text-transform: capitalize;
+        margin-bottom: 10px;
         &.light{
           @include font-MontRegular();
-          margin-top: 30px;
-          margin-bottom: 5px;
         }
       }
       h1{
         font-size: {{settings.headline_font_size}}px;
+        line-height: 1.4;
+        @media screen and (max-width: 768px) {
+          font-size: {{settings.headline_font_size | times: 0.75}}px;
+        }
       }
       h2{
         font-size: {{settings.headline_font_size | times: 0.9}}px;
+        line-height: 1.4;
+        @media screen and (max-width: 768px) {
+          font-size: {{settings.headline_font_size | times: 0.667}}px;
+        }
       }
       h3{
         font-size: {{settings.headline_font_size | times: 0.667}}px;
+        line-height: 1.4;
+        @media screen and (max-width: 768px) {
+          font-size: {{settings.headline_font_size | times: 0.55}}px;
+        }
       }
       h4{
         font-size: {{settings.headline_font_size | times: 0.5}}px;
+        @media screen and (max-width: 768px) {
+          font-size: {{settings.headline_font_size | times: 0.4}}px;
+        }
       }
   
       h5{
@@ -603,7 +618,7 @@ div.container.contact-form-container {
         }
       }
       ol{
-        padding-left: 13px;
+        padding-left: 21px;
         li{
           margin-bottom: 0;
         }
@@ -611,6 +626,7 @@ div.container.contact-form-container {
       img{
         max-width: 100%;
         height: auto;
+        width: auto;
       }
       ul{
         &.red-badge{
@@ -1075,6 +1091,7 @@ div.container.contact-form-container {
         min-width: 100%;
         height: 100%;
         width: auto;
+        image-rendering: -webkit-optimize-contrast;
         @media screen and (max-width: 1024px) {
           width: 100%;
           height: auto;
@@ -1442,14 +1459,10 @@ div.container.contact-form-container {
         .image-item{
           width: 100%;
           max-width: initial;
-          
-          .image-element__wrap{
-            padding: 0;
-            img{
-              max-width: 100%;
-              width: auto;
-              float: left;
-            }
+          img{
+            margin-left: 0;
+            width: auto;
+            image-rendering: -webkit-optimize-contrast;
           }
           p{
             text-align: left;
@@ -1647,6 +1660,7 @@ div.container.contact-form-container {
         font-size: 15px;
         height: 50px;
         span.o{
+          min-width: 7px;
           width: 7px;
           height: 7px;
           display: table;
@@ -1683,4 +1697,16 @@ div.container.contact-form-container {
         }
       }
     }
+}
+
+.toggle-list{
+  li{
+    &.active{
+      .toggle_content{
+        display: block;
+        padding-left: 0;
+        padding-top: 10px;
+      }
+    }
+  }
 }

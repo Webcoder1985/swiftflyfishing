@@ -63,7 +63,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     {% if template contains 'customers' %}
       {{ 'account.scss.css' | asset_url | stylesheet_tag }}
     {% endif %}
-
     {% if template contains 'blog' or template contains 'article' %}
     {{ 'blog.scss.css' | asset_url | stylesheet_tag }}
     {% endif %}
