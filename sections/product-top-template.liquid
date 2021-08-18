@@ -108,6 +108,7 @@
             {% endif %}
             <h1 class="product_name uppercase" itemprop="name">{{ product.title }}</h1>
             <div class="price-info">
+              <span class="waio-product-template"></span>
               {% if collection_handles contains 'coming-soon' %}
                 <p class="modal_price">{{ 'collections.general.coming_soon' | t }}</p>
               {% else %}
@@ -136,7 +137,7 @@
                   {% if section.settings.display_savings %}
                     <span class="sale savings">
                       {% if wcp_v_price < wcp_v_compare_at_price and variant.available %}
-                      {{ 'products.product.savings' | t }}  {{ wcp_v_compare_at_price | minus: wcp_v_price | times: 100 | divided_by: wcp_v_compare_at_price }}% (<span class="money">{{ wcp_v_compare_at_price | minus: wcp_vprice | money }}</span>)
+                      {{ 'products.product.savings' | t }}  {{ wcp_v_compare_at_price | minus: wcp_v_price | times: 100 | divided_by: wcp_v_compare_at_price }}% (<span class="money">{{ wcp_v_compare_at_price | minus: wcp_vprice | money | remove: ' USD' }}</span>)
                       {% endif %}
                     </span>
                   {% endif %}
@@ -507,12 +508,6 @@
       "type": "checkbox",
       "id": "enable_shopify_product_badges",
       "label": "Display star rating on product",
-      "default": false
-    },
-    {
-      "type": "checkbox",
-      "id": "enable_reviews_in_description",
-      "label": "Show reviews in product description area",
       "default": false
     },
     {

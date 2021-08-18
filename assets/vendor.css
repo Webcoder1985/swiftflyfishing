@@ -1000,3 +1000,15 @@ http://flickity.metafizzy.co
 img[data-flickity-lazyload] {
   width: auto;
 }
+
+/* flickity-fade */
+
+.flickity-enabled.is-fade .flickity-slider > * {
+    pointer-events: none;
+    z-index: 0;
+}
+
+.flickity-enabled.is-fade .flickity-slider > .is-selected {
+    pointer-events: auto;
+    z-index: 1;
+}

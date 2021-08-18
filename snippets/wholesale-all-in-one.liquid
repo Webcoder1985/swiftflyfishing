@@ -678,7 +678,9 @@ if ((typeof waioMOC) === 'undefined') {
                                     prev_price_rule_info: getJSONfromLocalStorage("price_rule_info"),
                                     prev_draft_order_info: getJSONfromLocalStorage("draft_order_info")
                                 }, function(e,a){
-                                
+                                    if (a.status) {
+                                        location = a.checkout_url;
+                                    }
                                 })
                             } else log("Wholesale all in one is disabled");
                             

@@ -48,7 +48,7 @@
             {% for block in section.blocks %}
               <div class="gallery-cell">
                 <div class="info text-align--{{section.settings.frontpage_text_align}}">
-                  <a {% if block.settings.link != blank %}href="{{ block.settings.link }}"{% endif %} class="collection_title  {%if block.settings.title_transform %} uppercase {% endif %} title-{{block.settings.title_size}}">
+                  <a {% if block.settings.link != blank %}href="{{ block.settings.link }}"{% endif %} class="collection_title  {%if block.settings.title_transform %} uppercase {% endif %} quote-icon--{{block.settings.quote}}  title-{{block.settings.title_size}}">
                     {% if block.settings.quote %}
                     {% include 'icon-pack' with icon: 'quote' %} 
                     {% endif %}
@@ -57,7 +57,7 @@
                   {% if block.settings.text != blank %}
                     <div class="description grid-{{block.settings.grid_style}}">{{ block.settings.text }}</div>
                   {% endif %}
-                  {% if block.settings.author %}
+                  {% if block.settings.author != blank %}
                     <strong class="author">{{ block.settings.author }}</strong>
                   {% endif %}
                   <div class="review-stars">

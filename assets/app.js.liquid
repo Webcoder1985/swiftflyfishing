@@ -778,6 +778,7 @@ $(function() {
                 }
 
                 $('.mini-cart-content').addClass('active');
+                $('body').addClass('blocked-scroll');
               }, 500)
             }
           });
@@ -879,6 +880,7 @@ $(function() {
                   }
 
                   $('.mini-cart-content').addClass('active');
+                  $('body').addClass('blocked-scroll');
                 }, 500)
               }
             });
@@ -1576,7 +1578,7 @@ var slider;
 
 $(document).ready(function () {
   var arrow = 'm54 30h-39.899l15.278-14.552c.8-.762.831-2.028.069-2.828-.761-.799-2.027-.831-2.828-.069l-17.448 16.62c-.755.756-1.172 1.76-1.172 2.829 0 1.068.417 2.073 1.207 2.862l17.414 16.586c.387.369.883.552 1.379.552.528 0 1.056-.208 1.449-.621.762-.8.731-2.065-.069-2.827l-15.342-14.552h39.962c1.104 0 2-.896 2-2s-.896-2-2-2z';
-  $(".review-carousel").flickity({
+  var options = {
     wrapAround: true,
     pageDots: true,
     initialIndex: 1,
@@ -1584,8 +1586,16 @@ $(document).ready(function () {
     accessibility: true, //true by default
     autoPlay: true, // advance cells every 3 seconds
     arrowShape: arrow,
-    pauseAutoPlayOnHover: false
-  });
+    pauseAutoPlayOnHover: false,
+    adaptiveHeight: true
+  };
+  
+  // enable prev/next buttons at 768px
+  if ( matchMedia('screen and (min-width: 1024px)').matches ) {
+    options.adaptiveHeight = false;
+  }
+
+  $(".review-carousel").flickity(options);
   $('.sidebar-wrap .close').on('click', function(e){
     if ($('.sidebar').hasClass('active')) {
       $('.sidebar').removeClass('active');
@@ -1652,9 +1662,8 @@ $(document).ready(function () {
     autoPlay: false, // advance cells every 3 seconds
     arrowShape: arrow
   });
-  if ($(window).innerWidth() < 800) {
-    
-    $('.collection-list-section .list-collections').flickity({
+  if ($('.collection-list-section .list-collections .gallery-cell').length > 4) {
+    var $collection_list_carousel = $('.collection-list-section .list-collections').flickity({
       wrapAround: true,
       loop: true,
       pageDots: true,
@@ -1665,19 +1674,33 @@ $(document).ready(function () {
       arrowShape: arrow,
       adaptiveHeight: true
     });
-    
-    if ($('.description-content .gallery-cell').length > 2) {
-      $('.description-content').flickity({
-        wrapAround: true,
-        pageDots: true,
-        initialIndex: 1,
-        cellAlign: 'left',
-        accessibility: true, //true by default
-        autoPlay: false, // advance cells every 3 seconds
-        arrowShape: arrow,
-        adaptiveHeight: true
-      });
-    }
+  } else {
+    var $collection_list_carousel = $('.collection-list-section .list-collections').flickity({
+      wrapAround: true,
+      loop: true,
+      pageDots: true,
+      initialIndex: 1,
+      cellAlign: 'left',
+      accessibility: true, //true by default
+      autoPlay: false, // advance cells every 3 seconds
+      arrowShape: arrow,
+      adaptiveHeight: true,
+      watchCSS: true
+    });
+  }
+  
+  if ($('.description-content .gallery-cell').length > 2) {
+    $('.description-content').flickity({
+      wrapAround: true,
+      pageDots: true,
+      initialIndex: 1,
+      cellAlign: 'left',
+      accessibility: true, //true by default
+      autoPlay: false, // advance cells every 3 seconds
+      arrowShape: arrow,
+      adaptiveHeight: true,
+      watchCSS: true
+    });
   }
 
   var currency_text =$('#CurrencySelector').val();
@@ -1738,7 +1761,7 @@ $(document).ready(function () {
 // }
 
 
-if ($(".description-slider .gallery-cell").length > 2) {
+  if ($(".description-slider .gallery-cell").length > 2) {
     $(".description-slider").flickity({
       wrapAround: true,
       pageDots: true,
@@ -1816,8 +1839,46 @@ if ($(".description-slider .gallery-cell").length > 2) {
   if(Shopify.theme_settings.cart_action == 'ajax') {
     $('.mini_cart').on('click', function (e) {
       e.preventDefault();
-      $('.mini-cart-content').addClass('active');
-      $('body').addClass('blocked-scroll');
+      $.ajax({
+        url: '/cart.js',
+        dataType: "json",
+        cache: false,
+        success: function(cart) {
+          setTimeout(function() {
+            refreshCart(cart);
+            $('.sub_total_content .item-review #stamped-reviews-widget').empty();
+            $('.sub_total_content .item-review #stamped-reviews-widget').attr('data-product-ids', cart.items[0].product_id)
+            StampedFn.reloadUGC();
+            $('.product_section .image #stamped-reviews-widget').removeClass('active');
+            $('.product-template .product_section .image #stamped-reviews-widget').html('');
+            var interval = setInterval(() => {
+              if ($('.product-template .product_section .image #stamped-reviews-widget .stamped-reviews-wrapper').length > 0) {
+                $('.product-template .product_section .image #stamped-reviews-widget .stamped-reviews-wrapper > div:last-child').remove();
+                var arrow = 'm54 30h-39.899l15.278-14.552c.8-.762.831-2.028.069-2.828-.761-.799-2.027-.831-2.828-.069l-17.448 16.62c-.755.756-1.172 1.76-1.172 2.829 0 1.068.417 2.073 1.207 2.862l17.414 16.586c.387.369.883.552 1.379.552.528 0 1.056-.208 1.449-.621.762-.8.731-2.065-.069-2.827l-15.342-14.552h39.962c1.104 0 2-.896 2-2s-.896-2-2-2z';
+                var $productReviewCarousel = $('.product_section .image #stamped-reviews-widget .stamped-reviews-wrapper').flickity({
+                  wrapAround: true,
+                  pageDots: false,
+                  initialIndex: 1,
+                  cellAlign: 'left',
+                  accessibility: true, //true by default
+                  autoPlay: false, // advance cells every 3 seconds
+                  arrowShape: arrow,
+                  adaptiveHeight: true
+                });
+            
+                $('.product_section .image #stamped-reviews-widget').addClass('active');
+                clearInterval(interval);
+              }
+            }, 500);  
+            if($('body').hasClass('fancybox-active')) {
+              $.fancybox.close();
+            }
+
+            $('.mini-cart-content').addClass('active');
+            $('body').addClass('blocked-scroll');
+          }, 500)
+        }
+      });
     });
   }
 
@@ -1826,7 +1887,173 @@ if ($(".description-slider .gallery-cell").length > 2) {
     $('.mini-cart-content').removeClass('active');
     $('.cart-container').removeClass('active_link');
     $('body').removeClass('blocked-scroll');
+    $('body').removeClass('is-active');
   });
+  function refreshCart(cart) {
+    $(".cart_count").empty();
+    $cartBtn = $(".cart_count");
+    var value = $cartBtn.text() || '0';
+    var cart_items_html = "";
+    var cart_discounts_html = "";
+    var cart_action_html = "";
+    var cart_savings_html = "";
+    var $cart_form = $('[data-cart-form]');
+    var productHasSale = false;
+    var productCompareAtPrice = 0;
+    var productFinalPrice = 0;
+
+    $cart_form.data('total-discount', cart.total_discount);
+
+    $cartBtn.text(value.replace(/[0-9]+/,cart.item_count));
+
+    if (cart.item_count == 0) {
+      $('.js-empty-cart__message').removeClass('hidden');
+      $cart_form.addClass('hidden');
+    } else {
+      $('.js-empty-cart__message').addClass('hidden');
+      $cart_form.removeClass('hidden');
+
+      var total_saving = 0; // adding counter variables for total cart savings
+      var saving = 0;
+
+      $.each(cart.items, function(index, item) {
+        var itemDiscounts = item.discounts;
+        var discountMessage = "";
+
+        for (i=0; i < itemDiscounts.length; i++) {
+          var amount = Shopify.formatMoney(itemDiscounts[i].amount, $('body').data('money-format'));
+          var title = itemDiscounts[i].title;
+          discountMessage = '<p class="notification-discount meta">' + title + '</p>';
+        }
+        var line_id = index + 1;
+
+        cart_items_html += '<li class="mini-cart__item clearfix" data-cart-item data-line-id="' + line_id + '" data-variant-id="' + item.id + '">' +
+          '<a href="' + item.url +'">';
+        if (item.image) {
+          cart_items_html += '<div class="cart_image">' +
+              '<img src="' + item.image.replace(/(\.[^.]*)$/, "_compact$1").replace('http:', '') + '" alt="' + htmlEncode(item.title) + '" />' +
+            '</div></a>';
+        }
+
+        cart_items_html += '<div class="mini-cart__item--content"><div class="mini-cart__item__title"><div class="item_title"><a href="' + item.url + '">' + item.title + '</a></div>';
+
+        if(item.properties) {
+          $.each(item.properties, function(title, value) {
+            if (value) {
+              cart_items_html += '<div class="line-item">' + title +': ' + value + ' </div>';
+            }
+          });
+        }
+
+        cart_items_html += '<strong class="right price"><span class="quantity">'+item.quantity+'</span> X ';
+
+        $.ajax({
+          dataType: "json",
+          async: false,
+          cache: false,
+          url: "/products/" + item.handle + ".js",
+          success: function(data) {
+            // If item has more than one variant, need to make sure we are pulling data from the correct variant
+            if (data.variants) {
+              var itemVariants = data.variants;
+              if (itemVariants.length > 1) {
+                for (v = 0; v < itemVariants.length; v++) {
+                  if (itemVariants[v].id == item.id) {
+                    var data = itemVariants[v];
+                  }
+                }
+              }
+            }
+
+            // If compare at price exists then item is on sale
+            if (data.compare_at_price) {
+              if(data.compare_at_price > data.price) {
+                productHasSale = true;
+                productCompareAtPrice = data.compare_at_price;
+                productFinalPrice = data.price;
+              }
+            } else {
+              // Check required for non-sale items
+              productHasSale = false;
+            }
+          }
+        });
+
+        if(productHasSale == true) {
+          //puts the slash through the old item price
+          var itemPrice = Shopify.formatMoney(productFinalPrice, $('body').data('money-format')) + ' </span><span class="money was_price">' + Shopify.formatMoney(productCompareAtPrice, $('body').data('money-format')) + '</span>';
+          cart_items_html += '<span class="money sale">' + itemPrice + '</strong>';
+
+          // Total savings
+          saving = (productCompareAtPrice - productFinalPrice) * item.quantity;
+          total_saving = saving + total_saving;
+        } else {
+          if (item.price > item.final_price) {
+            //puts the slash through the old item price
+            var itemPrice = Shopify.formatMoney(item.final_price, $('body').data('money-format')) + ' </span><span class="money was_price">' + Shopify.formatMoney(item.price, $('body').data('money-format')) + '</span>';
+            cart_items_html += '<span class="money sale">' + itemPrice + '</strong>';
+          } else {
+            var itemPrice = Shopify.formatMoney(item.price, $('body').data('money-format'));
+            cart_items_html += '<span class="money">' + itemPrice + '</span></strong>';
+          }
+        }
+
+        if (item.price > item.final_price) {
+          cart_items_html += discountMessage;
+        }
+        cart_items_html += '</div></div>';
+        cart_items_html += '<a href="/cart/change?line=' + line_id + '&amp;quantity=0" class="js-cart-remove-btn cart__remove-btn" data-line-id="' + line_id + '" data-remove-item="mini-cart"><span class="remove-icon"></span></a>';
+
+      });
+
+      var cartDiscounts = cart.cart_level_discount_applications;
+      var cartDiscountMessage = "";
+
+      for (i=0; i < cartDiscounts.length; i++) {
+        var amount = Shopify.formatMoney(cartDiscounts[i].total_allocated_amount, $('body').data('money-format'));
+        var title = cartDiscounts[i].title;
+
+        cart_discounts_html += '<span class="cart_discounts--title">' + title + '</span>';
+        cart_discounts_html += '<span class="cart_discounts--price">';
+        cart_discounts_html += '-<span class="money">' + amount + '</span></span>';
+      }
+
+      cart_action_html += '<span class="right"><span class="money">' + Shopify.formatMoney(cart.total_price, $('body').data('money-format')) + '</span></span>' + '<span>' + Shopify.translation.cart_subtotal_text + '</span>';
+      total_saving = total_saving + cart.total_discount;
+      if(Shopify.theme_settings.display_savings && total_saving > 0) {
+        cart_savings_html = '<span class="right"><span class="money">' + Shopify.formatMoney(total_saving, $('body').data('money-format')) + '</span></span>' +
+            '<span>' + Shopify.translation.cart_savings_text + '</span>';
+      } else {
+        cart_savings_html = "";
+      }
+    }
+    var limit = $('.progress-content .progress-bar').data('limit');
+    var left_price = limit - cart.total_price;
+    var progress = cart.total_price * 100 / limit;
+    if (left_price > 0) {
+      var progressbarText = `Only ${Shopify.formatMoney(left_price, $('body').data('money-format'))} away from FREE SHIPPING!`
+    } else {
+      var progressbarText = `✓ Congratulations! You've earned a FREE SHIPPING!`
+    }
+    if (cart.item_count > 0) {
+      $('.progress-content').removeClass('hidden');
+    } else {
+      $('.progress-content').addClass('hidden');
+    }
+    
+    $('.progress-content .progress-bar .progress').css('width', progress+'%')
+    $('.progress-content .progress-bar span').html(progressbarText);
+    $('.js-cart_items').html(cart_items_html);
+    $('.js-cart_discounts').html(cart_discounts_html);
+    $('.js-cart_subtotal').html(cart_action_html);
+    $('.js-cart_savings').html(cart_savings_html);
+
+    // Converting the currencies
+    if (Currency.show_multiple_currencies) {
+      currencyConverter.convertCurrencies();
+    }
+
+  }
 });
 
 
@@ -1909,7 +2136,7 @@ function collection_startSlide(event){
 
 
 function collection_moveSlide(event){
-  var event_pos = event.clientX - (($(window).width()-$('.container').width())/2 + 200 + 10 + bar.offsetLeft);
+  var event_pos = event.clientX - (($(window).width()-$('.container').width())/2 + 200 + 30 + bar.offsetLeft);
   var set_perc = ((((event_pos) / bar.offsetWidth)).toFixed(2));	
   slider.style.width = ((set_perc) * 100) + '%';
 }
@@ -1931,19 +2158,19 @@ function collection_handleMove(evt) {
 
 
 function startSlide(event){
-  var set_perc = ((((event.clientX - bar.offsetLeft) / bar.offsetWidth)).toFixed(2));	
+  var set_perc = ((((event.clientX - bar.offsetLeft + 20) / bar.offsetWidth)).toFixed(2));	
   bar.addEventListener('mousemove', moveSlide, false);	
   bar.addEventListener('touchmove', handleMove, false);
   slider.style.width = ((set_perc) * 100) + '%';	
 }
 
 function moveSlide(event){
-  var set_perc = ((((event.clientX - bar.offsetLeft) / bar.offsetWidth)).toFixed(2));
+  var set_perc = ((((event.clientX - bar.offsetLeft+ 20) / bar.offsetWidth)).toFixed(2));
   slider.style.width = ((set_perc) * 100) + '%';
 }
 
 function stopSlide(event){
-  var set_perc = ((((event.clientX - bar.offsetLeft) / bar.offsetWidth)).toFixed(2));
+  var set_perc = ((((event.clientX - bar.offsetLeft+ 20) / bar.offsetWidth)).toFixed(2));
   bar.removeEventListener('mousemove', moveSlide, false);
   bar.addEventListener('touchmove', handleMove, false);
   slider.style.width = ((set_perc) * 100) + '%';

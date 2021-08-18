@@ -24,6 +24,7 @@
     </div>
   </div>
 {% else %}
+{% if settings.free_shipping_bar %}
 <div class="progress-content {% if cart.item_count < 1 %}hidden{% endif %}">
   {% case cart.currency.iso_code %}
     {% when 'USD' %}
@@ -58,6 +59,8 @@
     
   </div>
 </div>
+{% endif %}
+
 <div class="sixteen columns hidden js-empty-cart__message"> 
     <div class="section clearfix">
       <div class="six columns offset-by-five medium-down--one-whole">
@@ -199,7 +202,7 @@
                     {{ 'cart.general.agree_to_terms_html' | t }}
                   </label>
                 {% if settings.tos_page != blank %}
-                  <a href="{{ pages[settings.tos_page].url }}" target="_blank" class="tos_icon">{{ 'cart.general.view_terms' | t }}</a>
+                  <a href="{{ pages[settings.tos_page].url }}" class="tos_icon">{{ 'cart.general.view_terms' | t }}</a>
                 {% endif %}
               </p>
             {% endif %}

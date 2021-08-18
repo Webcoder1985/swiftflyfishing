@@ -13,7 +13,7 @@ $color-green: #47c1bf;
 
 $font-extra_small: {{settings.link_font_size}}px;
 $font-span: {{settings.span_font_size}}px;
-$font-small: {{settings.subline_font_size}}px;
+$font-small: {{ settings.headline_font_size | times: 0.59 | floor }}px;
 $font-desc: {{settings.regular_font_size}}px;
 $font-body: {{settings.regular_font_size}}px;
 $font-price: {{settings.price_font_size}}px;
@@ -35,8 +35,8 @@ $font-extra: {{settings.large_heading_font_size}}px;
 }
 
 @mixin font-MontSBold() {
-  font-family: {{settings.subline__font.family}}, {{settings.subline__font.fallback_families}};
-  font-weight: {{ settings.subline__font.weight }};
+  font-family: {{settings.headline__font.family}}, {{settings.headline__font.fallback_families}};
+  font-weight: 600;
 }
 
 @mixin font-LatoBold() {
@@ -98,10 +98,10 @@ $font-extra: {{settings.large_heading_font_size}}px;
               font-size: {{settings.slideshow_headline_size}}px;
               letter-spacing: {{settings.slideshow_headline_letter_spacing}}px;
               @media screen and (max-width: 1024px) {
-                font-size: 56px;
+                font-size: {{settings.slideshow_headline_size}}px;
               }
               @media screen and (max-width: 768px) {
-                font-size: 22px;
+                font-size: {{settings.slideshow_headline_size | times: 0.7 }}px;
                 color: $color-white!important;
                 letter-spacing: 0.17px;
               }
@@ -174,9 +174,10 @@ $font-extra: {{settings.large_heading_font_size}}px;
     }
     .arrow-down{
       position: absolute;
-      bottom: 20px;
+      bottom: 15px;
       left: 50%;
       display: table;
+      transform: translateX(-50%);
       @media screen and (max-width: 320px) {
         display: none;
       }
@@ -221,7 +222,7 @@ $font-extra: {{settings.large_heading_font_size}}px;
       span{
         text-transform: uppercase;
         background: $color-white;
-        z-index: 1000;
+        z-index: 1;
         position: relative;
         padding-left: 10px;
       }
@@ -388,9 +389,10 @@ margin-bottom: 50px;
             max-width: 350px;
             @include font-LatoLight();
             @media screen and (max-width: 480px) {
-            font-size: 16px;
-            line-height: 23px;
-            
+              font-size: 16px;
+              line-height: 23px;
+              margin: 20px auto;
+              margin-bottom: 0;
             }
         }
         }
@@ -426,6 +428,7 @@ margin-bottom: 50px;
           width: 70%;
           margin-right: 5px;
           margin-left: 5px;
+          margin-bottom: 0;
           &.is-selected{
             .collection-info__caption{
               opacity: 1;
@@ -515,14 +518,16 @@ margin-bottom: 50px;
             padding: 0 0px;
             background: $color-white;
             opacity: 0;
+            margin-bottom: 0;
+            p{
+              margin-bottom: 0;
+            }
           }
           .title{
-            font-size: {{settings.subline_font_size}}px;
-            line-height: 30px;
-            letter-spacing: {{settings.headline_letter_spacing}}px;
+            font-size: $font-small;
+            line-height: 1.3;
             margin-bottom: 20px;
             @include font-MontSBold();
-            text-transform: capitalize;
             @media screen and (max-width: 768px) {
               @include font-MontRegular();
               font-size: $font-medium;
@@ -564,7 +569,8 @@ margin-bottom: 50px;
         margin: 0 30px;
         margin-top: 60px;
         @media screen and (max-width: 768px) {
-          margin-top: 0;
+          margin: 0;
+          margin-bottom: 20px;
         }
         .flickity-viewport{
           width: 100%;
@@ -574,13 +580,19 @@ margin-bottom: 50px;
             .info{
               padding-left: 50px;
               @media screen and (max-width: 768px) {
-                padding-left: 0;
+                padding-left: 20px;
               }
               .collection_title{
-                margin-left: -41px;
-                @media screen and (max-width: 768px) {
+                &.quote-icon--false {
                   margin-left: 0;
                 }
+                &.quote-icon--true {
+                  margin-left: -41px;
+                  @media screen and (max-width: 768px) {
+                    margin-left: 0;
+                  }
+                }
+                
                 svg{
                   margin-right: 10px;
                 }
@@ -596,6 +608,10 @@ margin-bottom: 50px;
               }
               .author{
                 margin-left: 0;
+                width: 100%;
+                @media screen and (max-width: 768px) {
+                  text-align: center;
+                }
               }
             }
             
@@ -609,23 +625,16 @@ margin-bottom: 50px;
           }
           @media screen and (max-width: 768px) {
             margin-left: auto;
-            display: none;
           }
         }
         .next{
           order: 4;
-          @media screen and (max-width: 768px) {
-            display: none;
-          }
         }
         .flickity-page-dots{
           order: 3;
           position: initial;
           width: auto;
           transform: none;
-          @media screen and (max-width: 768px) {
-            display: none!important;
-          }
         }
         
       }
@@ -660,6 +669,7 @@ margin-bottom: 50px;
     }
     @media screen and (max-width: 768px) {
       padding-bottom: 0!important;
+      padding-top: 0!important;
     }
     .heading{
       margin-bottom: -10px;
@@ -677,6 +687,7 @@ margin-bottom: 50px;
       background: transparent;
       line-height: 0;
       padding: 100px 0 80px;
+      overflow: hidden;
       @media screen and (max-width: 480px) {
         margin: 20px auto;
         overflow: hidden;
@@ -793,7 +804,7 @@ margin-bottom: 50px;
           content: '';
           position: absolute;
           top: 50%;
-          right: 20px;
+          right: 25px;
           bottom: 0;
           z-index: 0;
           margin-right: -2px;
@@ -802,6 +813,9 @@ margin-bottom: 50px;
           width: 2px;
           height: 70%;
           transform: translateY(-50%);
+          @media screen and (max-width: 768px) {
+            content: none;
+          }
         }
         .label-content{
           pointer-events: none;
@@ -822,7 +836,7 @@ margin-bottom: 50px;
           -ms-user-select: none;
           user-select: none;
           overflow: hidden;
-          margin-right: 20px;
+          margin-right: 25px;
           height: 100%;
           -webkit-user-drag: none;
           -khtml-user-drag: none;
@@ -895,14 +909,24 @@ margin-bottom: 50px;
           color: black;
           border-radius: 25px;
           position:absolute;
-          right: 0px;
-          top: 50%;
+          right: 5px;
+          top: 54%;
           transform: translateY(-50%);
-          box-shadow: 1px 1px 13px -5px rgba(0,0,0,0.41);
+          box-shadow: inset 0 -4px 3px 3px rgba(0,0,0,0.03), 0 8px 13px -5px rgba(0,0,0,0.42);
           display: flex;
           align-items: center;
           justify-content: center;
           z-index: 100;
+          @media screen and (max-width: 768px) {
+            box-shadow: none;
+            border: 1px solid #ebeef0;
+            width: 30px;
+            height: 30px;
+            top: 54%;
+            &::before{
+              font-size: 13px!important;
+            }
+          }
           &::before{
             content: "|||";
             font-weight: bold;
@@ -945,13 +969,33 @@ margin-bottom: 50px;
     }
 }
   
+.featured-promotions-section{
+  @media screen and (max-width: 768px) {
+    margin-bottom: 0;
+  }
+}
 
 .collection-list-section{
     padding: 30px 0;
-    
+    @media screen and (max-width: 768px) {
+      padding-bottom: 0;
+      margin-bottom: 0;
+      padding-top: 0;
+    }
     .list-collections{
       display: flex;
       width: 100%;
+      &:after {
+        content: 'flickity';
+        display: none; /* hide :after */
+      }
+      
+      @media screen and ( min-width: 768px ) {
+        /* disable Flickity for large devices */
+        &:after {
+          content: '';
+        }
+      }
     }
     
     .heading-title{

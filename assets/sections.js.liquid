@@ -251,7 +251,8 @@ var testimonial = {
                         draggable: arrowShow,
                         pageDots: usePageDots,
                         autoPlay: settings.slideshowSpeed,
-                        arrowShape: arrowSize
+                        arrowShape: arrowSize,
+                        adaptiveHeight: true
                       });
 
         if (settings.slideshowTextAnimation != ''){
@@ -1069,7 +1070,7 @@ var productPage = {
       productMedia.showModelIcon($productGallery);
 
     });
-
+    
     $productGallery.flickity({
       adaptiveHeight: true,
       dragThreshold: 10,
@@ -1851,7 +1852,7 @@ var header = {
 
       $('body').on('click', '.dropdown_link, .vertical--dropdown', function(e) {
         $('.nav a').removeClass('active_link');
-
+        console.log("xxxxxx")
         if ($('#header').is(':visible')) {
           var $dropdown = $(this).parents("#header").find('[data-dropdown="' + $(this).data("dropdown-rel") + '"]')
 
@@ -1890,6 +1891,7 @@ var header = {
 
       $('body').on("click", '.mobile_nav', function() {
         $(this).find('div').toggleClass('open');
+        $('body').toggleClass('blocked-scroll');
       });
 
       //Toggle mini-cart with menu icon

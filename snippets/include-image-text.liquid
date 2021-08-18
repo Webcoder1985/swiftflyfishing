@@ -21,7 +21,7 @@
             {{ 'collection-' | append: i | placeholder_svg_tag: 'placeholder-svg placeholder-svg--promotions' }}
           {% endif %}
           {% if block.settings.overlay_title != blank %}
-            <h1 class="title uppercase">{{block.settings.overlay_title}}</h1>
+            <h1 class="title">{{block.settings.overlay_title}}</h1>
           {% endif %}
         {% if block.settings.link != blank and block.settings.button_label == blank%}  
         </a>
@@ -38,7 +38,7 @@
           </h2>
         {% endif %}
         
-        <h4 class="uppercase">{{block.settings.sub_title}}</h4>
+        <h4 class="sub_title">{{block.settings.sub_title}}</h4>
         {% if block.settings.text != blank %}
           {% if block.settings.grid_style != 'one' %}
             <div class="description medium-down--hide grid-{{block.settings.grid_style}} text-{{block.settings.text_style}}">
@@ -59,7 +59,7 @@
         <div class="author-images">
           {% if block.settings.author_image_1 != blank %}
             <div class="image-item">
-              <img src="{{block.settings.author_image_1 | img_url: '200x'}}">
+              <img src="{{block.settings.author_image_1 | img_url: '2048x'}}">
               <p class="uppercase center">{{block.settings.author_title_1}}</p>
             </div>
           {% endif %}

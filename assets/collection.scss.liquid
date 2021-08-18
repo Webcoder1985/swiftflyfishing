@@ -13,11 +13,11 @@ $color-green: #47c1bf;
 
 $font-extra_small: {{settings.link_font_size}}px;
 $font-span: {{settings.span_font_size}}px;
-$font-small: {{settings.subline_font_size}}px;
+$font-small: {{ settings.headline_font_size | times: 0.59 | floor }}px;
 $font-desc: {{settings.regular_font_size}}px;
 $font-body: {{settings.regular_font_size}}px;
 $font-price: {{settings.price_font_size}}px;
-$font-medium: {{settings.large_heading_font_size | times: 0.59}}px;
+$font-medium: {{settings.headline_font_size | times: 0.59}}px;
 $font-large: {{settings.headline_font_size}}px;
 $font-subtitle: {{settings.link_font_size}}px;
 $font-header: 22px;
@@ -52,8 +52,8 @@ $font-extra: {{settings.large_heading_font_size}}px;
 }
 
 @mixin font-MontSBold() {
-  font-family: {{settings.subline__font.family}}, {{settings.subline__font.fallback_families}};
-  font-weight: {{ settings.subline__font.weight }};
+  font-family: {{settings.headline__font.family}}, {{settings.headline__font.fallback_families}};
+  font-weight: 600;
 }
 
 @mixin font-LatoBold() {
@@ -346,6 +346,9 @@ $font-extra: {{settings.large_heading_font_size}}px;
   .container{
     @media screen and (max-width: 768px) {
       width: 100%;
+      .breadcrumb-collection{
+        margin: 0;
+      }
     }
   }
   .banner {
@@ -397,9 +400,6 @@ $font-extra: {{settings.large_heading_font_size}}px;
       h3{
         letter-spacing: 0.75px;
         margin-bottom: 20px;
-        @media screen and (max-width: 768px) {
-          font-size: 18px
-        }
       }
       .video_btn{
         width: 70px;
@@ -667,7 +667,7 @@ $font-extra: {{settings.large_heading_font_size}}px;
   }
   .discription-slider-content{
     margin: 0;
-    width: calc(100% + 20px);
+    width: 100%;
     .description-slider{
       display: flex;
       flex-wrap: wrap;
@@ -720,17 +720,13 @@ $font-extra: {{settings.large_heading_font_size}}px;
         text-align: left!important;
         margin-left: 0;
         width: calc(50% - 10px);
+        h1, h2, h3 {
+          @include font-MontRegular();
+        }
         @media screen and (max-width: 768px) {
           width: 100%;
           padding: 0;
         }
-        h2, h3{
-          text-transform: unset;
-          margin: 20px 0;
-          color: {{ settings.headline_color }}; 
-          @include font-MontSBold();
-        }
-
         img{
           margin-top: 20px;
         }
@@ -743,6 +739,11 @@ $font-extra: {{settings.large_heading_font_size}}px;
   }
   .sidebar-toggle-button{
     max-width: 300px!important;
+    @media screen and (max-width: 768px) {
+      max-width: initial!important;
+      width: 100%;
+      margin-top: 0!important;
+    }
   }
   .content{
     float: right;
@@ -762,17 +763,13 @@ $font-extra: {{settings.large_heading_font_size}}px;
       .heading{
         h1{
           color: {{ settings.headline_color }};
-          text-align: left;
-          font-size: $font-medium;
           margin: 0;
           max-width: 600px;
-          line-height: 30px;
           margin-bottom: 20px;
           @include font-MontBold();
           text-transform: uppercase;
           @media screen and (max-width: 768px) {
             font-size: $font-small;
-            text-align: center;
           }
         }
         h6{
@@ -844,52 +841,6 @@ $font-extra: {{settings.large_heading_font_size}}px;
         padding: 20px;
         padding-bottom: 1px;
         background: rgba(216, 216, 216, 0.15);
-      }
-      h2{
-        color: {{ settings.headline_color }};
-        text-align: left;
-        font-size: $font-medium;
-        margin: 0;
-        line-height: 38px;
-        margin-bottom: 20px;
-        @include font-MontBold();
-        text-transform: uppercase;
-        @media screen and (max-width: 768px) {
-          font-size: 18px;
-          line-height: 22px;
-          text-align: center;
-        }
-        strong, b{
-          font-family: inherit;
-        }
-      }
-      h3{
-        color: {{ settings.headline_color }};
-        text-align: left;
-        font-size: $font-medium;
-        margin: 0;
-        line-height: 38px;
-        margin-bottom: 40px;
-        @include font-MontBold();
-        text-transform: uppercase;
-        text-align: center;
-        @media screen and (max-width: 768px) {
-          font-size: 18px;
-          line-height: 22px;
-          text-align: center;
-        }
-      }
-      h4{
-        text-align: left;
-        line-height: 24px;
-        margin-top: 0;
-        font-size: $font-body;
-        @media screen and (max-width: 768px) {
-          
-          text-align: center;
-          max-width: 250px;
-          margin: auto; 
-        }
       }
     }
     .image_with_text_overlay_block{
@@ -1280,7 +1231,7 @@ $font-extra: {{settings.large_heading_font_size}}px;
         content: '';
         position: absolute;
         top: 50%;
-        right: 20px;
+        right: 25px;
         bottom: 0;
         z-index: 0;
         margin-right: -2px;
@@ -1289,6 +1240,9 @@ $font-extra: {{settings.large_heading_font_size}}px;
         width: 2px;
         height: 70%;
         transform: translateY(-50%);
+        @media screen and (max-width: 768px) {
+          content: none;
+        }
       }
       .label-content{
         pointer-events: none;
@@ -1309,7 +1263,7 @@ $font-extra: {{settings.large_heading_font_size}}px;
         -ms-user-select: none;
         user-select: none;
         overflow: hidden;
-        margin-right: 20px;
+        margin-right: 25px;
         height: 100%;
         -webkit-user-drag: none;
         -khtml-user-drag: none;
@@ -1377,23 +1331,33 @@ $font-extra: {{settings.large_heading_font_size}}px;
       #slider-button{
         width:40px;
         height:40px;
-        margin-top:-3px;
+        margin-top: 10px;
         background:$color-white;
         color: black;
         border-radius: 25px;
         position:absolute;
-        right: 0px;
+        right: 5px;
         top: 50%;
         transform: translateY(-50%);
-        box-shadow: 1px 1px 13px -5px rgba(0,0,0,0.41);
+        box-shadow: inset 0 -4px 3px 3px rgba(0,0,0,0.03), 0 8px 13px -5px rgba(0,0,0,0.42);
         display: flex;
         align-items: center;
         justify-content: center;
         z-index: 100;
+        @media screen and (max-width: 768px) {
+          box-shadow: none;
+          border: 1px solid #ebeef0;
+          width: 30px;
+          height: 30px;
+          margin-top: 0;
+        }
         &::before{
           content: "|||";
           font-weight: bold;
           font-size: 17px;
+          @media screen and (max-width: 768px) {
+            font-size: 13px;
+          }
         }
       }
     }
@@ -1512,12 +1476,6 @@ $font-extra: {{settings.large_heading_font_size}}px;
       a{
         color: #ED1C24;
       }
-      h2{
-        text-transform: uppercase;
-        line-height: 32px;
-        letter-spacing: 0.5px;
-        @include font-LatoRegular();
-      }
       ul{
         margin: 0;
         padding-left: 20px;
@@ -1605,6 +1563,7 @@ $font-extra: {{settings.large_heading_font_size}}px;
 
 .collection-list-section{
   padding: 0;
+  margin-bottom: 0;
   .container{
     padding: 0;
   }

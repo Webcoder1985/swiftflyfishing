@@ -16,7 +16,7 @@ $table-border-color: #dcdcdc;
 
 $font-extra_small: {{settings.link_font_size}}px;
 $font-span: {{settings.span_font_size}}px;
-$font-small: {{settings.subline_font_size}}px;
+$font-small: {{ settings.headline_font_size | times: 0.59 | floor }}px;
 $font-desc: {{settings.regular_font_size}}px;
 $font-body: {{settings.regular_font_size}}px;
 $font-price: {{settings.price_font_size}}px;
@@ -38,8 +38,8 @@ $font-extra: {{settings.large_heading_font_size}}px;
 }
 
 @mixin font-MontSBold() {
-  font-family: {{settings.subline__font.family}}, {{settings.subline__font.fallback_families}};
-  font-weight: {{ settings.subline__font.weight }};
+  font-family: {{settings.headline__font.family}}, {{settings.headline__font.fallback_families}};
+  font-weight: 600;
 }
 
 @mixin font-LatoBold() {
@@ -265,14 +265,16 @@ $font-extra: {{settings.large_heading_font_size}}px;
 
 .login-section, .register-section{
     display: flex;
+    @media screen and (max-width: 768px) {
+      margin: 0;
+    }
     #customer{
         .content{
-        max-width: 400px;
-        width: 100%;
-        @media screen and (max-width: 768px) {
-            padding: 0 20px;
-            padding-bottom: 50px;
-        }
+          max-width: 400px;
+          width: 100%;
+          @media screen and (max-width: 768px) {
+              padding: 20px;
+          }
         h1{
             @include font-MontSBold();
             font-size: $font-desc;

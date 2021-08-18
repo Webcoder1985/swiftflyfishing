@@ -96,7 +96,7 @@ what you are doing, as you may break the app.
           {%- endcapture -%}
 
           {%- if section.settings.click_action == 'open_instagram' -%}
-            <a href="#" class="ooo-instagram-media" target="_blank" data-instagram-field="permalink">
+            <a href="#" class="ooo-instagram-media" data-instagram-field="permalink">
               {{- instagram_media_content -}}
             </a>
           {%- else -%}
@@ -118,7 +118,7 @@ what you are doing, as you may break the app.
 
     {%- if section.settings.button_text != blank -%}
       <div class="ooo-instagram-footer">
-        <a class="ooo-instagram-footer__button" href="{{ section.settings.button_link }}" target="_blank">{{ section.settings.button_text }}</a>
+        <a class="ooo-instagram-footer__button" href="{{ section.settings.button_link }}" >{{ section.settings.button_text }}</a>
       </div>
     {%- endif -%}
   </div>

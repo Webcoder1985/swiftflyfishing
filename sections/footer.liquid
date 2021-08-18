@@ -46,7 +46,7 @@
             <div class="newsletter">
               <span class="message"></span>
               {% if settings.mailchimp_link != blank %}
-                <form action="{{ settings.mailchimp_link }}" method="post" name="mc-embedded-subscribe-form" id="contact_form" target="_blank">
+                <form action="{{ settings.mailchimp_link }}" method="post" name="mc-embedded-subscribe-form" id="contact_form">
                   {% if block.settings.show_firstname %}
                     <input type="text" value="" class="firstName" name="FNAME" placeholder="{{ 'general.newsletter_form.subscriber_first_name' | t }}">
                   {% endif %}

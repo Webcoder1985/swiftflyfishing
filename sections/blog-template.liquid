@@ -103,7 +103,7 @@
   </script>
 
   <div class="blog-content {% if sidebar %}twelve medium-down--one-whole {% else %}sixteen{% endif %} columns equal-columns--outside-trim equal-columns--clear">
-    <h3 class="center uppercase">{{ section.settings.content_title }}</h3>
+    <h3 class="center">{{ section.settings.content_title }}</h3>
     <h5 class="text-center">{{section.settings.content_text}}</h5>
     {% for article in blog.articles %}
       {% if section.settings.blog_posts_per_row == 1 %}

@@ -948,54 +948,6 @@
       },
       {
         "type": "header",
-        "content": "Sub Headings"
-      },
-      {
-        "type": "font_picker",
-        "id": "subline__font",
-        "label": "Font",
-        "default": "open_sans_n4"
-      },
-      {
-        "type": "select",
-        "id": "subline_font_style",
-        "label": "Capitalization",
-        "options": [
-          {
-            "value": "none",
-            "label": "None"
-          },
-          {
-            "value": "uppercase",
-            "label": "Uppercase"
-          },
-          {
-            "value": "lowercase",
-            "label": "Lowercase"
-          }
-        ],
-        "default": "none"
-      },
-      {
-        "type": "range",
-        "id": "subline_font_size",
-        "label": "Base size",
-        "min": 10,
-        "max": 60,
-        "default": 24,
-        "unit": "px"
-      },
-      {
-        "type": "range",
-        "id": "subline_letter_spacing",
-        "label": "Letter spacing",
-        "min": -1,
-        "max": 6,
-        "default": 2,
-        "unit": "px"
-      },
-      {
-        "type": "header",
         "content": "Banner Pre headings"
       },
       {
@@ -1159,6 +1111,26 @@
         "default": "open_sans_n4"
       },
       {
+        "type": "select",
+        "id": "page_banner__font_style",
+        "label": "Capitalization",
+        "options": [
+          {
+            "value": "none",
+            "label": "None"
+          },
+          {
+            "value": "uppercase",
+            "label": "Uppercase"
+          },
+          {
+            "value": "lowercase",
+            "label": "Lowercase"
+          }
+        ],
+        "default": "none"
+      },
+      {
         "type": "range",
         "id": "large_heading_font_size",
         "label": "Large size",
@@ -1181,6 +1153,26 @@
         "id": "page_banner__regular_font",
         "label": "Regular Font",
         "default": "open_sans_n4"
+      },
+      {
+        "type": "select",
+        "id": "page_banner__regular_font_style",
+        "label": "Capitalization",
+        "options": [
+          {
+            "value": "none",
+            "label": "None"
+          },
+          {
+            "value": "uppercase",
+            "label": "Uppercase"
+          },
+          {
+            "value": "lowercase",
+            "label": "Lowercase"
+          }
+        ],
+        "default": "none"
       },
       {
         "type": "range",
@@ -1835,6 +1827,11 @@
         "id": "display_savings",
         "label": "Show total savings",
         "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "free_shipping_bar",
+        "label": "Free shipping status bar"
       },
       {
         "type": "checkbox",

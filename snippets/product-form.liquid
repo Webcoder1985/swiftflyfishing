@@ -7,9 +7,6 @@
 {% endif %}
 
 {% assign variant = product.selected_or_first_available_variant %}
-
-
-
 {% assign inscription_pr_id = false %}
 {% if product.type == "Studio Built Fly Rod" %}
 {% assign inscription_pr_id = all_products["fly-rod-inscription"].variants.first.id %}
@@ -40,9 +37,15 @@
       >
   
   {% capture form_id %}product_form_{{ product.id }}{% endcapture %}
-
+  {% capture form_class %}
+    shopify-product-form {% if inscription_pr_id != false %} js-add-to-cart-extra {% endif %}
+  {% endcapture %}
+  {% form 'product', product, class: form_class, data-section: form_id, data-action-type: settings.cart_action, data-tags: product.tags,  data-extra:inscription_pr_id, data-extraprice:inscription_pr_price %}
+  {%- comment -%}
   <form method="post" action="/cart/add" id="{{form_id}}" accept-charset="UTF-8" class="shopify-product-form {% if inscription_pr_id != false %} js-add-to-cart-extra {% endif %}" enctype="multipart/form-data"  data-extra="{{inscription_pr_id}}" data-extraprice="{{inscription_pr_price}}">
 
+  {%- endcomment -%}
+  
     {% if show_Multiple_Variants %}
     <div class='Multiple_Variants_section'>
       {% for variant in product.variants %}
@@ -77,7 +80,7 @@
       {% else %} 
   {% if product.options.size > 1 %}
     <div class="select">
-      <select id="product-select-{{ product.id }}{{ product-form }}{{ section.id }}{{ block.id }}" name="id" class="multi_select">
+      <select id="product-select-{{ product.id }}{{ product-form }}{{ section.id }}{{ block.id }}" name="id" class="multi_select" data-handle="{{product.handle}}">
         {% for v in product.variants %}
           <option {% if v == variant %}selected="selected"{% endif %} value="{{ v.id }}" data-sku="{{ v.sku }}" data-original-value="{{variant.price}}">{{ v.title }}</option>
         {% endfor %}
@@ -86,7 +89,7 @@
   {% elsif product.options.size == 1 and product.variants.size > 1 or product.options.size == 1 and product.options[0] != "Title" %}
     <div class="select">
       <label>{{ product.options[0] }}</label>
-      <select id="product-select-{{ product.id }}{{ product-form }}{{ section.id }}{{ block.id }}" name="id">
+      <select id="product-select-{{ product.id }}{{ product-form }}{{ section.id }}{{ block.id }}" name="id" data-handle="{{product.handle}}">
         {% for v in product.variants %}
           <option {% if v == variant %}selected="selected"{% endif %} value="{{ v.id }}" data-sku="{{ v.sku }}"  data-original-value="{{variant.price}}">{{ v.title }}</option>
         {% endfor %}
@@ -94,7 +97,7 @@
     </div>
   {% else %}
      <div class="select">
-      <select id="product-select-{{ product.id }}{{ product-form }}{{ section.id }}{{ block.id }}" name="id">
+      <select id="product-select-{{ product.id }}{{ product-form }}{{ section.id }}{{ block.id }}" name="id" data-handle="{{product.handle}}">
           <option selected="selected" value="{{ variant.id }}" data-sku="{{ variant.sku }}" data-original-value="{{variant.price}}">{{ variant.title }}</option>
       </select>
     </div>
@@ -199,10 +202,15 @@
             <path fill="none" stroke-width="2" stroke-linecap="square" stroke-miterlimit="10" d="M9,17l3.9,3.9c0.1,0.1,0.2,0.1,0.3,0L23,11"/>
           </svg>
         </button>
-        
         {% if show_payment_button %}
+        
         {% unless customer.tags contains p_discount_tag or customer.tags contains v_discount_tag %}
           {{ form | payment_button }}
+          {% if additional_checkout_buttons %}
+            <div class="additional-checkout-buttons">
+              {{ content_for_additional_checkout_buttons }}
+            </div>
+          {% endif %}
          {% endunless %}
         {% endif %}
       </div>
@@ -287,5 +295,9 @@
 
       {% endform %}
       {% endcomment %}
+  {% endform %}
+  {%- comment -%}
   </form>
+  {%- endcomment -%}
+  
 </div>

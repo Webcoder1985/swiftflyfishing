@@ -1,6 +1,9 @@
 <div class="review-block">
   <div class="container">
-    <h3 class="center">{{block.settings.title}}</h3>
+    {% if block.settings.title != blank %}
+    <h2 class="center">{{block.settings.title}}</h2>
+    {% endif %}
+    
     <div id="stamped-main-widget" 
       data-widget-style="standard"
       data-take="0" 

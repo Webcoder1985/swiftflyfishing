@@ -1,7 +1,7 @@
 <div class="container full-width--true image-slider-content">
   <div class="heading">
-    <h2 class="text-center">{{ section.settings.title }}</h2>
-    <h4 class="text-center uppercase">{{ section.settings.desc | strip_html }}</h4>
+    <h1 class="text-center">{{ section.settings.title }}</h1>
+    <h4 class="text-center sub_title">{{ section.settings.desc | strip_html }}</h4>
   </div>
   <div id='bar'>
     {% for block in section.blocks %}

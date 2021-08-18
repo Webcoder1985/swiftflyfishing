@@ -15,16 +15,10 @@
 <div class="container">
   {% if section.blocks.size > 0 %}
     {% if section.settings.title != blank %}
-      <div class="sixteen columns heading-title">
-        <h5 class="uppercase medium-down--show hide">
-          {{ section.settings.title }}
-        </h5>
-      </div>
       <div class="heading medium-down--hide ">
-        <h2 class="uppercase text-center">
+        <h1 class="text-center">
           {{ section.settings.title }}
-        </h2>
-        <div class="feature_divider"></div>
+        </h1>
       </div>
     {% endif %}
     <div class="sixteen columns">

@@ -4,6 +4,7 @@
 {% else %}
     {% assign opacity = section.settings.opacity %}
 {% endif %}
+{% assign mobile_text_color = section.settings.mobile_text_color %}
 {% if type == 'block' %}
   {% assign id = block.id %}
   {% assign wide_display = section.settings.wide_display %}
@@ -33,7 +34,11 @@
   {% assign button2 = block.settings.button2 %}
   {% assign button2_link = block.settings.button2_link %}
   {% assign button2_highlight = block.settings.button2_highlight %}
+  
+  {% if  block.settings.mobile_text_color != blank %}
   {% assign mobile_text_color = block.settings.mobile_text_color %}
+  {% endif %}
+ 
   {% assign icon = block.settings.icon %}
   {% assign position = block.settings.caption_position %}
   {% assign display_status = section.settings.display_status %}
@@ -85,7 +90,7 @@
     {% assign cls = 'medium-down--hide' %}
   {% endif %}
   {% if display_status == 'mobile' %}
-    {% assign cls = 'hide medium-diown--show' %}
+    {% assign cls = 'hide medium-down--show' %}
   {% endif %}
 {% else %}
   {% assign cls = '' %}
@@ -98,17 +103,17 @@
 {% endif %}
 <section id="banner-{{id}}" class="banner {{cls}} full-width--{{ wide_display }}">
   {% style %}
-  @media only screen and (max-width: 480px) {
-    #shopify-section-{{ id }} .pretext,
-    #shopify-section-{{ id }} .headline,
-    #shopify-section-{{ id }} .subtitle,
-    .block__{{ id }} .pretext,
-    .block__{{ id }} .headline,
-    .block__{{ id }} .subtitle,
-    .block__{{ id }} .author{
-      color: {% if mobile_text_alpha != 0 %}{{ mobile_text_color}}!important{% endif %};
+  {% if mobile_text_alpha != 0 %}
+    @media only screen and (max-width: 480px) {
+      #banner-{{ id}} .pretext,
+      #banner-{{ id }} h1,
+      #banner-{{ id }} .subtitle,
+      #banner-{{ id }} .author{
+        color: {{ mobile_text_color}}!important;
+      }
     }
-  }
+  {% endif %}
+ 
 {% endstyle %}
 
   {% if image != nil %}
@@ -149,7 +154,7 @@
           </div>
         {% endif %}
         {% if title != blank %}
-          <h1 class="headline red_dot-{{ block.settings.red_dot_status }} style-{{title_style}}" style="color: {{title_color}}; opacity: {{opacity | divided_by: 100.0}}">
+          <h1 class="red_dot-{{ block.settings.red_dot_status }} style-{{title_style}}" style="color: {{title_color}}; opacity: {{opacity | divided_by: 100.0}}">
             {{ title }}
           </h1>
         {% endif %}
@@ -164,12 +169,12 @@
           </div>
         {% endif %}
         {% if button1 != blank %}
-          <a {% if button1_link != blank %} target="_blank" href="{{ button1_link }}"{% endif %} class="action_button first_button highlight-{{ button1_highlight }}" style=" opacity: {{opacity | divided_by: 100.0}}">
+          <a {% if button1_link != blank %} href="{{ button1_link }}"{% endif %} class="action_button first_button highlight-{{ button1_highlight }}" style=" opacity: {{opacity | divided_by: 100.0}}">
             {{ button1 }}
           </a>
         {% endif %}
         {% if button2 != blank %}
-          <a {% if button2_link != blank %} target="_blank" href="{{ button2_link }}"{% endif %} class="action_button second_button highlight-{{ button2_highlight }}" style=" opacity: {{opacity | divided_by: 100.0}}">
+          <a {% if button2_link != blank %} href="{{ button2_link }}"{% endif %} class="action_button second_button highlight-{{ button2_highlight }}" style=" opacity: {{opacity | divided_by: 100.0}}">
             {{ button2 }}
           </a>
         {% endif %}

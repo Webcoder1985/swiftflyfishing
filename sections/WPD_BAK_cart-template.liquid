@@ -136,7 +136,7 @@
                     {{ 'cart.general.agree_to_terms_html' | t }}
                   </label>
                 {% if settings.tos_page != blank %}
-                  <a href="{{ pages[settings.tos_page].url }}" target="_blank" class="tos_icon">{{ 'cart.general.view_terms' | t }}</a>
+                  <a href="{{ pages[settings.tos_page].url }}" class="tos_icon">{{ 'cart.general.view_terms' | t }}</a>
                 {% endif %}
               </p>
             {% endif %}

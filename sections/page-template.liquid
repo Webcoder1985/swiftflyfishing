@@ -43,7 +43,7 @@
     {% endif %}
   </div>
 {% endfor %}
-<div class="container">
+<div class="container page--{{page.handle}}">
   <div class="page-content {%if section.settings.toggle_list_status %}list-content{% endif %}">
     {% if section.settings.content != blank %}
         {% if section.settings.toggle_list_status %}

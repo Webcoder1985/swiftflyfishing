@@ -56,7 +56,7 @@
               <div class="featured-link--half">
                 <div class="info text-align--{{block.settings.frontpage_text_align}}">
                   <h2>
-                    <a {% if block.settings.link != blank %}href="{{ block.settings.link }}"{% endif %} class="{%if block.settings.red_dot_status %}red_dot {% endif %}collection_title uppercase">
+                    <a {% if block.settings.link != blank %}href="{{ block.settings.link }}"{% endif %} class="{%if block.settings.red_dot_status %}red_dot {% endif %}collection_title">
                       {{ block.settings.title }}
                     </a>
                   </h2>
@@ -452,6 +452,11 @@
         {
           "type": "paragraph",
           "content": "Reviews app must be enabled [(?)](https://help.outofthesandbox.com/hc/en-us/articles/360008549274#section2)"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
         }
       ]
     },

@@ -29,7 +29,7 @@
       {% endif %}
       {% if block.type == 'video_block' %}
         <div class="one-third medium-down--whole columns video-block">
-          <a target="_blank" href="{{ block.settings.video_link }}" title="{{ block.settings.title | escape }}">
+          <a href="{{ block.settings.video_link }}" title="{{ block.settings.title | escape }}">
             {% render 'image-element-lazy',
                     image: block.settings.image,
                     alt: block.settings.title
@@ -38,9 +38,9 @@
           <p class="article__title">{{ block.settings.title }}</p>
           <div class="excerpt"> {{ block.settings.description }}</div>
           <div class="action-bottom">
-            <a class="video_btn" target="_blank" href="{{block.settings.video_link}}">{% include 'icon-pack' with icon: 'play' %}</a>
-            <a class="detail_btn" target="_blank" href="{{ block.settings.detail_link }}">Read more</a>
-            <a class="download_btn" target="_blank" href="{{block.settings.download_link}}">Free download</a>
+            <a class="video_btn" href="{{block.settings.video_link}}">{% include 'icon-pack' with icon: 'play' %}</a>
+            <a class="detail_btn" href="{{ block.settings.detail_link }}">Read more</a>
+            <a class="download_btn" href="{{block.settings.download_link}}">Free download</a>
           </div>
         </div>
       {% endif %}
